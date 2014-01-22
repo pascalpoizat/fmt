@@ -3,6 +3,8 @@ VerChor
 
 Framework for the Verification of Choreographies
 
+http://lip6.fr/Pascal.Poizat/VerChor/
+
 Contributors
 ============
 
