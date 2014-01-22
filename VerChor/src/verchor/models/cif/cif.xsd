@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://convecs.inria.fr"
+           targetNamespace="http://convecs.inria.fr"
+           elementFormDefault="qualified">
+
+    <xs:annotation>
+        <xs:documentation xml:lang="en">
+            Schema Definiton
+            Choreography Intermediate Format (CPs)
+        </xs:documentation>
+    </xs:annotation>
+
+    <!-- definition of simple elements -->
+    <xs:simpleType name="id">
+        <xs:restriction base="xs:string" />
+    </xs:simpleType>
+
+    <!-- definition of peers structure -->
+    <xs:complexType name="peer">
+        <xs:sequence>
+            <xs:element name="peerID" type="id" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="peerList">
+        <xs:sequence minOccurs="2" maxOccurs="unbounded">
+            <xs:element name="peer" type="peer" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- definition of alphabet structure -->
+    <xs:complexType name="message">
+        <xs:sequence>
+            <xs:element name="msgID" type="id" />
+            <xs:element name="sender" type="id" />
+            <xs:element name="receiver" type="id" />
+            <xs:element name="messageContent" type="id" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- used in internal actions -->
+    <xs:complexType name="action">
+        <xs:sequence>
+            <xs:element name="actionID" type="id" />
+            <xs:element name="actor" type="id" />
+            <xs:element name="actionContent" type="id" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="messageList">
+        <xs:sequence minOccurs="1" maxOccurs="unbounded">
+            <xs:choice minOccurs="1" maxOccurs="1">
+                <xs:element name="message" type="message" />
+                <xs:element name="action" type="action" />
+            </xs:choice>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- definition of states in the LTS -->
+    <xs:simpleType name="successorList">
+        <xs:list itemType="id" />
+    </xs:simpleType>
+
+    <!-- base state for every state in the choregraphy -->
+    <xs:complexType name="baseState">
+        <xs:sequence>
+            <xs:element name="stateID" type="id" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- base state for initial state, interaction state and join states -->
+    <xs:complexType name="oneSuccState">
+        <xs:complexContent>
+            <xs:extension base="baseState">
+                <xs:sequence>
+                    <xs:element name="successors">
+                        <xs:simpleType>
+                            <xs:restriction base="successorList">
+                                <xs:length value="1" />
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <!-- base state for selection states -->
+    <xs:complexType name="severalSuccState">
+        <xs:complexContent>
+            <xs:extension base="baseState">
+                <xs:sequence>
+                    <xs:element name="successors">
+                        <xs:simpleType>
+                            <xs:restriction base="successorList">
+                                <xs:minLength value="2" />
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="initialState">
+        <xs:complexContent>
+            <xs:extension base="oneSuccState" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="finalState">
+        <xs:complexContent>
+            <xs:extension base="baseState" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="interactionState">
+        <xs:complexContent>
+            <xs:extension base="oneSuccState">
+                <xs:sequence>
+                    <xs:element name="msgID" type="id" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <!-- internal action states -->
+    <xs:complexType name="internalActionState">
+        <xs:complexContent>
+            <xs:extension base="oneSuccState">
+                <xs:sequence>
+                    <xs:element name="actionID" type="id" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <!-- description of join states -->
+    <xs:complexType name="joinState">
+        <xs:complexContent>
+            <xs:extension base="oneSuccState" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="subsetJoinState">
+        <xs:complexContent>
+            <xs:extension base="joinState" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="allJoinState">
+        <xs:complexContent>
+            <xs:extension base="joinState" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="simpleJoinState">
+        <xs:complexContent>
+            <xs:extension base="joinState" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <!-- description of selection states -->
+    <xs:complexType name="selectionState">
+        <xs:complexContent>
+            <xs:extension base="severalSuccState" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="allSelectState">
+        <xs:complexContent>
+            <xs:extension base="selectionState" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="subsetSelectState">
+        <xs:complexContent>
+            <xs:extension base="selectionState">
+                <xs:sequence minOccurs="0" maxOccurs="1">
+                    <xs:element name="default" type="id" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="choiceState">
+        <xs:complexContent>
+            <xs:extension base="selectionState" />
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="dominatedChoiceState">
+        <xs:complexContent>
+            <xs:extension base="selectionState">
+                <xs:sequence>
+                    <xs:element name="dominantPeer" type="id" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <!-- description of the state machine -->
+    <xs:complexType name="stateMachine">
+        <xs:sequence>
+            <xs:sequence minOccurs="1" maxOccurs="1">
+                <xs:element name="initial" type="initialState" />
+            </xs:sequence>
+            <!-- states definition using state-type choice -->
+            <xs:sequence minOccurs="1" maxOccurs="unbounded">
+                <xs:choice minOccurs="1" maxOccurs="1">
+                    <xs:element name="interaction" type="interactionState" />
+                    <xs:element name="internalAction" type="internalActionState" />
+                    <xs:element name="subsetJoin" type="subsetJoinState" />
+                    <xs:element name="allJoin" type="allJoinState" />
+                    <xs:element name="simpleJoin" type="simpleJoinState" />
+                    <xs:element name="subsetSelect" type="subsetSelectState" />
+                    <xs:element name="allSelect" type="allSelectState" />
+                    <xs:element name="choice" type="choiceState" />
+                    <xs:element name="dominatedChoice" type="dominatedChoiceState" />
+                </xs:choice>
+            </xs:sequence>
+            <!-- final state encoded as a base state -->
+            <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                <xs:element name="final" type="finalState" />
+            </xs:sequence>
+        </xs:sequence>
+    </xs:complexType>
+    <!-- definition of a choreography -->
+    <xs:element name="choreography">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="choreoID" type="id" />
+                <xs:element name="participants" type="peerList" />
+                <xs:element name="alphabet" type="messageList" />
+                <xs:element name="stateMachine" type="stateMachine" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
