@@ -1,0 +1,9 @@
+<net id="" type="http://www.pnml.org/version-2009/grammar/ptnet">
+<page id="main">
+<place id="pm_ChoreographyTask_5"/><place id="pm_ChoreographyTask_2"/><place id="pm_ChoreographyTask_7"/><place id="pm_ChoreographyTask_6"/><place id="pm_ChoreographyTask_1"/><place id="pm_ChoreographyTask_3"/><place id="pm_ChoreographyTask_9"/><place id="pm_ChoreographyTask_4"/><place id="pm_ChoreographyTask_8"/><place id="ps_StartEvent_1">
+<initialMarking>
+  <text>1</text>
+</initialMarking>
+</place>
+<place id="ps_EndEvent_2"/><place id="ps_EndEvent_1"/></page>
+</net>
