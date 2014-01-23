@@ -76,7 +76,7 @@ public abstract class ATransformer implements ITransformer {
             error(e.getMessage());
             throw e;
         } catch (IOException e) {
-            error(e.getMessage());
+            error(e.getMessage()); // TODO catch FileNotFoundException eg in case of a BPMN->CIF transformation with a non existing file the exception is not catched.
             throw e;
         }
     }

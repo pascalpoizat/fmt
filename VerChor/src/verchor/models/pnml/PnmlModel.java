@@ -1,6 +1,7 @@
 package verchor.models.pnml;
 
 import fr.lip6.move.pnml.ptnet.*;
+import fr.lip6.move.pnml.framework.utils.ModelRepository; // keep
 import org.eclipse.bpmn2.util.Bpmn2ResourceFactoryImpl;
 import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.common.util.URI;
