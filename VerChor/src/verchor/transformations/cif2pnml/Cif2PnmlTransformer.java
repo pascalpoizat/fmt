@@ -1,21 +1,14 @@
 package verchor.transformations.cif2pnml;
 
-// java base
+import java.util.List;
 
-import fr.lip6.move.pnml.ptnet.PTMarking;
-import fr.lip6.move.pnml.ptnet.Page;
-import fr.lip6.move.pnml.ptnet.Place;
-import fr.lip6.move.pnml.ptnet.PtnetFactory;
-import verchor.models.base.IllegalModelException;
+import fr.lip6.move.pnml.pnmlcoremodel.Place;
+import fr.lip6.move.pnml.pnmlcoremodel.hlapi.*;
+import verchor.transformations.base.ATransformer;
 import verchor.models.cif.*;
 import verchor.models.pnml.PnmlFactory;
 import verchor.models.pnml.PnmlModel;
-import verchor.transformations.base.ATransformer;
-
-import java.util.List;
-
-// jar Eclipse : org.eclipse.bpmn2_0.7.0.[...].jar
-// verchor CIF format (classes generated with JAXB)
+import verchor.models.base.IllegalModelException;
 
 /**
  * Created by pascalpoizat on 10/01/2014.
@@ -25,15 +18,19 @@ public class Cif2PnmlTransformer extends ATransformer {
     public static final String NAME = "cif2pnml";
     public static final String VERSION = "1.0";
 
-    private PtnetFactory factory;
-    private Page page;
+    private PageHLAPI page;
     // TODO use own factory (inheriting one from the PNML framework) to create places and transitions with the correct ids
-    private static final String prefix_place_message = "pm";
-    private static final String prefix_place_state = "ps";
+    private static final String separator = "_";
+    private static final String prefix_place_message = "Pm";
+    private static final String prefix_place_state = "Ps";
+    private static final String prefix_place_before = "Pc";
+    private static final String prefix_place_after = "Pr";
+    private static final String prefix_transition_transition = "Tt";
+    private static final String prefix_arc = "A";
+    private static int next_arc = 0;
 
     public Cif2PnmlTransformer(CifFactory cifFactory, PnmlFactory pnmlFactory) {
         super(cifFactory, pnmlFactory);
-        factory = PtnetFactory.eINSTANCE;
         page = null;
     }
 
@@ -52,30 +49,42 @@ public class Cif2PnmlTransformer extends ATransformer {
         }
         CifModel min = (CifModel) in_model;
         PnmlModel mout = (PnmlModel) out_model;
-        // create a single page
-        page = factory.createPage();
-        if (page == null) {
-            IllegalModelException e = new IllegalModelException("PMNL model error (impossible to create page)");
-            error(e.getMessage());
-            throw e;
+        try {
+            page = new PageHLAPI("main_page", new NameHLAPI("model"), null, (mout.getModel())); // create a single page
+            createPlacesForMessages(min, mout);
+            createPlacesForControlFlow(min, mout);
+        } catch (Exception e) { // TODO deal with specific exceptions
+            IllegalModelException e2 = new IllegalModelException("PNML model error (generation error)");
+            error(e2.getMessage());
+            e2.setStackTrace(e.getStackTrace());
+            throw e2;
         }
-        page.setId("main");
-        mout.getPages().add(page);
-        //
-        createPlacesForMessages(min, mout);
-        createPlacesForControlFlow(min, mout);
     }
 
-    private Place createPlace(String prefix, String id) throws IllegalModelException {
-        Place place = factory.createPlace();
-        if (place == null) {
-            IllegalModelException e = new IllegalModelException("PMNL model error (impossible to create place)");
-            error(e.getMessage());
-            throw e;
+    private PlaceHLAPI createPlace(String prefix, String id) throws IllegalModelException {
+        PlaceHLAPI place = null;
+        try {
+            place = new PlaceHLAPI(prefix + separator + id); // TODO ids must be unique and valid wrt PNML, to be checked
+            place.setContainerPageHLAPI(page);
+        } catch (Exception e) { // TODO deal with specific exceptions
+            IllegalModelException e2 = new IllegalModelException("PNML model error (place generation error)");
+            e2.setStackTrace(e.getStackTrace());
+            throw e2;
         }
-        place.setId(prefix + "_" + id); // TODO ids must be unique and valid wrt PNML, to be checked
-        page.getObjects().add(place);
         return place;
+    }
+
+    private TransitionHLAPI createTransition(String prefix, String id) throws IllegalModelException {
+        TransitionHLAPI transition = null;
+        try {
+            transition = new TransitionHLAPI(prefix + separator + id); // TODO ids must be unique and valid wrt PNML, to be checked
+            transition.setContainerPageHLAPI(page);
+        } catch (Exception e) { // TODO deal with specific exceptions
+            IllegalModelException e2 = new IllegalModelException("PNML model error (transition generation error)");
+            e2.setStackTrace(e.getStackTrace());
+            throw e2;
+        }
+        return transition;
     }
 
     private void createPlacesForMessages(CifModel min, PnmlModel mout) throws IllegalModelException {
@@ -128,20 +137,43 @@ public class Cif2PnmlTransformer extends ATransformer {
         List<FinalState> finalStates = min.getFinalStates();
         for (FinalState finalState : finalStates) {
             createPlace(prefix_place_state, finalState.getStateID());
+            // final states have no successors (no arcs to create)
         }
-        // final states have no successors (no arcs to create)
     }
 
     private void createPlacesForInitialState(CifModel min) throws IllegalModelException {
-        Place p;
         // create place for initial state
         InitialState initialState = min.getInitialState();
-        p = createPlace(prefix_place_state, initialState.getStateID());
-        PTMarking marking = factory.createPTMarking();
-        marking.setText(1);
-        p.setInitialMarking(marking);
-        // ONGOING create arc for successor
+        PlaceHLAPI p = createPlace(prefix_place_state, initialState.getStateID());
+        // TODO add marking for p
+        // create arc for successor
+        if (initialState.getSuccessors().size() != 1) {
+            IllegalModelException e = new IllegalModelException("CIF model is incorrect (state " + initialState.getStateID() + " should have exactly one successor)");
+            error(e.getMessage());
+            throw e;
+        }
+        encodeTransition(initialState, min.getStateById(initialState.getSuccessors().get(0)));
     }
+
+    private void encodeTransition(BaseState source, BaseState target) throws IllegalModelException {
+        PlaceHLAPI sourcePlace;
+        PlaceHLAPI targetPlace;
+        TransitionHLAPI transition;
+        // create places
+        sourcePlace = createPlace(prefix_place_before, source.getStateID() + separator + target.getStateID());
+        targetPlace = createPlace(prefix_place_after, target.getStateID() + separator + source.getStateID());
+        // create transition
+        transition = createTransition(prefix_transition_transition, source.getStateID() + separator + target.getStateID());
+        // create arcs
+        try {
+            ArcHLAPI arc = new ArcHLAPI(prefix_arc + (next_arc++), sourcePlace, targetPlace, page);
+        } catch (Exception e) {
+            IllegalModelException e2 = new IllegalModelException("PNML model error (arc generation error)");
+            e2.setStackTrace(e.getStackTrace());
+            throw e2;
+        }
+    }
+
 
     @Override
     public void about() {
