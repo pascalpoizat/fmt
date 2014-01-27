@@ -38,4 +38,9 @@ public class LntModel extends Model {
     public void dump() throws IOException, IllegalResourceException {
         // TODO implement the dumping of an LNT model from a resource
     }
+
+    @Override
+    public void finalize() {
+
+    }
 }

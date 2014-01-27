@@ -1,15 +1,11 @@
 package verchor.models.bpmn;
 
-import org.eclipse.bpmn2.*;
-import verchor.models.base.IllegalModelException;
-import verchor.models.base.IllegalResourceException;
-import verchor.models.base.Model;
-
 // java base
 import java.io.IOException;
 import java.util.List;
 
 // jar Eclipse : org.eclipse.bpmn2_0.7.0.[...].jar
+import org.eclipse.bpmn2.*;
 import org.eclipse.bpmn2.util.Bpmn2ResourceFactoryImpl;
 
 // jar Eclipse : org.eclipse.emf.ecore_2.9.1.[...].jar
@@ -23,6 +19,11 @@ import org.eclipse.emf.common.util.URI;
 
 // jar Eclipse : org.eclipse.emf.ecore.xmi_2.9.1.[...].jar
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl; // do not remove
+
+// VerChor
+import verchor.models.base.IllegalModelException;
+import verchor.models.base.IllegalResourceException;
+import verchor.models.base.Model;
 
 /**
  * Created by pascalpoizat on 11/01/2014.
@@ -141,6 +142,11 @@ public class BpmnModel extends Model {
         } else {
             return model.getFlowElements();
         }
+
+    }
+
+    @Override
+    public void finalize() {
 
     }
 
