@@ -38,4 +38,7 @@ public abstract class Model {
     // dumps model
     public abstract void dump() throws IOException, IllegalResourceException;
 
+    // finalization (cleans up resources)
+    public abstract void finalize();
+
 }
