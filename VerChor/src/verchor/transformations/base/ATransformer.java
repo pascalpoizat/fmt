@@ -123,4 +123,14 @@ public abstract class ATransformer implements ITransformer {
 
     @Override
     public abstract void about();
+
+    @Override
+    public void finalize() {
+        if (in_model != null) {
+            in_model.finalize();
+        }
+        if (out_model != null) {
+            out_model.finalize();
+        }
+    }
 }

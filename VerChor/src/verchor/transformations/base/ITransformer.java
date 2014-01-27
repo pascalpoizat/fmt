@@ -20,6 +20,9 @@ public interface ITransformer {
     // dump output model
     public void dump() throws IOException, IllegalResourceException;
 
+    // finalize (cleans up models)
+    public void finalize();
+
     // set the verbose mode
     public void setVerbose(boolean mode);
 
