@@ -1,6 +1,5 @@
 package verchor.transformations.bpmn2cif;
 
-import verchor.models.base.ModelFactory;
 import verchor.models.base.VerchorException;
 import verchor.transformations.base.ITransformer;
 import verchor.models.bpmn.BpmnFactory;
@@ -27,6 +26,7 @@ public class Bpmn2Cif {
             trans.load();
             trans.transform();
             trans.dump();
+            trans.finalize();
         } catch (IOException e) {
             // DO NOTHING
         } catch (VerchorException e) {

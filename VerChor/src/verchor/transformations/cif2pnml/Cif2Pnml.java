@@ -26,6 +26,7 @@ public class Cif2Pnml {
             trans.load();
             trans.transform();
             trans.dump();
+            trans.finalize();
         } catch (IOException e) {
             // DO NOTHING
         } catch (VerchorException e) {
