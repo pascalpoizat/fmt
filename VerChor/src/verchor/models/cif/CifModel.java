@@ -110,8 +110,7 @@ public class CifModel extends Model {
     public InitialState getInitialState() throws IllegalModelException {
         if (model == null || model.stateMachine.getInitial() == null) {
             throw new IllegalModelException("CIF model is incorrect (no initial state)");
-        }
-        else {
+        } else {
             return model.getStateMachine().getInitial();
         }
     }
@@ -119,10 +118,26 @@ public class CifModel extends Model {
     public List<FinalState> getFinalStates() throws IllegalModelException {
         if (model == null || model.stateMachine.getFinal() == null || model.stateMachine.getFinal().size() == 0) {
             throw new IllegalModelException("CIF model is incorrect (no final state)");
-        }
-        else {
+        } else {
             return model.stateMachine.getFinal();
         }
+    }
+
+    public BaseState getStateById(String id) throws IllegalModelException {  // TODO could be avoided with states in CIF model encoded using a HashTable
+        BaseState rtr = null;
+        List<BaseState> states = getStateMachine().getInteractionOrInternalActionOrSubsetJoin();
+        for (BaseState state : states) {
+            if (state.getStateID().equals(id)) {
+                rtr = state;
+                break;
+            }
+        }
+        return rtr;
+    }
+
+    @Override
+    public void finalize() {
+
     }
 
 }
