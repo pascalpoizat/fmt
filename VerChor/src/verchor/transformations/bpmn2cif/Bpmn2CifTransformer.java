@@ -1,14 +1,8 @@
 package verchor.transformations.bpmn2cif;
 
-// java base
-
 import java.util.HashMap;
 import java.util.List;
-
-// jar Eclipse : org.eclipse.bpmn2_0.7.0.[...].jar
 import org.eclipse.bpmn2.*;
-
-// verchor CIF format (classes generated with JAXB)
 import verchor.models.base.IllegalModelException;
 import verchor.models.cif.Message;
 import verchor.transformations.base.ATransformer;
