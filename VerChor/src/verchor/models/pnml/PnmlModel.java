@@ -64,11 +64,13 @@ public class PnmlModel extends Model {
 
     @Override
     public void dump() throws IOException, IllegalResourceException {
+        ModelRepository mr = ModelRepository.getInstance();
+        mr.setPrettyPrintStatus(true);
         FileWriter fw = new FileWriter(resource.getAbsolutePath());
         if (fw == null) {
             throw new IllegalResourceException("Cannot open output resource");
         }
-        fw.write(model.toPNML());
+        fw.write(doc.toPNML());
         fw.close();
         // The following does not work (issue with Apache Log4J
 //        PnmlExport pnmlExport = new PnmlExport();
