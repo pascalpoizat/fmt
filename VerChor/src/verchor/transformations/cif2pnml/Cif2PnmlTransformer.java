@@ -3,7 +3,12 @@ package verchor.transformations.cif2pnml;
 import java.util.List;
 
 import fr.lip6.move.pnml.pnmlcoremodel.Place;
-import fr.lip6.move.pnml.pnmlcoremodel.hlapi.*;
+import fr.lip6.move.pnml.pnmlcoremodel.hlapi.ArcHLAPI;
+import fr.lip6.move.pnml.pnmlcoremodel.hlapi.NameHLAPI;
+import fr.lip6.move.pnml.pnmlcoremodel.hlapi.PageHLAPI;
+import fr.lip6.move.pnml.pnmlcoremodel.hlapi.PlaceHLAPI;
+import fr.lip6.move.pnml.pnmlcoremodel.hlapi.TransitionHLAPI;
+import fr.lip6.move.pnml.ptnet.hlapi.*;
 import verchor.transformations.base.ATransformer;
 import verchor.models.cif.*;
 import verchor.models.pnml.PnmlFactory;
@@ -71,6 +76,12 @@ public class Cif2PnmlTransformer extends ATransformer {
             e2.setStackTrace(e.getStackTrace());
             throw e2;
         }
+        return place;
+    }
+
+    private PlaceHLAPI createPlace(String prefix, String id, int marking) throws IllegalModelException {
+        PlaceHLAPI place = createPlace(prefix, id);
+        final PTMarkingHLAPI ptMarking = new PTMarkingHLAPI(marking, place);
         return place;
     }
 
@@ -144,8 +155,7 @@ public class Cif2PnmlTransformer extends ATransformer {
     private void createPlacesForInitialState(CifModel min) throws IllegalModelException {
         // create place for initial state
         InitialState initialState = min.getInitialState();
-        PlaceHLAPI p = createPlace(prefix_place_state, initialState.getStateID());
-        // TODO add marking for p
+        PlaceHLAPI p = createPlace(prefix_place_state, initialState.getStateID(), 1);
         // create arc for successor
         if (initialState.getSuccessors().size() != 1) {
             IllegalModelException e = new IllegalModelException("CIF model is incorrect (state " + initialState.getStateID() + " should have exactly one successor)");
@@ -166,7 +176,8 @@ public class Cif2PnmlTransformer extends ATransformer {
         transition = createTransition(prefix_transition_transition, source.getStateID() + separator + target.getStateID());
         // create arcs
         try {
-            ArcHLAPI arc = new ArcHLAPI(prefix_arc + (next_arc++), sourcePlace, targetPlace, page);
+            ArcHLAPI arcIn = new ArcHLAPI(prefix_arc + (next_arc++), sourcePlace, transition, page);
+            ArcHLAPI arcOut = new ArcHLAPI(prefix_arc + (next_arc++), transition, targetPlace, page);
         } catch (Exception e) {
             IllegalModelException e2 = new IllegalModelException("PNML model error (arc generation error)");
             e2.setStackTrace(e.getStackTrace());
