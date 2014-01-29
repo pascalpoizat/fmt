@@ -8,7 +8,6 @@ import fr.lip6.move.pnml.pnmlcoremodel.hlapi.NameHLAPI;
 import fr.lip6.move.pnml.pnmlcoremodel.hlapi.PageHLAPI;
 import fr.lip6.move.pnml.pnmlcoremodel.hlapi.PlaceHLAPI;
 import fr.lip6.move.pnml.pnmlcoremodel.hlapi.TransitionHLAPI;
-import fr.lip6.move.pnml.ptnet.hlapi.*;
 import verchor.transformations.base.ATransformer;
 import verchor.models.cif.*;
 import verchor.models.pnml.PnmlFactory;
