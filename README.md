@@ -5,6 +5,8 @@ Framework for the Verification of Choreographies
 
 http://lip6.fr/Pascal.Poizat/VerChor/
 
+https://github.com/pascalpoizat/VerChor.git
+
 Contributors
 ============
 
