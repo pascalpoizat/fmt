@@ -3,11 +3,12 @@ package verchor.transformations.cif2pnml;
 import java.util.List;
 
 import fr.lip6.move.pnml.pnmlcoremodel.Place;
-import fr.lip6.move.pnml.pnmlcoremodel.hlapi.ArcHLAPI;
-import fr.lip6.move.pnml.pnmlcoremodel.hlapi.NameHLAPI;
-import fr.lip6.move.pnml.pnmlcoremodel.hlapi.PageHLAPI;
-import fr.lip6.move.pnml.pnmlcoremodel.hlapi.PlaceHLAPI;
-import fr.lip6.move.pnml.pnmlcoremodel.hlapi.TransitionHLAPI;
+import fr.lip6.move.pnml.ptnet.hlapi.ArcHLAPI;
+import fr.lip6.move.pnml.ptnet.hlapi.NameHLAPI;
+import fr.lip6.move.pnml.ptnet.hlapi.PageHLAPI;
+import fr.lip6.move.pnml.ptnet.hlapi.PlaceHLAPI;
+import fr.lip6.move.pnml.ptnet.hlapi.TransitionHLAPI;
+import fr.lip6.move.pnml.ptnet.hlapi.PTMarkingHLAPI;
 import verchor.transformations.base.ATransformer;
 import verchor.models.cif.*;
 import verchor.models.pnml.PnmlFactory;
@@ -80,7 +81,7 @@ public class Cif2PnmlTransformer extends ATransformer {
 
     private PlaceHLAPI createPlace(String prefix, String id, int marking) throws IllegalModelException {
         PlaceHLAPI place = createPlace(prefix, id);
-        // final PTMarkingHLAPI ptMarking = new PTMarkingHLAPI(marking, place);
+        final PTMarkingHLAPI ptMarking = new PTMarkingHLAPI(marking, place);
         return place;
     }
 

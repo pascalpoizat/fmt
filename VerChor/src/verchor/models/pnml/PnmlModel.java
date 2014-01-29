@@ -1,8 +1,12 @@
 package verchor.models.pnml;
 
 // import fr.lip6.move.pnml.framework.general.PnmlExport;
-import fr.lip6.move.pnml.framework.utils.exception.*;
-import fr.lip6.move.pnml.pnmlcoremodel.hlapi.*;
+import fr.lip6.move.pnml.framework.utils.exception.InvalidIDException;
+import fr.lip6.move.pnml.framework.utils.exception.VoidRepositoryException;
+import fr.lip6.move.pnml.ptnet.hlapi.PetriNetHLAPI;
+import fr.lip6.move.pnml.ptnet.hlapi.PetriNetDocHLAPI;
+import fr.lip6.move.pnml.ptnet.hlapi.PNTypeHLAPI;
+import fr.lip6.move.pnml.ptnet.hlapi.NameHLAPI;
 import fr.lip6.move.pnml.framework.hlapi.HLAPIClass;
 import fr.lip6.move.pnml.framework.general.PnmlImport;
 import fr.lip6.move.pnml.framework.utils.ModelRepository;
