@@ -81,7 +81,7 @@ public class Cif2PnmlTransformer extends ATransformer {
 
     private PlaceHLAPI createPlace(String prefix, String id, int marking) throws IllegalModelException {
         PlaceHLAPI place = createPlace(prefix, id);
-        final PTMarkingHLAPI ptMarking = new PTMarkingHLAPI(marking, place);
+        // final PTMarkingHLAPI ptMarking = new PTMarkingHLAPI(marking, place);
         return place;
     }
 
