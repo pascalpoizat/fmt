@@ -17,7 +17,7 @@ public class SvlModel extends Model {
 
     public SvlModel() {
         super();
-        model = null;
+        model = "";
     }
 
     @Override
