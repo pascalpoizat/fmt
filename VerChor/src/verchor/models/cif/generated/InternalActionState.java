@@ -1,27 +1,26 @@
 
-package verchor.models.cif;
+package verchor.models.cif.generated;
 
 import javax.annotation.Generated;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for baseState complex type.
+ * <p>Java class for internalActionState complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="baseState">
+ * &lt;complexType name="internalActionState">
  *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *     &lt;extension base="{http://convecs.inria.fr}oneSuccState">
  *       &lt;sequence>
- *         &lt;element name="stateID" type="{http://convecs.inria.fr}id"/>
+ *         &lt;element name="actionID" type="{http://convecs.inria.fr}id"/>
  *       &lt;/sequence>
- *     &lt;/restriction>
+ *     &lt;/extension>
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
@@ -29,23 +28,20 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "baseState", namespace = "http://convecs.inria.fr", propOrder = {
-    "stateID"
-})
-@XmlSeeAlso({
-    FinalState.class,
-    SeveralSuccState.class,
-    OneSuccState.class
+@XmlType(name = "internalActionState", namespace = "http://convecs.inria.fr", propOrder = {
+    "actionID"
 })
 @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2014-01-10T09:17:50+01:00", comments = "JAXB RI v2.2.4-2")
-public class BaseState {
+public class InternalActionState
+    extends OneSuccState
+{
 
     @XmlElement(namespace = "http://convecs.inria.fr", required = true)
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2014-01-10T09:17:50+01:00", comments = "JAXB RI v2.2.4-2")
-    protected String stateID;
+    protected String actionID;
 
     /**
-     * Gets the value of the stateID property.
+     * Gets the value of the actionID property.
      * 
      * @return
      *     possible object is
@@ -53,12 +49,12 @@ public class BaseState {
      *     
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2014-01-10T09:17:50+01:00", comments = "JAXB RI v2.2.4-2")
-    public String getStateID() {
-        return stateID;
+    public String getActionID() {
+        return actionID;
     }
 
     /**
-     * Sets the value of the stateID property.
+     * Sets the value of the actionID property.
      * 
      * @param value
      *     allowed object is
@@ -66,8 +62,8 @@ public class BaseState {
      *     
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2014-01-10T09:17:50+01:00", comments = "JAXB RI v2.2.4-2")
-    public void setStateID(String value) {
-        this.stateID = value;
+    public void setActionID(String value) {
+        this.actionID = value;
     }
 
 }

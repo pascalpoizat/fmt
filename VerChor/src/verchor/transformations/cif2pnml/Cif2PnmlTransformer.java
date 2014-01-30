@@ -9,6 +9,7 @@ import fr.lip6.move.pnml.ptnet.hlapi.PageHLAPI;
 import fr.lip6.move.pnml.ptnet.hlapi.PlaceHLAPI;
 import fr.lip6.move.pnml.ptnet.hlapi.TransitionHLAPI;
 import fr.lip6.move.pnml.ptnet.hlapi.PTMarkingHLAPI;
+import verchor.models.cif.generated.*;
 import verchor.transformations.base.ATransformer;
 import verchor.models.cif.*;
 import verchor.models.pnml.PnmlFactory;

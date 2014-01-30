@@ -1,5 +1,5 @@
 
-package verchor.models.cif;
+package verchor.models.cif.generated;
 
 import javax.annotation.Generated;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -9,16 +9,16 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for subsetSelectState complex type.
+ * <p>Java class for interactionState complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="subsetSelectState">
+ * &lt;complexType name="interactionState">
  *   &lt;complexContent>
- *     &lt;extension base="{http://convecs.inria.fr}selectionState">
- *       &lt;sequence minOccurs="0">
- *         &lt;element name="default" type="{http://convecs.inria.fr}id"/>
+ *     &lt;extension base="{http://convecs.inria.fr}oneSuccState">
+ *       &lt;sequence>
+ *         &lt;element name="msgID" type="{http://convecs.inria.fr}id"/>
  *       &lt;/sequence>
  *     &lt;/extension>
  *   &lt;/complexContent>
@@ -28,20 +28,20 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "subsetSelectState", namespace = "http://convecs.inria.fr", propOrder = {
-    "_default"
+@XmlType(name = "interactionState", namespace = "http://convecs.inria.fr", propOrder = {
+    "msgID"
 })
 @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2014-01-10T09:17:50+01:00", comments = "JAXB RI v2.2.4-2")
-public class SubsetSelectState
-    extends SelectionState
+public class InteractionState
+    extends OneSuccState
 {
 
-    @XmlElement(name = "default", namespace = "http://convecs.inria.fr")
+    @XmlElement(namespace = "http://convecs.inria.fr", required = true)
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2014-01-10T09:17:50+01:00", comments = "JAXB RI v2.2.4-2")
-    protected String _default;
+    protected String msgID;
 
     /**
-     * Gets the value of the default property.
+     * Gets the value of the msgID property.
      * 
      * @return
      *     possible object is
@@ -49,12 +49,12 @@ public class SubsetSelectState
      *     
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2014-01-10T09:17:50+01:00", comments = "JAXB RI v2.2.4-2")
-    public String getDefault() {
-        return _default;
+    public String getMsgID() {
+        return msgID;
     }
 
     /**
-     * Sets the value of the default property.
+     * Sets the value of the msgID property.
      * 
      * @param value
      *     allowed object is
@@ -62,8 +62,8 @@ public class SubsetSelectState
      *     
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2014-01-10T09:17:50+01:00", comments = "JAXB RI v2.2.4-2")
-    public void setDefault(String value) {
-        this._default = value;
+    public void setMsgID(String value) {
+        this.msgID = value;
     }
 
 }

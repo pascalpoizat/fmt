@@ -1,5 +1,5 @@
 
-package verchor.models.cif;
+package verchor.models.cif.generated;
 
 import javax.annotation.Generated;
 import javax.xml.bind.annotation.XmlAccessType;

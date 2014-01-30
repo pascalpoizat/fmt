@@ -3,6 +3,7 @@ package verchor.models.cif;
 import verchor.models.base.IllegalModelException;
 import verchor.models.base.IllegalResourceException;
 import verchor.models.base.Model;
+import verchor.models.cif.generated.*;
 
 import javax.xml.bind.*;
 import java.io.*;
@@ -108,7 +109,7 @@ public class CifModel extends Model {
     }
 
     public InitialState getInitialState() throws IllegalModelException {
-        if (model == null || model.stateMachine.getInitial() == null) {
+        if (model == null || model.getStateMachine().getInitial() == null) {
             throw new IllegalModelException("CIF model is incorrect (no initial state)");
         } else {
             return model.getStateMachine().getInitial();
@@ -116,10 +117,10 @@ public class CifModel extends Model {
     }
 
     public List<FinalState> getFinalStates() throws IllegalModelException {
-        if (model == null || model.stateMachine.getFinal() == null || model.stateMachine.getFinal().size() == 0) {
+        if (model == null || model.getStateMachine().getFinal() == null || model.getStateMachine().getFinal().size() == 0) {
             throw new IllegalModelException("CIF model is incorrect (no final state)");
         } else {
-            return model.stateMachine.getFinal();
+            return model.getStateMachine().getFinal();
         }
     }
 

@@ -1,5 +1,5 @@
 
-package verchor.models.cif;
+package verchor.models.cif.generated;
 
 import java.util.ArrayList;
 import java.util.List;

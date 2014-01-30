@@ -1,5 +1,5 @@
 
-package verchor.models.cif;
+package verchor.models.cif.generated;
 
 import javax.xml.bind.annotation.XmlRegistry;
 
@@ -78,7 +78,7 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ChoiceState }
+     * Create an instance of {@link verchor.models.cif.generated.ChoiceState }
      * 
      */
     public ChoiceState createChoiceState() {
@@ -94,7 +94,7 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link AllSelectState }
+     * Create an instance of {@link verchor.models.cif.generated.AllSelectState }
      * 
      */
     public AllSelectState createAllSelectState() {
@@ -110,7 +110,7 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link AllJoinState }
+     * Create an instance of {@link verchor.models.cif.generated.AllJoinState }
      * 
      */
     public AllJoinState createAllJoinState() {
@@ -126,7 +126,7 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link BaseState }
+     * Create an instance of {@link verchor.models.cif.generated.BaseState }
      * 
      */
     public BaseState createBaseState() {
@@ -142,7 +142,7 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Action }
+     * Create an instance of {@link verchor.models.cif.generated.Action }
      * 
      */
     public Action createAction() {
