@@ -4,6 +4,7 @@ import verchor.models.base.IllegalModelException;
 import verchor.models.base.IllegalResourceException;
 import verchor.models.base.Model;
 
+import java.io.FileWriter;
 import java.io.IOException;
 
 /**
@@ -16,7 +17,7 @@ public class LntModel extends Model {
 
     public LntModel() {
         super();
-        model = null;
+        model = "";
     }
 
     @Override
@@ -36,7 +37,12 @@ public class LntModel extends Model {
 
     @Override
     public void dump() throws IOException, IllegalResourceException {
-        // TODO implement the dumping of an LNT model from a resource
+        FileWriter fw = new FileWriter(resource.getAbsolutePath());
+        if (fw == null) {
+            throw new IllegalResourceException("Cannot open output resource");
+        }
+        fw.write(model);
+        fw.close();
     }
 
     @Override
