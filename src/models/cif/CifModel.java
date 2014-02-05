@@ -33,16 +33,11 @@ public class CifModel extends Model {
     }
 
     @Override
-    public boolean isLoaded() {
-        return (model != null);
-    }
-
-    @Override
     public void load() throws IOException, IllegalResourceException, IllegalModelException {
-        if (resource == null) {
+        if (getResource() == null) {
             throw new IllegalResourceException("Input resource is not correctly set");
         }
-        FileInputStream fis = new FileInputStream(resource);
+        FileInputStream fis = new FileInputStream(getResource());
         try {
             JAXBContext ctx = JAXBContext.newInstance(Choreography.class);
             Unmarshaller unmarshaller = ctx.createUnmarshaller();
@@ -52,14 +47,15 @@ public class CifModel extends Model {
         } finally {
             fis.close();
         }
+        super.load();
     }
 
     @Override
     public void dump() throws IOException, IllegalResourceException {
-        if (resource == null) {
+        if (getResource() == null) {
             throw new IllegalResourceException("Output resource is not correctly set");
         }
-        FileOutputStream fos = new FileOutputStream(resource);
+        FileOutputStream fos = new FileOutputStream(getResource());
         try {
             JAXBContext ctx = JAXBContext.newInstance(Choreography.class);
             Marshaller marshaller = ctx.createMarshaller();

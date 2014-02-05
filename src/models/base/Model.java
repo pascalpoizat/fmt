@@ -8,10 +8,12 @@ import java.io.IOException;
  */
 public abstract class Model {
 
-    protected File resource;
+    private File resource;
+    private boolean is_loaded;
 
     public Model() {
         resource = null;
+        is_loaded = false;
     }
 
     // sets resource
@@ -23,21 +25,34 @@ public abstract class Model {
             throw new IllegalResourceException("Wrong file suffix (should be "+getSuffix()+")");
         }
         this.resource = resource;
+        is_loaded = false; // when the resource is changed the model should be re-loaded
+    }
+
+    // gets resource
+    public File getResource() {
+        return resource;
     }
 
     // checks if the model is loaded
-    public abstract boolean isLoaded();
+    public boolean isLoaded() {
+        return is_loaded;
+    }
 
     // gets regular file suffix for resource
     public abstract String getSuffix();
 
-    // loads model
-    public abstract void load() throws IOException, IllegalResourceException, IllegalModelException;
+    // loads model (just sets the flag, to be overriden + call to super)
+    public void load() throws IOException, IllegalResourceException, IllegalModelException {
+        is_loaded = true;
+    }
 
     // dumps model
     public abstract void dump() throws IOException, IllegalResourceException;
 
     // finalization (cleans up resources)
-    public abstract void finalize();
+    public void finalize() {
+        resource = null;
+        is_loaded = false;
+    }
 
 }

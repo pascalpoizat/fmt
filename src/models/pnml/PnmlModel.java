@@ -10,6 +10,7 @@ import fr.lip6.move.pnml.ptnet.hlapi.NameHLAPI;
 import fr.lip6.move.pnml.framework.hlapi.HLAPIClass;
 import fr.lip6.move.pnml.framework.general.PnmlImport;
 import fr.lip6.move.pnml.framework.utils.ModelRepository;
+import models.base.IllegalModelException;
 import models.base.Model;
 import models.base.IllegalResourceException;
 
@@ -42,19 +43,14 @@ public class PnmlModel extends Model {
     }
 
     @Override
-    public boolean isLoaded() {
-        return (model != null);
-    }
-
-    @Override
-    public void load() throws IllegalResourceException {
+    public void load() throws IOException, IllegalResourceException, IllegalModelException {
         HLAPIClass rawModel;
-        if (resource == null) {
+        if (getResource() == null) {
             throw new IllegalResourceException("PNML resource is not set");
         }
         PnmlImport pnmlImport = new PnmlImport();
         try {
-            rawModel = pnmlImport.importFile(resource.getAbsolutePath());
+            rawModel = pnmlImport.importFile(getResource().getAbsolutePath());
         } catch (Exception e) {  // TODO deal with specific exceptions
             throw new IllegalResourceException("PNML resource is incorrect");
         }
@@ -63,13 +59,14 @@ public class PnmlModel extends Model {
             throw new IllegalResourceException("PNML resource is incorrect (no net in PNML doc)");
         }
         model = doc.getNetsHLAPI().get(0); // if more than one net, use the first one
+        super.load();
     }
 
     @Override
     public void dump() throws IOException, IllegalResourceException {
         ModelRepository mr = ModelRepository.getInstance();
         mr.setPrettyPrintStatus(true);
-        FileWriter fw = new FileWriter(resource.getAbsolutePath());
+        FileWriter fw = new FileWriter(getResource().getAbsolutePath());
         if (fw == null) {
             throw new IllegalResourceException("Cannot open output resource");
         }
@@ -83,6 +80,7 @@ public class PnmlModel extends Model {
             ModelRepository.getInstance().destroyCurrentWorkspace();
         } catch (VoidRepositoryException e) {
         }
+        super.finalize();
     }
 
     public PetriNetHLAPI getModel() {

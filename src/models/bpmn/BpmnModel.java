@@ -46,22 +46,18 @@ public class BpmnModel extends Model {
     }
 
     @Override
-    public boolean isLoaded() {
-        return (model != null);
-    }
-
-    @Override
     public void load() throws IOException, IllegalResourceException, IllegalModelException {
         loadEMF();
+        super.load();
     }
 
-    public void loadEMF() throws IOException, IllegalResourceException, IllegalModelException {
+    private void loadEMF() throws IOException, IllegalResourceException, IllegalModelException {
         // works as a stand-alone application and within the Eclipse IDE (for this, it requires jars from the BPMN2 modeller + EMF)
         if (!EMFPlugin.IS_ECLIPSE_RUNNING) {
             Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(getSuffix(), new Bpmn2ResourceFactoryImpl());
         }
         // load resource
-        URI uri = URI.createURI(resource.getPath());
+        URI uri = URI.createURI(getResource().getPath());
         Resource res = new ResourceSetImpl().getResource(uri, true);
         EObject root = res.getContents().get(0);
         // search for the choreography instance
@@ -93,12 +89,12 @@ public class BpmnModel extends Model {
         dumpEMF();
     }
 
-    public void dumpEMF() throws IOException, IllegalResourceException {
+    private void dumpEMF() throws IOException, IllegalResourceException {
         if (!EMFPlugin.IS_ECLIPSE_RUNNING) {
             Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(getSuffix(), new Bpmn2ResourceFactoryImpl());
         }
         // save resource
-        URI uri = URI.createURI(resource.getPath());
+        URI uri = URI.createURI(getResource().getPath());
         Resource res = new ResourceSetImpl().createResource(uri);
         res.getContents().add(model);
         res.save(null);
@@ -143,11 +139,6 @@ public class BpmnModel extends Model {
         } else {
             return model.getFlowElements();
         }
-
-    }
-
-    @Override
-    public void finalize() {
 
     }
 
