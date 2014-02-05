@@ -1,9 +1,9 @@
-package models.cif;
+package models.choreography.cif;
 
 import models.base.IllegalModelException;
 import models.base.IllegalResourceException;
 import models.base.Model;
-import models.cif.generated.*;
+import models.choreography.cif.generated.*;
 
 import javax.xml.bind.*;
 import java.io.*;

@@ -1,26 +1,27 @@
 
-package models.cif.generated;
+package models.choreography.cif.generated;
 
 import javax.annotation.Generated;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for internalActionState complex type.
+ * <p>Java class for baseState complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="internalActionState">
+ * &lt;complexType name="baseState">
  *   &lt;complexContent>
- *     &lt;extension base="{http://convecs.inria.fr}oneSuccState">
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="actionID" type="{http://convecs.inria.fr}id"/>
+ *         &lt;element name="stateID" type="{http://convecs.inria.fr}id"/>
  *       &lt;/sequence>
- *     &lt;/extension>
+ *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
@@ -28,20 +29,23 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "internalActionState", namespace = "http://convecs.inria.fr", propOrder = {
-    "actionID"
+@XmlType(name = "baseState", namespace = "http://convecs.inria.fr", propOrder = {
+    "stateID"
+})
+@XmlSeeAlso({
+    FinalState.class,
+    SeveralSuccState.class,
+    OneSuccState.class
 })
 @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2014-01-10T09:17:50+01:00", comments = "JAXB RI v2.2.4-2")
-public class InternalActionState
-    extends OneSuccState
-{
+public class BaseState {
 
     @XmlElement(namespace = "http://convecs.inria.fr", required = true)
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2014-01-10T09:17:50+01:00", comments = "JAXB RI v2.2.4-2")
-    protected String actionID;
+    protected String stateID;
 
     /**
-     * Gets the value of the actionID property.
+     * Gets the value of the stateID property.
      * 
      * @return
      *     possible object is
@@ -49,12 +53,12 @@ public class InternalActionState
      *     
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2014-01-10T09:17:50+01:00", comments = "JAXB RI v2.2.4-2")
-    public String getActionID() {
-        return actionID;
+    public String getStateID() {
+        return stateID;
     }
 
     /**
-     * Sets the value of the actionID property.
+     * Sets the value of the stateID property.
      * 
      * @param value
      *     allowed object is
@@ -62,8 +66,8 @@ public class InternalActionState
      *     
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2014-01-10T09:17:50+01:00", comments = "JAXB RI v2.2.4-2")
-    public void setActionID(String value) {
-        this.actionID = value;
+    public void setStateID(String value) {
+        this.stateID = value;
     }
 
 }

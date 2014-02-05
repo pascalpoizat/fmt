@@ -13,9 +13,9 @@ import transformations.base.ATransformer;
 import models.pnml.PnmlFactory;
 import models.pnml.PnmlModel;
 import models.base.IllegalModelException;
-import models.cif.CifFactory;
-import models.cif.CifModel;
-import models.cif.generated.*;
+import models.choreography.cif.CifFactory;
+import models.choreography.cif.CifModel;
+import models.choreography.cif.generated.*;
 
 /**
  * Created by pascalpoizat on 10/01/2014.

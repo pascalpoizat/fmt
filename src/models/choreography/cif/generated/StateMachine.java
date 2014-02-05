@@ -1,5 +1,5 @@
 
-package models.cif.generated;
+package models.choreography.cif.generated;
 
 import java.util.ArrayList;
 import java.util.List;

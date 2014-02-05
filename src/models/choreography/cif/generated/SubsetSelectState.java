@@ -1,5 +1,5 @@
 
-package models.cif.generated;
+package models.choreography.cif.generated;
 
 import javax.annotation.Generated;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -9,16 +9,16 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for dominatedChoiceState complex type.
+ * <p>Java class for subsetSelectState complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="dominatedChoiceState">
+ * &lt;complexType name="subsetSelectState">
  *   &lt;complexContent>
  *     &lt;extension base="{http://convecs.inria.fr}selectionState">
- *       &lt;sequence>
- *         &lt;element name="dominantPeer" type="{http://convecs.inria.fr}id"/>
+ *       &lt;sequence minOccurs="0">
+ *         &lt;element name="default" type="{http://convecs.inria.fr}id"/>
  *       &lt;/sequence>
  *     &lt;/extension>
  *   &lt;/complexContent>
@@ -28,20 +28,20 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "dominatedChoiceState", namespace = "http://convecs.inria.fr", propOrder = {
-    "dominantPeer"
+@XmlType(name = "subsetSelectState", namespace = "http://convecs.inria.fr", propOrder = {
+    "_default"
 })
 @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2014-01-10T09:17:50+01:00", comments = "JAXB RI v2.2.4-2")
-public class DominatedChoiceState
+public class SubsetSelectState
     extends SelectionState
 {
 
-    @XmlElement(namespace = "http://convecs.inria.fr", required = true)
+    @XmlElement(name = "default", namespace = "http://convecs.inria.fr")
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2014-01-10T09:17:50+01:00", comments = "JAXB RI v2.2.4-2")
-    protected String dominantPeer;
+    protected String _default;
 
     /**
-     * Gets the value of the dominantPeer property.
+     * Gets the value of the default property.
      * 
      * @return
      *     possible object is
@@ -49,12 +49,12 @@ public class DominatedChoiceState
      *     
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2014-01-10T09:17:50+01:00", comments = "JAXB RI v2.2.4-2")
-    public String getDominantPeer() {
-        return dominantPeer;
+    public String getDefault() {
+        return _default;
     }
 
     /**
-     * Sets the value of the dominantPeer property.
+     * Sets the value of the default property.
      * 
      * @param value
      *     allowed object is
@@ -62,8 +62,8 @@ public class DominatedChoiceState
      *     
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2014-01-10T09:17:50+01:00", comments = "JAXB RI v2.2.4-2")
-    public void setDominantPeer(String value) {
-        this.dominantPeer = value;
+    public void setDefault(String value) {
+        this._default = value;
     }
 
 }

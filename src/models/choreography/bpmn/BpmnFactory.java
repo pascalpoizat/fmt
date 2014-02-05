@@ -1,4 +1,4 @@
-package models.bpmn;
+package models.choreography.bpmn;
 
 import models.base.ModelFactory;
 import models.base.Model;

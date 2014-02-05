@@ -3,15 +3,15 @@ package transformations.bpmn2cif;
 import java.util.HashMap;
 import java.util.List;
 
-import models.bpmn.BpmnFactory;
-import models.cif.CifFactory;
-import models.cif.CifModel;
-import models.cif.generated.*;
+import models.choreography.bpmn.BpmnFactory;
+import models.choreography.cif.CifFactory;
+import models.choreography.cif.CifModel;
+import models.choreography.cif.generated.*;
 import org.eclipse.bpmn2.*;
 import models.base.IllegalModelException;
-import models.cif.generated.Message;
+import models.choreography.cif.generated.Message;
 import transformations.base.ATransformer;
-import models.bpmn.BpmnModel;
+import models.choreography.bpmn.BpmnModel;
 
 /**
  * Created by pascalpoizat on 10/01/2014.

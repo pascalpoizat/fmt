@@ -1,4 +1,4 @@
-package models.bpmn;
+package models.choreography.bpmn;
 
 // java base
 import java.io.IOException;
@@ -21,7 +21,7 @@ import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.common.util.URI;
 
 // jar Eclipse : org.eclipse.emf.ecore.xmi_2.9.1.[...].jar
-import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl; // do not remove
+
 
 // VerChor
 

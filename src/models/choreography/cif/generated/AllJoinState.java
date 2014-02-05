@@ -1,22 +1,21 @@
 
-package models.cif.generated;
+package models.choreography.cif.generated;
 
 import javax.annotation.Generated;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for joinState complex type.
+ * <p>Java class for allJoinState complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="joinState">
+ * &lt;complexType name="allJoinState">
  *   &lt;complexContent>
- *     &lt;extension base="{http://convecs.inria.fr}oneSuccState">
+ *     &lt;extension base="{http://convecs.inria.fr}joinState">
  *     &lt;/extension>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -25,15 +24,10 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "joinState", namespace = "http://convecs.inria.fr")
-@XmlSeeAlso({
-    AllJoinState.class,
-    SimpleJoinState.class,
-    SubsetJoinState.class
-})
+@XmlType(name = "allJoinState", namespace = "http://convecs.inria.fr")
 @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2014-01-10T09:17:50+01:00", comments = "JAXB RI v2.2.4-2")
-public class JoinState
-    extends OneSuccState
+public class AllJoinState
+    extends JoinState
 {
 
 

@@ -1,5 +1,5 @@
 
-package models.cif.generated;
+package models.choreography.cif.generated;
 
 import javax.annotation.Generated;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -9,18 +9,18 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for subsetSelectState complex type.
+ * <p>Java class for peer complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="subsetSelectState">
+ * &lt;complexType name="peer">
  *   &lt;complexContent>
- *     &lt;extension base="{http://convecs.inria.fr}selectionState">
- *       &lt;sequence minOccurs="0">
- *         &lt;element name="default" type="{http://convecs.inria.fr}id"/>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="peerID" type="{http://convecs.inria.fr}id"/>
  *       &lt;/sequence>
- *     &lt;/extension>
+ *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
@@ -28,20 +28,18 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "subsetSelectState", namespace = "http://convecs.inria.fr", propOrder = {
-    "_default"
+@XmlType(name = "peer", namespace = "http://convecs.inria.fr", propOrder = {
+    "peerID"
 })
 @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2014-01-10T09:17:50+01:00", comments = "JAXB RI v2.2.4-2")
-public class SubsetSelectState
-    extends SelectionState
-{
+public class Peer {
 
-    @XmlElement(name = "default", namespace = "http://convecs.inria.fr")
+    @XmlElement(namespace = "http://convecs.inria.fr", required = true)
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2014-01-10T09:17:50+01:00", comments = "JAXB RI v2.2.4-2")
-    protected String _default;
+    protected String peerID;
 
     /**
-     * Gets the value of the default property.
+     * Gets the value of the peerID property.
      * 
      * @return
      *     possible object is
@@ -49,12 +47,12 @@ public class SubsetSelectState
      *     
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2014-01-10T09:17:50+01:00", comments = "JAXB RI v2.2.4-2")
-    public String getDefault() {
-        return _default;
+    public String getPeerID() {
+        return peerID;
     }
 
     /**
-     * Sets the value of the default property.
+     * Sets the value of the peerID property.
      * 
      * @param value
      *     allowed object is
@@ -62,8 +60,8 @@ public class SubsetSelectState
      *     
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2014-01-10T09:17:50+01:00", comments = "JAXB RI v2.2.4-2")
-    public void setDefault(String value) {
-        this._default = value;
+    public void setPeerID(String value) {
+        this.peerID = value;
     }
 
 }

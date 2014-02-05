@@ -1,27 +1,28 @@
 
-package models.cif.generated;
+package models.choreography.cif.generated;
 
 import javax.annotation.Generated;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for message complex type.
+ * <p>Java class for anonymous complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="message">
+ * &lt;complexType>
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="msgID" type="{http://convecs.inria.fr}id"/>
- *         &lt;element name="sender" type="{http://convecs.inria.fr}id"/>
- *         &lt;element name="receiver" type="{http://convecs.inria.fr}id"/>
- *         &lt;element name="messageContent" type="{http://convecs.inria.fr}id"/>
+ *         &lt;element name="choreoID" type="{http://convecs.inria.fr}id"/>
+ *         &lt;element name="participants" type="{http://convecs.inria.fr}peerList"/>
+ *         &lt;element name="alphabet" type="{http://convecs.inria.fr}messageList"/>
+ *         &lt;element name="stateMachine" type="{http://convecs.inria.fr}stateMachine"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -31,30 +32,31 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "message", namespace = "http://convecs.inria.fr", propOrder = {
-    "msgID",
-    "sender",
-    "receiver",
-    "messageContent"
+@XmlType(name = "", propOrder = {
+    "choreoID",
+    "participants",
+    "alphabet",
+    "stateMachine"
 })
+@XmlRootElement(name = "choreography", namespace = "http://convecs.inria.fr")
 @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2014-01-10T09:17:50+01:00", comments = "JAXB RI v2.2.4-2")
-public class Message {
+public class Choreography {
 
     @XmlElement(namespace = "http://convecs.inria.fr", required = true)
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2014-01-10T09:17:50+01:00", comments = "JAXB RI v2.2.4-2")
-    protected String msgID;
+    protected String choreoID;
     @XmlElement(namespace = "http://convecs.inria.fr", required = true)
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2014-01-10T09:17:50+01:00", comments = "JAXB RI v2.2.4-2")
-    protected String sender;
+    protected PeerList participants;
     @XmlElement(namespace = "http://convecs.inria.fr", required = true)
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2014-01-10T09:17:50+01:00", comments = "JAXB RI v2.2.4-2")
-    protected String receiver;
+    protected MessageList alphabet;
     @XmlElement(namespace = "http://convecs.inria.fr", required = true)
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2014-01-10T09:17:50+01:00", comments = "JAXB RI v2.2.4-2")
-    protected String messageContent;
+    protected StateMachine stateMachine;
 
     /**
-     * Gets the value of the msgID property.
+     * Gets the value of the choreoID property.
      * 
      * @return
      *     possible object is
@@ -62,12 +64,12 @@ public class Message {
      *     
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2014-01-10T09:17:50+01:00", comments = "JAXB RI v2.2.4-2")
-    public String getMsgID() {
-        return msgID;
+    public String getChoreoID() {
+        return choreoID;
     }
 
     /**
-     * Sets the value of the msgID property.
+     * Sets the value of the choreoID property.
      * 
      * @param value
      *     allowed object is
@@ -75,86 +77,86 @@ public class Message {
      *     
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2014-01-10T09:17:50+01:00", comments = "JAXB RI v2.2.4-2")
-    public void setMsgID(String value) {
-        this.msgID = value;
+    public void setChoreoID(String value) {
+        this.choreoID = value;
     }
 
     /**
-     * Gets the value of the sender property.
+     * Gets the value of the participants property.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link PeerList }
      *     
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2014-01-10T09:17:50+01:00", comments = "JAXB RI v2.2.4-2")
-    public String getSender() {
-        return sender;
+    public PeerList getParticipants() {
+        return participants;
     }
 
     /**
-     * Sets the value of the sender property.
+     * Sets the value of the participants property.
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link PeerList }
      *     
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2014-01-10T09:17:50+01:00", comments = "JAXB RI v2.2.4-2")
-    public void setSender(String value) {
-        this.sender = value;
+    public void setParticipants(PeerList value) {
+        this.participants = value;
     }
 
     /**
-     * Gets the value of the receiver property.
+     * Gets the value of the alphabet property.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link MessageList }
      *     
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2014-01-10T09:17:50+01:00", comments = "JAXB RI v2.2.4-2")
-    public String getReceiver() {
-        return receiver;
+    public MessageList getAlphabet() {
+        return alphabet;
     }
 
     /**
-     * Sets the value of the receiver property.
+     * Sets the value of the alphabet property.
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link MessageList }
      *     
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2014-01-10T09:17:50+01:00", comments = "JAXB RI v2.2.4-2")
-    public void setReceiver(String value) {
-        this.receiver = value;
+    public void setAlphabet(MessageList value) {
+        this.alphabet = value;
     }
 
     /**
-     * Gets the value of the messageContent property.
+     * Gets the value of the stateMachine property.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link StateMachine }
      *     
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2014-01-10T09:17:50+01:00", comments = "JAXB RI v2.2.4-2")
-    public String getMessageContent() {
-        return messageContent;
+    public StateMachine getStateMachine() {
+        return stateMachine;
     }
 
     /**
-     * Sets the value of the messageContent property.
+     * Sets the value of the stateMachine property.
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link StateMachine }
      *     
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2014-01-10T09:17:50+01:00", comments = "JAXB RI v2.2.4-2")
-    public void setMessageContent(String value) {
-        this.messageContent = value;
+    public void setStateMachine(StateMachine value) {
+        this.stateMachine = value;
     }
 
 }

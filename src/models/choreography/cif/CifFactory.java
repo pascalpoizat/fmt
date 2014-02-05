@@ -1,4 +1,4 @@
-package models.cif;
+package models.choreography.cif;
 
 import models.base.ModelFactory;
 import models.base.Model;

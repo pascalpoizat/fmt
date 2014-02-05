@@ -2,8 +2,8 @@ package transformations.bpmn2cif;
 
 import models.base.FmtException;
 import transformations.base.ITransformer;
-import models.bpmn.BpmnFactory;
-import models.cif.CifFactory;
+import models.choreography.bpmn.BpmnFactory;
+import models.choreography.cif.CifFactory;
 
 import java.io.IOException;
 

@@ -1,5 +1,5 @@
 
-package models.cif.generated;
+package models.choreography.cif.generated;
 
 import javax.annotation.Generated;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -9,16 +9,16 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for interactionState complex type.
+ * <p>Java class for internalActionState complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="interactionState">
+ * &lt;complexType name="internalActionState">
  *   &lt;complexContent>
  *     &lt;extension base="{http://convecs.inria.fr}oneSuccState">
  *       &lt;sequence>
- *         &lt;element name="msgID" type="{http://convecs.inria.fr}id"/>
+ *         &lt;element name="actionID" type="{http://convecs.inria.fr}id"/>
  *       &lt;/sequence>
  *     &lt;/extension>
  *   &lt;/complexContent>
@@ -28,20 +28,20 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "interactionState", namespace = "http://convecs.inria.fr", propOrder = {
-    "msgID"
+@XmlType(name = "internalActionState", namespace = "http://convecs.inria.fr", propOrder = {
+    "actionID"
 })
 @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2014-01-10T09:17:50+01:00", comments = "JAXB RI v2.2.4-2")
-public class InteractionState
+public class InternalActionState
     extends OneSuccState
 {
 
     @XmlElement(namespace = "http://convecs.inria.fr", required = true)
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2014-01-10T09:17:50+01:00", comments = "JAXB RI v2.2.4-2")
-    protected String msgID;
+    protected String actionID;
 
     /**
-     * Gets the value of the msgID property.
+     * Gets the value of the actionID property.
      * 
      * @return
      *     possible object is
@@ -49,12 +49,12 @@ public class InteractionState
      *     
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2014-01-10T09:17:50+01:00", comments = "JAXB RI v2.2.4-2")
-    public String getMsgID() {
-        return msgID;
+    public String getActionID() {
+        return actionID;
     }
 
     /**
-     * Sets the value of the msgID property.
+     * Sets the value of the actionID property.
      * 
      * @param value
      *     allowed object is
@@ -62,8 +62,8 @@ public class InteractionState
      *     
      */
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2014-01-10T09:17:50+01:00", comments = "JAXB RI v2.2.4-2")
-    public void setMsgID(String value) {
-        this.msgID = value;
+    public void setActionID(String value) {
+        this.actionID = value;
     }
 
 }

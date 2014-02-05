@@ -1,7 +1,7 @@
 package transformations.cif2pnml;
 
 import models.base.FmtException;
-import models.cif.CifFactory;
+import models.choreography.cif.CifFactory;
 import models.pnml.PnmlFactory;
 import transformations.base.ITransformer;
 

@@ -1,5 +1,5 @@
 
-package models.cif.generated;
+package models.choreography.cif.generated;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,19 +13,19 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for oneSuccState complex type.
+ * <p>Java class for severalSuccState complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="oneSuccState">
+ * &lt;complexType name="severalSuccState">
  *   &lt;complexContent>
  *     &lt;extension base="{http://convecs.inria.fr}baseState">
  *       &lt;sequence>
  *         &lt;element name="successors">
  *           &lt;simpleType>
  *             &lt;restriction base="{http://convecs.inria.fr}successorList">
- *               &lt;length value="1"/>
+ *               &lt;minLength value="2"/>
  *             &lt;/restriction>
  *           &lt;/simpleType>
  *         &lt;/element>
@@ -38,17 +38,14 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "oneSuccState", namespace = "http://convecs.inria.fr", propOrder = {
+@XmlType(name = "severalSuccState", namespace = "http://convecs.inria.fr", propOrder = {
     "successors"
 })
 @XmlSeeAlso({
-    InteractionState.class,
-    InternalActionState.class,
-    InitialState.class,
-    JoinState.class
+    SelectionState.class
 })
 @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2014-01-10T09:17:50+01:00", comments = "JAXB RI v2.2.4-2")
-public class OneSuccState
+public class SeveralSuccState
     extends BaseState
 {
 
