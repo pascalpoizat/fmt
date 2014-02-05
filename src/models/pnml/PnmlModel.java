@@ -75,13 +75,6 @@ public class PnmlModel extends Model {
         }
         fw.write(doc.toPNML());
         fw.close();
-        // The following does not work (issue with Apache Log4J
-//        PnmlExport pnmlExport = new PnmlExport();
-//        try {
-//            pnmlExport.exportObject(doc, resource.getAbsolutePath());
-//        } catch (Exception e) { // TODO deal with specific exceptions
-//            throw new IllegalResourceException("PNML error (impossible to save resource)");
-//        }
     }
 
     @Override
