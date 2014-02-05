@@ -1,6 +1,6 @@
 package transformations.cif2lnt;
 
-import models.base.VerchorException;
+import models.base.FmtException;
 import models.cif.CifFactory;
 import models.lnt.LntFactory;
 import transformations.base.ITransformer;
@@ -29,7 +29,7 @@ public class Cif2Lnt {
             trans.finalize();
         } catch (IOException e) {
             // DO NOTHING
-        } catch (VerchorException e) {
+        } catch (FmtException e) {
             // DO NOTHING
         }
     }

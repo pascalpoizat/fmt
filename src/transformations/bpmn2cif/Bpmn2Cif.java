@@ -1,6 +1,6 @@
 package transformations.bpmn2cif;
 
-import models.base.VerchorException;
+import models.base.FmtException;
 import transformations.base.ITransformer;
 import models.bpmn.BpmnFactory;
 import models.cif.CifFactory;
@@ -29,7 +29,7 @@ public class Bpmn2Cif {
             trans.finalize();
         } catch (IOException e) {
             // DO NOTHING
-        } catch (VerchorException e) {
+        } catch (FmtException e) {
             // DO NOTHING
         }
     }

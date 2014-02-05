@@ -1,6 +1,6 @@
 package transformations.cif2pnml;
 
-import models.base.VerchorException;
+import models.base.FmtException;
 import models.cif.CifFactory;
 import models.pnml.PnmlFactory;
 import transformations.base.ITransformer;
@@ -29,7 +29,7 @@ public class Cif2Pnml {
             trans.finalize();
         } catch (IOException e) {
             // DO NOTHING
-        } catch (VerchorException e) {
+        } catch (FmtException e) {
             // DO NOTHING
         }
     }
