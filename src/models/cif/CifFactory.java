@@ -1,7 +1,7 @@
 package models.cif;
 
-import models.base.Model;
 import models.base.ModelFactory;
+import models.base.Model;
 
 /**
  * Created by pascalpoizat on 11/01/2014.

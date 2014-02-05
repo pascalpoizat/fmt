@@ -2,10 +2,10 @@ package transformations.base;
 
 import java.io.File;
 
+import models.base.AbstractModelFactory;
 import models.base.IllegalModelException;
 import models.base.IllegalResourceException;
 import models.base.Model;
-import models.base.ModelFactory;
 
 import java.io.IOException;
 
@@ -23,10 +23,10 @@ public abstract class ATransformer implements ITransformer {
     protected File out_file;              // output File
     protected Model in_model;             // input model (read from path/file.in_suffix)
     protected Model out_model;            // output model (written to path/file.out_suffix)
-    protected ModelFactory factory_in;    // factory to create input model
-    protected ModelFactory factory_out;   // factory to create output model
+    protected AbstractModelFactory factory_in;    // factory to create input model
+    protected AbstractModelFactory factory_out;   // factory to create output model
 
-    public ATransformer(ModelFactory fin, ModelFactory fout) {
+    public ATransformer(AbstractModelFactory fin, AbstractModelFactory fout) {
         verbose = false;
         working_directory = null;
         basename = null;
