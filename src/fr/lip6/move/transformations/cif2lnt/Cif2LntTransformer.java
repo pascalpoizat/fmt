@@ -3,10 +3,11 @@ package fr.lip6.move.transformations.cif2lnt;
 import fr.lip6.move.pnml.pnmlcoremodel.Place;
 import fr.lip6.move.pnml.ptnet.hlapi.*;
 import fr.lip6.move.models.base.IllegalModelException;
-import fr.lip6.move.models.cif.*;
 import fr.lip6.move.models.lnt.LntFactory;
 import fr.lip6.move.models.lnt.LntModel;
 import fr.lip6.move.transformations.base.ATransformer;
+import fr.lip6.move.models.cif.CifFactory;
+import fr.lip6.move.models.cif.CifModel;
 
 /**
  * Created by pascalpoizat on 30/01/2014.

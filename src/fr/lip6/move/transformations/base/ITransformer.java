@@ -2,6 +2,7 @@ package fr.lip6.move.transformations.base;
 
 import fr.lip6.move.models.base.IllegalModelException;
 import fr.lip6.move.models.base.IllegalResourceException;
+
 import java.io.IOException;
 
 /**

@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlRegistry;
 /**
  * This object contains factory methods for each 
  * Java content interface and Java element interface 
- * generated in the fr.lip6.move.models.cif package.
+ * generated in the fr.lip6.fr.lip6.move.models.cif package.
  * <p>An ObjectFactory allows you to programatically 
  * construct new instances of the Java representation 
  * for XML content. The Java representation of XML 
@@ -23,7 +23,7 @@ public class ObjectFactory {
 
 
     /**
-     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: fr.lip6.move.models.cif
+     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: fr.lip6.fr.lip6.move.models.cif
      * 
      */
     public ObjectFactory() {
@@ -78,7 +78,7 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link fr.lip6.move.models.cif.generated.ChoiceState }
+     * Create an instance of {@link ChoiceState }
      * 
      */
     public ChoiceState createChoiceState() {
@@ -94,7 +94,7 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link fr.lip6.move.models.cif.generated.AllSelectState }
+     * Create an instance of {@link AllSelectState }
      * 
      */
     public AllSelectState createAllSelectState() {
@@ -110,7 +110,7 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link fr.lip6.move.models.cif.generated.AllJoinState }
+     * Create an instance of {@link AllJoinState }
      * 
      */
     public AllJoinState createAllJoinState() {
@@ -126,7 +126,7 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link fr.lip6.move.models.cif.generated.BaseState }
+     * Create an instance of {@link BaseState }
      * 
      */
     public BaseState createBaseState() {
@@ -142,7 +142,7 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link fr.lip6.move.models.cif.generated.Action }
+     * Create an instance of {@link Action }
      * 
      */
     public Action createAction() {

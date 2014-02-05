@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.util.List;
 
 // jar Eclipse : org.eclipse.bpmn2_0.7.0.[...].jar
+import fr.lip6.move.models.base.IllegalModelException;
+import fr.lip6.move.models.base.IllegalResourceException;
+import fr.lip6.move.models.base.Model;
 import org.eclipse.bpmn2.*;
 import org.eclipse.bpmn2.util.Bpmn2ResourceFactoryImpl;
 
@@ -21,9 +24,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl; // do not remove
 
 // VerChor
-import fr.lip6.move.models.base.IllegalModelException;
-import fr.lip6.move.models.base.IllegalResourceException;
-import fr.lip6.move.models.base.Model;
+
 
 /**
  * Created by pascalpoizat on 11/01/2014.

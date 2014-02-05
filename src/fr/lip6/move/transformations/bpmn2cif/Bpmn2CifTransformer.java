@@ -2,14 +2,16 @@ package fr.lip6.move.transformations.bpmn2cif;
 
 import java.util.HashMap;
 import java.util.List;
+
+import fr.lip6.move.models.bpmn.BpmnFactory;
+import fr.lip6.move.models.cif.CifFactory;
+import fr.lip6.move.models.cif.CifModel;
+import fr.lip6.move.models.cif.generated.*;
 import org.eclipse.bpmn2.*;
 import fr.lip6.move.models.base.IllegalModelException;
-import fr.lip6.move.models.cif.generated.*;
 import fr.lip6.move.models.cif.generated.Message;
 import fr.lip6.move.transformations.base.ATransformer;
-import fr.lip6.move.models.cif.*;
 import fr.lip6.move.models.bpmn.BpmnModel;
-import fr.lip6.move.models.bpmn.BpmnFactory;
 
 /**
  * Created by pascalpoizat on 10/01/2014.
