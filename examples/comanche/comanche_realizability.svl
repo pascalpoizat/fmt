@@ -1,0 +1,2 @@
+"comanche_realizability.bcg" = strong comparison using bfs with bisimulator "comanche_bpmnlts_min.bcg" ==  "comanche_acompo_min.bcg";
+
