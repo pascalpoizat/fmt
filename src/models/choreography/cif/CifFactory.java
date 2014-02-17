@@ -20,8 +20,7 @@ public class CifFactory extends ModelFactory {
     }
 
     public Model create() {
-        Model model = new CifModel();
-        return model;
+        return new CifModel();
     }
 
 }

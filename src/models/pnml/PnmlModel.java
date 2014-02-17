@@ -51,7 +51,7 @@ public class PnmlModel extends Model {
         PnmlImport pnmlImport = new PnmlImport();
         try {
             rawModel = pnmlImport.importFile(getResource().getAbsolutePath());
-        } catch (Exception e) {  // TODO deal with specific exceptions
+        } catch (Exception e) {  // NEXT RELEASE deal with specific exceptions
             throw new IllegalResourceException("PNML resource is incorrect");
         }
         doc = (PetriNetDocHLAPI) rawModel;
@@ -75,12 +75,11 @@ public class PnmlModel extends Model {
     }
 
     @Override
-    public void finalize() {
+    public void cleanUp() {
         try {
             ModelRepository.getInstance().destroyCurrentWorkspace();
         } catch (VoidRepositoryException e) {
         }
-        super.finalize();
     }
 
     public PetriNetHLAPI getModel() {

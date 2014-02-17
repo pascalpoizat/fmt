@@ -22,7 +22,7 @@ public interface ITransformer {
     public void dump() throws IOException, IllegalResourceException;
 
     // finalize (cleans up models)
-    public void finalize();
+    public void cleanUp();
 
     // set the verbose mode
     public void setVerbose(boolean mode);

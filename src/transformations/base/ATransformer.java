@@ -14,7 +14,7 @@ import java.io.IOException;
  */
 public abstract class ATransformer implements ITransformer {
 
-    // TODO a generaliser en prenant en compte des transformations n->m et non plus 1->1
+    // NEXT RELEASE a generaliser en prenant en compte des transformations n->m et non plus 1->1
 
     protected boolean verbose;            // verbose model (on/off) for the model transformation
     protected File working_directory;     // working directory (path)
@@ -41,7 +41,7 @@ public abstract class ATransformer implements ITransformer {
     @Override
     public void setResources(String path_to_input_resource) throws IllegalResourceException {
         if (path_to_input_resource == null) {
-            IllegalResourceException e = new IllegalResourceException("Wrong resource path (" + path_to_input_resource + ")");
+            IllegalResourceException e = new IllegalResourceException("Wrong resource path (null)");
             error(e.getMessage());
             throw e;
         }
@@ -76,7 +76,7 @@ public abstract class ATransformer implements ITransformer {
             error(e.getMessage());
             throw e;
         } catch (IOException e) {
-            error(e.getMessage()); // TODO catch FileNotFoundException eg in case of a BPMN->CIF transformation with a non existing file the exception is not catched.
+            error(e.getMessage());
             throw e;
         }
     }
@@ -125,12 +125,12 @@ public abstract class ATransformer implements ITransformer {
     public abstract void about();
 
     @Override
-    public void finalize() {
+    public void cleanUp() {
         if (in_model != null) {
-            in_model.finalize();
+            in_model.cleanUp();
         }
         if (out_model != null) {
-            out_model.finalize();
+            out_model.cleanUp();
         }
     }
 }

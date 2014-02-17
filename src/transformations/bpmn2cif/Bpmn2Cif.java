@@ -26,10 +26,12 @@ public class Bpmn2Cif {
             trans.load();
             trans.transform();
             trans.dump();
-            trans.finalize();
+            trans.cleanUp();
         } catch (IOException e) {
             // DO NOTHING
         } catch (FmtException e) {
+            // DO NOTHING
+        } catch (Throwable e) {
             // DO NOTHING
         }
     }

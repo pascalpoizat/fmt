@@ -135,7 +135,7 @@ public class Bpmn2CifTransformer extends ATransformer {
     }
 
     private void setParticipants(BpmnModel min, CifModel mout) throws IllegalModelException {
-        // TODO check that participants always appear in the BPMN model (ie that one cannot have a task with at least one participant that is not declared) if not participants can be obtained while reading tasks
+        // NEXT RELEASE check that participants always appear in the BPMN model (ie that one cannot have a task with at least one participant that is not declared) if not participants can be obtained while reading tasks
         try {
             PeerList pl = mout.getParticipants();
             for (Participant participant : min.getParticipants()) {
@@ -158,8 +158,8 @@ public class Bpmn2CifTransformer extends ATransformer {
     }
 
     private void setAlphabet(BpmnModel min, CifModel mout) throws IllegalModelException {
-        // TODO require that messages are used in conjunction with choreography tasks and use the list of message types instead of the choreography tasks ids to build the CIF alphabet
-        // TODO update the CIF model to have generic messages (types) and sender/receiver(s) associated to choreography task rather than message type
+        // NEXT RELEASE require that messages are used in conjunction with choreography tasks and use the list of message types instead of the choreography tasks ids to build the CIF alphabet
+        // NEXT RELEASE update the CIF model to have generic messages (types) and sender/receiver(s) associated to choreography task rather than message type
         // for the time being, getting the alphabet could be done while computing the state machine but it has been separated to ease the above evolution
         try {
             List<FlowElement> fel = min.getFlowElements();
@@ -212,7 +212,7 @@ public class Bpmn2CifTransformer extends ATransformer {
     private void setStateMachine(BpmnModel min, CifModel mout) throws IllegalModelException {
         List<FlowElement> fel = min.getFlowElements();
         for (FlowElement fe : fel) {
-            if (fe instanceof StartEvent) { // TODO make cleaner using Design Pattern
+            if (fe instanceof StartEvent) { // NEXT RELEASE make cleaner using Design Pattern
                 transformStartEvent(min, mout, (StartEvent) fe);
             } else if (fe instanceof EndEvent) {
                 transformEndEvent(min, mout, (EndEvent) fe);
@@ -257,7 +257,7 @@ public class Bpmn2CifTransformer extends ATransformer {
         checkInStrict(startEvent, 0, true);
         checkOutStrict(startEvent, 1, true);
         InitialState initialState = new InitialState();
-        String stateId = startEvent.getId(); // TODO extract method to get id and raise an exception if undefined (used several times in this class)
+        String stateId = startEvent.getId(); // NEXT RELEASE extract method to get id and raise an exception if undefined (used several times in this class)
         if (stateId == null) {
             IllegalModelException e = new IllegalModelException("BPMN model is incorrect (a start event has no id)");
             error(e.getMessage());
@@ -279,7 +279,7 @@ public class Bpmn2CifTransformer extends ATransformer {
         checkInStrict(endEvent, 1, true);
         checkOutStrict(endEvent, 0, true);
         FinalState finalState = new FinalState();
-        String stateId = endEvent.getId(); // TODO extract method to get id and raise an exception if undefined (used several times in this class)
+        String stateId = endEvent.getId(); // NEXT RELEASE extract method to get id and raise an exception if undefined (used several times in this class)
         if (stateId == null) {
             IllegalModelException e = new IllegalModelException("BPMN model is incorrect (an end event has no id)");
             error(e.getMessage());
@@ -300,14 +300,14 @@ public class Bpmn2CifTransformer extends ATransformer {
             JoinState joinState = generateCIF_MergeGW(gateway);
             if (joinState != null) {
                 mout.getStateMachine().getInteractionOrInternalActionOrSubsetJoin().add(joinState);
-                joinState.setStateID(gateway.getId()); // TODO extract method to get id and raise an exception if undefined (used several times in this class)
+                joinState.setStateID(gateway.getId()); // NEXT RELEASE extract method to get id and raise an exception if undefined (used several times in this class)
                 setOneSuccessor(joinState, gateway);
             }
         } else if (direction.getValue() == GatewayDirection.DIVERGING_VALUE) {
             SelectionState selectionState = generateCIF_SplitGW(gateway);
             if (selectionState != null) {
                 mout.getStateMachine().getInteractionOrInternalActionOrSubsetJoin().add(selectionState);
-                selectionState.setStateID(gateway.getId()); // TODO extract method to get id and raise an exception if undefined (used several times in this class)
+                selectionState.setStateID(gateway.getId()); // NEXT RELEASE extract method to get id and raise an exception if undefined (used several times in this class)
                 setAllSuccessors(selectionState, gateway);
             }
         } else {
@@ -436,13 +436,13 @@ public class Bpmn2CifTransformer extends ATransformer {
         if (flowNode.getOutgoing().size() > 0) {
             // use only first successor
             sequenceFlow = flowNode.getOutgoing().get(0);
-            state.getSuccessors().add(sequenceFlow.getTargetRef().getId()); // TODO check ID is not null
+            state.getSuccessors().add(sequenceFlow.getTargetRef().getId()); // NEXT RELEASE check ID is not null
         }
     }
 
     private void setAllSuccessors(SeveralSuccState state, FlowNode flowNode) {
         for (SequenceFlow sequenceFlow : flowNode.getOutgoing()) {
-            state.getSuccessors().add(sequenceFlow.getTargetRef().getId()); // TODO check ID is not null
+            state.getSuccessors().add(sequenceFlow.getTargetRef().getId()); // NEXT RELEASE check ID is not null
         }
     }
 

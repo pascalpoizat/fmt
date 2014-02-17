@@ -37,7 +37,7 @@ public class BpmnModel extends Model {
 
     public BpmnModel() {
         super();
-        model = null; // TODO implement
+        model = null; // NEXT RELEASE implement
     }
 
     @Override

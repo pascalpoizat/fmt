@@ -26,7 +26,7 @@ public class Cif2PnmlTransformer extends ATransformer {
     public static final String VERSION = "1.0";
 
     private PageHLAPI page;
-    // TODO use own factory (inheriting one from the PNML framework) to create places and transitions with the correct ids
+    // NEXT RELEASE use own factory (inheriting one from the PNML framework) to create places and transitions with the correct ids
     private static final String separator = "_";
     private static final String prefix_place_message = "Pm";
     private static final String prefix_place_state = "Ps";
@@ -60,7 +60,7 @@ public class Cif2PnmlTransformer extends ATransformer {
             page = new PageHLAPI("main_page", new NameHLAPI("model"), null, (mout.getModel())); // create a single page
             createPlacesForMessages(min, mout);
             createPlacesForControlFlow(min, mout);
-        } catch (Exception e) { // TODO deal with specific exceptions
+        } catch (Exception e) { // NEXT RELEASE deal with specific exceptions
             IllegalModelException e2 = new IllegalModelException("PNML model error (generation error)");
             error(e2.getMessage());
             e2.setStackTrace(e.getStackTrace());
@@ -69,11 +69,11 @@ public class Cif2PnmlTransformer extends ATransformer {
     }
 
     private PlaceHLAPI createPlace(String prefix, String id) throws IllegalModelException {
-        PlaceHLAPI place = null;
+        PlaceHLAPI place;
         try {
-            place = new PlaceHLAPI(prefix + separator + id); // TODO ids must be unique and valid wrt PNML, to be checked
+            place = new PlaceHLAPI(prefix + separator + id); // NEXT RELEASE ids must be unique and valid wrt PNML, to be checked
             place.setContainerPageHLAPI(page);
-        } catch (Exception e) { // TODO deal with specific exceptions
+        } catch (Exception e) { // NEXT RELEASE deal with specific exceptions
             IllegalModelException e2 = new IllegalModelException("PNML model error (place generation error)");
             e2.setStackTrace(e.getStackTrace());
             throw e2;
@@ -88,11 +88,11 @@ public class Cif2PnmlTransformer extends ATransformer {
     }
 
     private TransitionHLAPI createTransition(String prefix, String id) throws IllegalModelException {
-        TransitionHLAPI transition = null;
+        TransitionHLAPI transition;
         try {
-            transition = new TransitionHLAPI(prefix + separator + id); // TODO ids must be unique and valid wrt PNML, to be checked
+            transition = new TransitionHLAPI(prefix + separator + id); // NEXT RELEASE ids must be unique and valid wrt PNML, to be checked
             transition.setContainerPageHLAPI(page);
-        } catch (Exception e) { // TODO deal with specific exceptions
+        } catch (Exception e) { // NEXT RELEASE deal with specific exceptions
             IllegalModelException e2 = new IllegalModelException("PNML model error (transition generation error)");
             e2.setStackTrace(e.getStackTrace());
             throw e2;
@@ -111,15 +111,15 @@ public class Cif2PnmlTransformer extends ATransformer {
 
     private void createPlacesForControlFlow(CifModel min, PnmlModel mout) throws IllegalModelException {
         Place p;
-        // ONGOING
+        // ONGOING TODO
         message("Creating places for control flow ...");
-        // deal with initial state // TODO these are not treated uniformly in CIF, should be
+        // deal with initial state // NEXT RELEASE these are not treated uniformly in CIF, should be
         createPlacesForInitialState(min);
-        // deal with final states // TODO these are not treated uniformly in CIF, should be
+        // deal with final states // NEXT RELEASE these are not treated uniformly in CIF, should be
         createPlacesForFinalStates(min);
         // deal with regular states
         for (BaseState state : min.getStateMachine().getInteractionOrInternalActionOrSubsetJoin()) {
-            if (state instanceof AllSelectState) {  // TODO make cleaner using Design Pattern
+            if (state instanceof AllSelectState) {  // NEXT RELEASE make cleaner using Design Pattern
 
             } else if (state instanceof AllJoinState) {
 
@@ -157,7 +157,7 @@ public class Cif2PnmlTransformer extends ATransformer {
     private void createPlacesForInitialState(CifModel min) throws IllegalModelException {
         // create place for initial state
         InitialState initialState = min.getInitialState();
-        PlaceHLAPI p = createPlace(prefix_place_state, initialState.getStateID(), 1);
+        createPlace(prefix_place_state, initialState.getStateID(), 1);
         // create arc for successor
         if (initialState.getSuccessors().size() != 1) {
             IllegalModelException e = new IllegalModelException("CIF model is incorrect (state " + initialState.getStateID() + " should have exactly one successor)");

@@ -21,8 +21,7 @@ public class BpmnFactory extends ModelFactory {
     }
 
     public Model create() {
-        Model model = new BpmnModel();
-        return model;
+        return new BpmnModel();
     }
 
 }

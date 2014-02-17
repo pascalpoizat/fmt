@@ -50,7 +50,7 @@ public abstract class Model {
     public abstract void dump() throws IOException, IllegalResourceException;
 
     // finalization (cleans up resources)
-    public void finalize() {
+    public void cleanUp() {
         resource = null;
         is_loaded = false;
     }

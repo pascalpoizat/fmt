@@ -96,16 +96,16 @@ public class CifModel extends Model {
     }
 
     public HashMap<String, Message> getAlphabetAsMap() throws IllegalModelException {
-        HashMap<String,Message> rtr = new HashMap<String, Message>();
+        HashMap<String, Message> rtr = new HashMap<String, Message>();
         Message m;
         if (model == null) {
             throw new IllegalModelException("CIF model is incorrect");
         } else if (model.getAlphabet() == null) {
             throw new IllegalModelException("CIF model is incorrect (no alphabet)");
         } else {
-            for(Object o : model.getAlphabet().getMessageOrAction()) {
-                m = (Message)o;
-                rtr.put(m.getMsgID(),m);
+            for (Object o : model.getAlphabet().getMessageOrAction()) {
+                m = (Message) o;
+                rtr.put(m.getMsgID(), m);
             }
         }
         return rtr;
@@ -137,7 +137,8 @@ public class CifModel extends Model {
         }
     }
 
-    public BaseState getStateById(String id) throws IllegalModelException {  // TODO could be avoided with states in CIF model encoded using a HashTable
+    public BaseState getStateById(String id) throws IllegalModelException {
+        // could be avoided with states in CIF model encoded using a HashTable
         BaseState rtr = null;
         List<BaseState> states = getStateMachine().getInteractionOrInternalActionOrSubsetJoin();
         for (BaseState state : states) {
