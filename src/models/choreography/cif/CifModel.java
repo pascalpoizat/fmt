@@ -7,6 +7,7 @@ import models.choreography.cif.generated.*;
 
 import javax.xml.bind.*;
 import java.io.*;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -91,6 +92,21 @@ public class CifModel extends Model {
             throw new IllegalModelException("CIF model is incorrect (no alphabet)");
         } else {
             return model.getAlphabet();
+        }
+    }
+
+    public HashMap<String, Message> getAlphabetAsMap() throws IllegalModelException {
+        HashMap<String,Message> rtr = new HashMap<String, Message>();
+        Message m;
+        if (model == null) {
+            throw new IllegalModelException("CIF model is incorrect");
+        } else if (model.getAlphabet() == null) {
+            throw new IllegalModelException("CIF model is incorrect (no alphabet)");
+        } else {
+            for(Object o : model.getAlphabet().getMessageOrAction()) {
+                m = (Message)o;
+                rtr.put(m.getMsgID(),m);
+            }
         }
     }
 
