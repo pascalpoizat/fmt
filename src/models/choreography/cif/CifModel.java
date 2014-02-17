@@ -108,6 +108,7 @@ public class CifModel extends Model {
                 rtr.put(m.getMsgID(),m);
             }
         }
+        return rtr;
     }
 
     public StateMachine getStateMachine() throws IllegalModelException {
