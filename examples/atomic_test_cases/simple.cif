@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<choreography xmlns="http://convecs.inria.fr">
+    <choreoID>Default Choreography</choreoID>
+    <participants>
+        <peer>
+            <peerID>ParticipantA</peerID>
+        </peer>
+        <peer>
+            <peerID>ParticipantB</peerID>
+        </peer>
+    </participants>
+    <alphabet>
+        <message>
+            <msgID>ChoreographyTask_1</msgID>
+            <sender>ParticipantA</sender>
+            <receiver>ParticipantB</receiver>
+            <messageContent>ChoreographyTask1</messageContent>
+        </message>
+    </alphabet>
+    <stateMachine>
+        <initial>
+            <stateID>StartEvent_1</stateID>
+            <successors>ChoreographyTask_1</successors>
+        </initial>
+        <interaction>
+            <stateID>ChoreographyTask_1</stateID>
+            <successors>EndEvent_1</successors>
+            <msgID>ChoreographyTask1</msgID>
+        </interaction>
+        <final>
+            <stateID>EndEvent_1</stateID>
+        </final>
+    </stateMachine>
+</choreography>
