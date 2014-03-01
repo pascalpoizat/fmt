@@ -41,6 +41,7 @@
         <interaction>
             <stateID>ct1</stateID>
             <successors>ct2</successors>
+            <msgID>mid</msgID>
         </interaction>
         <final>
             <stateID>EndEvent_1</stateID>
