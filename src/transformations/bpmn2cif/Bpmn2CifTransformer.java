@@ -97,10 +97,15 @@ public class Bpmn2CifTransformer extends ATransformer {
     //
 
     public static final String NAME = "bpmn2cif";
-    public static final String VERSION = "1.0";
+    public static final String VERSION = "1.1";
+
+    // CHANGELOG
+    // version 1.1 changes:
+    // - if messages are associated to choreography tasks, they are used
+    //   else the behaviour is as in v1.0 (the choreography task information is used)
 
     HashMap<String, String> participants;   // participant id in bpmn model -> participant id in cif model
-    HashMap<String, String> messages;       // message id in bpmn model -> message id in cif model
+    HashMap<String, String> messages;       // choreography task id in bpmn model -> message id in cif model
 
     boolean has_initial_state;
     boolean has_final_state;
@@ -157,51 +162,37 @@ public class Bpmn2CifTransformer extends ATransformer {
         }
     }
 
+    private int messageHashCode(Message message) {
+        // used to check if a message has already been dealt with (to avoid duplicated in the message lists)
+        // this is since we cannot change the CIF generated classes to implement hashcode + use a Set<Message> variable
+        // so we do as in VerChor AlphabetElement (adaptor for a CifMessage)
+        // NEXT RELEASE update the CIF model to avoid such legacy code burden
+        int result = message.getMsgID().hashCode();
+        result = 31 * result + message.getSender().hashCode();
+        result = 31 * result + message.getReceiver().hashCode();
+        return result;
+    }
+
     private void setAlphabet(BpmnModel min, CifModel mout) throws IllegalModelException {
-        // NEXT RELEASE require that messages are used in conjunction with choreography tasks and use the list of message types instead of the choreography tasks ids to build the CIF alphabet
         // NEXT RELEASE update the CIF model to have generic messages (types) and sender/receiver(s) associated to choreography task rather than message type
         // for the time being, getting the alphabet could be done while computing the state machine but it has been separated to ease the above evolution
         try {
             List<FlowElement> fel = min.getFlowElements();
             MessageList ml = mout.getAlphabet();
+            HashMap<Integer, Message> foundMessages = new HashMap<Integer, Message>();
             for (FlowElement fe : fel) {
                 if (fe instanceof ChoreographyTask) {
                     ChoreographyTask choreographyTask = (ChoreographyTask) fe;
-                    Message m = new Message();
-                    String id = choreographyTask.getId();
-                    if (id == null) {
-                        IllegalModelException e = new IllegalModelException("BPMN model is incorrect (a choreography task has no id)");
-                        error(e.getMessage());
-                        throw e;
+                    Message m = getMessageFromChoreographyTask(choreographyTask);
+                    int hash = messageHashCode(m);
+                    if (!foundMessages.containsKey(hash)) { // if this message does not already exists (i.e. same id, same sender, same receiver
+                        messages.put(choreographyTask.getId(), m.getMsgID()); // link to retrieve message from task
+                        ml.getMessageOrAction().add(m);
+                        foundMessages.put(hash,m);
                     }
-                    m.setMsgID(choreographyTask.getId());
-                    String messageId = getMessageID(choreographyTask);
-                    m.setMessageContent(messageId);
-                    messages.put(id, messageId);
-                    if (choreographyTask.getInitiatingParticipantRef() == null) {
-                        IllegalModelException e = new IllegalModelException("BPMN model is incorrect (choreography task " + choreographyTask.getId() + " has undefined initiating participant)");
-                        error(e.getMessage());
-                        throw e;
-                    }
-                    m.setSender(participants.get(choreographyTask.getInitiatingParticipantRef().getId()));
-                    List<Participant> partners = choreographyTask.getParticipantRefs();
-                    if (partners.size() != 2) {
-                        IllegalModelException e = new IllegalModelException("BPMN model is incorrect (choreography task " + fe.getId() + " has not 1 sender and 1 receiver)");
-                        error(e.getMessage());
-                        throw e;
-                    }
-                    if (partners.get(0).getId().equals(choreographyTask.getInitiatingParticipantRef().getId()))
-                        m.setReceiver(participants.get(partners.get(1).getId()));
-                    else
-                        m.setReceiver(participants.get(partners.get(0).getId()));
-                    ml.getMessageOrAction().add(m);
                 }
             }
-        } catch (
-                IllegalModelException e
-                )
-
-        {
+        } catch (IllegalModelException e) {
             error(e.getMessage());
             throw e;
         }
@@ -463,20 +454,54 @@ public class Bpmn2CifTransformer extends ATransformer {
         return rtr;
     }
 
-    private String getMessageID(ChoreographyTask ct) throws IllegalModelException {
-        String rtr;
-        if (ct.getName() == null) {
-            warning("BPMN model is incorrect (a choreography task has no name)");
-            if (ct.getId() == null) {
-                IllegalModelException e = new IllegalModelException("BPMN model is incorrect (a choreography task has no id");
+    private Message getMessageFromChoreographyTask(ChoreographyTask ct) throws IllegalModelException {
+        Message rtr = new Message();
+        String id;
+        String contents;
+        String sender;
+        String receiver;
+        // compute id and contents
+        if (ct.getMessageFlowRef().size() == 0 || ct.getMessageFlowRef().get(0).getId() == null) { // no messages or wrong first message associated to the task -> use task information + issue warning
+            warning(String.format("BPMN model has a task with no or incorrect first message flow (%s). The task information will be used.", ct.getId()));
+            if (ct.getId() == null) {  // no task id. Nothing can be done
+                IllegalModelException e = new IllegalModelException("BPMN model is incorrect. A choreography task has no id.");
                 error(e.getMessage());
                 throw e;
-            } else {
-                rtr = ct.getId();
             }
-        } else {
-            rtr = ct.getName();
+            id = ct.getId();
+            if (ct.getName() == null) { // no task name. Id will be used for contents
+                warning(String.format("BPMN model has a task with no name (%s). The task id will be used.", ct.getId()));
+                contents = id;
+            } else {
+                contents = ct.getName();
+            }
+        } else { // there are message flow. Use the first one.
+            // NEXT RELEASE : support more than one message associated to the task
+            org.eclipse.bpmn2.Message message = ct.getMessageFlowRef().get(0).getMessageRef();
+            id = message.getId();
+            if (message.getName() == null) { // no message name. Id will be used for contents
+                contents = id;
+            } else {
+                contents = message.getName();
+            }
         }
+        // compute peers
+        if (ct.getInitiatingParticipantRef() == null || ct.getParticipantRefs().size() != 2) {
+            IllegalModelException e = new IllegalModelException(String.format("BPMN model is incorrect. A task (%s) should have exactly 1 sender and 1 receiver", ct.getId()));
+            error(e.getMessage());
+            throw e;
+        }
+        sender = participants.get(ct.getInitiatingParticipantRef().getId());
+        List<Participant> partners = ct.getParticipantRefs();
+        if (partners.get(0).getId().equals(ct.getInitiatingParticipantRef().getId()))
+            receiver = participants.get(partners.get(1).getId());
+        else
+            receiver = participants.get(partners.get(0).getId());
+        //
+        rtr.setMsgID(id);
+        rtr.setMessageContent(contents);
+        rtr.setSender(sender);
+        rtr.setReceiver(receiver);
         return rtr;
     }
 
