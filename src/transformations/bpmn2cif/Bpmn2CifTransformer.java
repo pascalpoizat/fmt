@@ -185,10 +185,10 @@ public class Bpmn2CifTransformer extends ATransformer {
                     ChoreographyTask choreographyTask = (ChoreographyTask) fe;
                     Message m = getMessageFromChoreographyTask(choreographyTask);
                     int hash = messageHashCode(m);
+                    messages.put(choreographyTask.getId(), m.getMsgID()); // link to retrieve message from task
                     if (!foundMessages.containsKey(hash)) { // if this message does not already exists (i.e. same id, same sender, same receiver
-                        messages.put(choreographyTask.getId(), m.getMsgID()); // link to retrieve message from task
                         ml.getMessageOrAction().add(m);
-                        foundMessages.put(hash,m);
+                        foundMessages.put(hash, m);
                     }
                 }
             }
