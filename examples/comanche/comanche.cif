@@ -88,7 +88,7 @@
         <interaction>
             <stateID>ChoreographyTask_5</stateID>
             <successors>ExclusiveGateway_1</successors>
-            <msgID>analyze</msgID>
+            <msgID>ChoreographyTask_5</msgID>
         </interaction>
         <choice>
             <stateID>ExclusiveGateway_1</stateID>
@@ -97,12 +97,12 @@
         <interaction>
             <stateID>ChoreographyTask_2</stateID>
             <successors>ExclusiveGateway_2</successors>
-            <msgID>checking</msgID>
+            <msgID>ChoreographyTask_2</msgID>
         </interaction>
         <interaction>
             <stateID>ChoreographyTask_7</stateID>
             <successors>ChoreographyTask_9</successors>
-            <msgID>handleError</msgID>
+            <msgID>ChoreographyTask_7</msgID>
         </interaction>
         <choice>
             <stateID>ExclusiveGateway_2</stateID>
@@ -111,12 +111,12 @@
         <interaction>
             <stateID>ChoreographyTask_6</stateID>
             <successors>ChoreographyTask_4</successors>
-            <msgID>readFile</msgID>
+            <msgID>ChoreographyTask_6</msgID>
         </interaction>
         <interaction>
             <stateID>ChoreographyTask_1</stateID>
             <successors>ParallelGateway_3</successors>
-            <msgID>request_log</msgID>
+            <msgID>ChoreographyTask_1</msgID>
         </interaction>
         <allSelect>
             <stateID>ParallelGateway_1</stateID>
@@ -125,12 +125,12 @@
         <interaction>
             <stateID>ChoreographyTask_3</stateID>
             <successors>ChoreographyTask_5</successors>
-            <msgID>request</msgID>
+            <msgID>ChoreographyTask_3</msgID>
         </interaction>
         <interaction>
             <stateID>ChoreographyTask_9</stateID>
             <successors>ExclusiveGateway_3</successors>
-            <msgID>response_404</msgID>
+            <msgID>ChoreographyTask_9</msgID>
         </interaction>
         <simpleJoin>
             <stateID>ExclusiveGateway_3</stateID>
@@ -139,7 +139,7 @@
         <interaction>
             <stateID>ChoreographyTask_4</stateID>
             <successors>ParallelGateway_3</successors>
-            <msgID>response_200</msgID>
+            <msgID>ChoreographyTask_4</msgID>
         </interaction>
         <allJoin>
             <stateID>ParallelGateway_3</stateID>
@@ -148,7 +148,7 @@
         <interaction>
             <stateID>ChoreographyTask_8</stateID>
             <successors>ExclusiveGateway_3</successors>
-            <msgID>response_400</msgID>
+            <msgID>ChoreographyTask_8</msgID>
         </interaction>
         <final>
             <stateID>EndEvent_2</stateID>

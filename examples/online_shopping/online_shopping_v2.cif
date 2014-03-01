@@ -99,7 +99,7 @@
         <interaction>
             <stateID>ChoreographyTask_10</stateID>
             <successors>ParallelGateway_6</successors>
-            <msgID>totalValue</msgID>
+            <msgID>ChoreographyTask_10</msgID>
         </interaction>
         <allJoin>
             <stateID>ParallelGateway_2</stateID>
@@ -108,17 +108,17 @@
         <interaction>
             <stateID>ChoreographyTask_4</stateID>
             <successors>ParallelGateway_2</successors>
-            <msgID>cardNotApproved</msgID>
+            <msgID>ChoreographyTask_4</msgID>
         </interaction>
         <interaction>
             <stateID>ChoreographyTask_5</stateID>
             <successors>ParallelGateway_2</successors>
-            <msgID>purchaseCancelled</msgID>
+            <msgID>ChoreographyTask_5</msgID>
         </interaction>
         <interaction>
             <stateID>ChoreographyTask_9</stateID>
             <successors>ParallelGateway_5</successors>
-            <msgID>purchaseInfo</msgID>
+            <msgID>ChoreographyTask_9</msgID>
         </interaction>
         <allJoin>
             <stateID>ParallelGateway_5</stateID>
@@ -127,7 +127,7 @@
         <interaction>
             <stateID>ChoreographyTask_8</stateID>
             <successors>ParallelGateway_6</successors>
-            <msgID>invoice</msgID>
+            <msgID>ChoreographyTask_8</msgID>
         </interaction>
         <allSelect>
             <stateID>ParallelGateway_4</stateID>
@@ -136,17 +136,17 @@
         <interaction>
             <stateID>ChoreographyTask_3</stateID>
             <successors>ChoreographyTask_4</successors>
-            <msgID>notifyFailure</msgID>
+            <msgID>ChoreographyTask_3</msgID>
         </interaction>
         <interaction>
             <stateID>ChoreographyTask_11</stateID>
             <successors>ChoreographyTask_5</successors>
-            <msgID>notifyFailure</msgID>
+            <msgID>ChoreographyTask_11</msgID>
         </interaction>
         <interaction>
             <stateID>ChoreographyTask_2</stateID>
             <successors>ExclusiveGateway_1</successors>
-            <msgID>checkAndCash</msgID>
+            <msgID>ChoreographyTask_2</msgID>
         </interaction>
         <choice>
             <stateID>ExclusiveGateway_1</stateID>
@@ -159,12 +159,12 @@
         <interaction>
             <stateID>ChoreographyTask_6</stateID>
             <successors>ParallelGateway_4</successors>
-            <msgID>paymentOk</msgID>
+            <msgID>ChoreographyTask_6</msgID>
         </interaction>
         <interaction>
             <stateID>ChoreographyTask_7</stateID>
             <successors>ParallelGateway_5</successors>
-            <msgID>approval</msgID>
+            <msgID>ChoreographyTask_7</msgID>
         </interaction>
         <allSelect>
             <stateID>ParallelGateway_3</stateID>
@@ -173,7 +173,7 @@
         <interaction>
             <stateID>ChoreographyTask_12</stateID>
             <successors>ChoreographyTask_2</successors>
-            <msgID>purchase</msgID>
+            <msgID>ChoreographyTask_12</msgID>
         </interaction>
         <final>
             <stateID>EndEvent_1</stateID>

@@ -11,10 +11,10 @@
     </participants>
     <alphabet>
         <message>
-            <msgID>ChoreographyTask_1</msgID>
+            <msgID>Message_1</msgID>
             <sender>ParticipantA</sender>
             <receiver>ParticipantB</receiver>
-            <messageContent>ChoreographyTask1</messageContent>
+            <messageContent>Message1</messageContent>
         </message>
     </alphabet>
     <stateMachine>
@@ -25,7 +25,7 @@
         <interaction>
             <stateID>ChoreographyTask_1</stateID>
             <successors>EndEvent_1</successors>
-            <msgID>ChoreographyTask1</msgID>
+            <msgID>Message_1</msgID>
         </interaction>
         <final>
             <stateID>EndEvent_1</stateID>

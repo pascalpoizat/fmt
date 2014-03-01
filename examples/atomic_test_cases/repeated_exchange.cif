@@ -11,22 +11,16 @@
     </participants>
     <alphabet>
         <message>
-            <msgID>ct3</msgID>
+            <msgID>mid</msgID>
             <sender>peer1</sender>
             <receiver>peer2</receiver>
-            <messageContent>message1</messageContent>
+            <messageContent>message</messageContent>
         </message>
         <message>
-            <msgID>ct2</msgID>
+            <msgID>mid</msgID>
             <sender>peer2</sender>
             <receiver>peer1</receiver>
-            <messageContent>message1</messageContent>
-        </message>
-        <message>
-            <msgID>ct1</msgID>
-            <sender>peer1</sender>
-            <receiver>peer2</receiver>
-            <messageContent>message1</messageContent>
+            <messageContent>message</messageContent>
         </message>
     </alphabet>
     <stateMachine>
@@ -37,17 +31,16 @@
         <interaction>
             <stateID>ct3</stateID>
             <successors>EndEvent_1</successors>
-            <msgID>message1</msgID>
+            <msgID>mid</msgID>
         </interaction>
         <interaction>
             <stateID>ct2</stateID>
             <successors>ct3</successors>
-            <msgID>message1</msgID>
+            <msgID>mid</msgID>
         </interaction>
         <interaction>
             <stateID>ct1</stateID>
             <successors>ct2</successors>
-            <msgID>message1</msgID>
         </interaction>
         <final>
             <stateID>EndEvent_1</stateID>

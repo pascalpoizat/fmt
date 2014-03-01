@@ -9,11 +9,13 @@
   <bpmn2:choreography id="Choreography_1" name="Default Choreography">
     <bpmn2:participant id="Participant_1" name="ParticipantA" processRef="_Process_3"/>
     <bpmn2:participant id="Participant_2" name="ParticipantB"/>
+    <bpmn2:messageFlow id="MessageFlow_1" messageRef="Message_1" name="Message Flow 1" sourceRef="Participant_1" targetRef="Participant_2"/>
     <bpmn2:choreographyTask id="ChoreographyTask_1" name="ChoreographyTask1" initiatingParticipantRef="Participant_1">
       <bpmn2:incoming>SequenceFlow_1</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_2</bpmn2:outgoing>
       <bpmn2:participantRef>Participant_1</bpmn2:participantRef>
       <bpmn2:participantRef>Participant_2</bpmn2:participantRef>
+      <bpmn2:messageFlowRef>MessageFlow_1</bpmn2:messageFlowRef>
     </bpmn2:choreographyTask>
     <bpmn2:startEvent id="StartEvent_1" name="Start Event 1">
       <bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
@@ -44,11 +46,11 @@
   </bpmn2:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Choreography_1">
-      <bpmndi:BPMNShape id="BPMNShape_2" bpmnElement="Participant_1" choreographyActivityShape="BPMNShape_1" isHorizontal="true">
-        <dc:Bounds height="20.0" width="150.0" x="250.0" y="100.0"/>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_3" bpmnElement="Participant_2" choreographyActivityShape="BPMNShape_1" isHorizontal="true" participantBandKind="bottom_non_initiating">
         <dc:Bounds height="20.0" width="150.0" x="250.0" y="230.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_2" bpmnElement="Participant_1" choreographyActivityShape="BPMNShape_1" isHorizontal="true" isMessageVisible="true">
+        <dc:Bounds height="20.0" width="150.0" x="250.0" y="100.0"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_1" bpmnElement="ChoreographyTask_1">
         <dc:Bounds height="150.0" width="150.0" x="250.0" y="100.0"/>
