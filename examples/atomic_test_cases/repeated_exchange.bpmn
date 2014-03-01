@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://sample.bpmn2.org/bpmn2/sample/choreography" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1" targetNamespace="http://sample.bpmn2.org/bpmn2/sample/choreography">
+  <bpmn2:message id="mid" name="message"/>
+  <bpmn2:interface id="Interface_1" name="Interface 1">
+    <bpmn2:operation id="Operation_1" name="Operation 1">
+      <bpmn2:inMessageRef>mid</bpmn2:inMessageRef>
+    </bpmn2:operation>
+  </bpmn2:interface>
   <bpmn2:choreography id="chor1" name="RepeatedExchangeChoreography">
-    <bpmn2:participant id="p1" name="peer1"/>
-    <bpmn2:participant id="p2" name="peer2"/>
+    <bpmn2:participant id="p1" name="peer1" processRef="_Process_3"/>
+    <bpmn2:participant id="p2" name="peer2" processRef="_Process_5"/>
+    <bpmn2:messageFlow id="MessageFlow_1" messageRef="mid" name="Message Flow 1" sourceRef="p1" targetRef="p2"/>
+    <bpmn2:messageFlow id="MessageFlow_2" messageRef="mid" name="Message Flow 2" sourceRef="p1" targetRef="p2"/>
+    <bpmn2:messageFlow id="MessageFlow_3" messageRef="mid" name="Message Flow 3" sourceRef="p2" targetRef="p1"/>
     <bpmn2:choreographyTask id="ct3" name="message1" initiatingParticipantRef="p1">
       <bpmn2:incoming>SequenceFlow_4</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_5</bpmn2:outgoing>
       <bpmn2:participantRef>p1</bpmn2:participantRef>
       <bpmn2:participantRef>p2</bpmn2:participantRef>
+      <bpmn2:messageFlowRef>MessageFlow_2</bpmn2:messageFlowRef>
     </bpmn2:choreographyTask>
     <bpmn2:sequenceFlow id="SequenceFlow_5" sourceRef="ct3" targetRef="EndEvent_1"/>
     <bpmn2:choreographyTask id="ct2" name="message1" initiatingParticipantRef="p2">
@@ -15,6 +25,7 @@
       <bpmn2:outgoing>SequenceFlow_4</bpmn2:outgoing>
       <bpmn2:participantRef>p2</bpmn2:participantRef>
       <bpmn2:participantRef>p1</bpmn2:participantRef>
+      <bpmn2:messageFlowRef>MessageFlow_3</bpmn2:messageFlowRef>
     </bpmn2:choreographyTask>
     <bpmn2:sequenceFlow id="SequenceFlow_4" sourceRef="ct2" targetRef="ct3"/>
     <bpmn2:choreographyTask id="ct1" name="message1" initiatingParticipantRef="p1">
@@ -22,6 +33,7 @@
       <bpmn2:outgoing>SequenceFlow_2</bpmn2:outgoing>
       <bpmn2:participantRef>p1</bpmn2:participantRef>
       <bpmn2:participantRef>p2</bpmn2:participantRef>
+      <bpmn2:messageFlowRef>MessageFlow_1</bpmn2:messageFlowRef>
     </bpmn2:choreographyTask>
     <bpmn2:sequenceFlow id="SequenceFlow_2" sourceRef="ct1" targetRef="ct2"/>
     <bpmn2:startEvent id="StartEvent_1" name="Start Event 1">
@@ -32,9 +44,42 @@
       <bpmn2:incoming>SequenceFlow_5</bpmn2:incoming>
     </bpmn2:endEvent>
   </bpmn2:choreography>
+  <bpmn2:process id="_Process_3" name="Process for peer1" processType="Private">
+    <bpmn2:startEvent id="StartEvent_2" name="Start Event 2">
+      <bpmn2:outgoing>SequenceFlow_3</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:endEvent id="EndEvent_2" name="End Event 2">
+      <bpmn2:incoming>SequenceFlow_8</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:sendTask id="SendTask_1" name="Send Task 1" implementation="##unspecified" messageRef="mid" operationRef="Operation_1">
+      <bpmn2:incoming>SequenceFlow_3</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_6</bpmn2:outgoing>
+    </bpmn2:sendTask>
+    <bpmn2:sendTask id="SendTask_2" name="Send Task 2" implementation="##unspecified" messageRef="mid" operationRef="Operation_1">
+      <bpmn2:incoming>SequenceFlow_7</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_8</bpmn2:outgoing>
+    </bpmn2:sendTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_3" name="Sequence Flow 3" sourceRef="StartEvent_2" targetRef="SendTask_1"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_6" name="Sequence Flow 6" sourceRef="SendTask_1" targetRef="ReceiveTask_1"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_8" name="Sequence Flow 8" sourceRef="SendTask_2" targetRef="EndEvent_2"/>
+    <bpmn2:receiveTask id="ReceiveTask_1" name="Receive Task 1" implementation="##unspecified" messageRef="mid" operationRef="Operation_1">
+      <bpmn2:incoming>SequenceFlow_6</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_7</bpmn2:outgoing>
+    </bpmn2:receiveTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_7" name="Sequence Flow 7" sourceRef="ReceiveTask_1" targetRef="SendTask_2"/>
+  </bpmn2:process>
+  <bpmn2:process id="_Process_5" name="Process for peer2" processType="Private">
+    <bpmn2:startEvent id="StartEvent_3" name="Start Event 3">
+      <bpmn2:outgoing>SequenceFlow_9</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:endEvent id="EndEvent_3" name="End Event 3">
+      <bpmn2:incoming>SequenceFlow_9</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_9" name="Sequence Flow 9" sourceRef="StartEvent_3" targetRef="EndEvent_3"/>
+  </bpmn2:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1" name="repeated_exchange">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="chor1">
-      <bpmndi:BPMNShape id="BPMNShape_Participant_5" bpmnElement="p1" choreographyActivityShape="BPMNShape_ChoreographyTask_2" isHorizontal="true">
+      <bpmndi:BPMNShape id="BPMNShape_Participant_5" bpmnElement="p1" choreographyActivityShape="BPMNShape_ChoreographyTask_2" isHorizontal="true" isMessageVisible="true">
         <dc:Bounds height="20.0" width="150.0" x="651.0" y="100.0"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_Participant_6" bpmnElement="p2" choreographyActivityShape="BPMNShape_ChoreographyTask_2" isHorizontal="true" participantBandKind="bottom_non_initiating">
@@ -43,7 +88,7 @@
       <bpmndi:BPMNShape id="BPMNShape_3" bpmnElement="p2" choreographyActivityShape="BPMNShape_1" isHorizontal="true" participantBandKind="bottom_non_initiating">
         <dc:Bounds height="20.0" width="150.0" x="150.0" y="230.0"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_2" bpmnElement="p1" choreographyActivityShape="BPMNShape_1" isHorizontal="true">
+      <bpmndi:BPMNShape id="BPMNShape_2" bpmnElement="p1" choreographyActivityShape="BPMNShape_1" isHorizontal="true" isMessageVisible="true">
         <dc:Bounds height="20.0" width="150.0" x="150.0" y="100.0"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_1" bpmnElement="ct1">
@@ -61,7 +106,7 @@
       <bpmndi:BPMNShape id="BPMNShape_ChoreographyTask_2" bpmnElement="ct3">
         <dc:Bounds height="150.0" width="150.0" x="651.0" y="100.0"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_Participant_2" bpmnElement="p2" choreographyActivityShape="BPMNShape_ChoreographyTask_1" isHorizontal="true">
+      <bpmndi:BPMNShape id="BPMNShape_Participant_2" bpmnElement="p2" choreographyActivityShape="BPMNShape_ChoreographyTask_1" isHorizontal="true" isMessageVisible="true">
         <dc:Bounds height="20.0" width="150.0" x="400.0" y="100.0"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_Participant_3" bpmnElement="p1" choreographyActivityShape="BPMNShape_ChoreographyTask_1" isHorizontal="true" participantBandKind="bottom_non_initiating">
@@ -90,6 +135,64 @@
         <di:waypoint xsi:type="dc:Point" x="833.0" y="175.0"/>
         <di:waypoint xsi:type="dc:Point" x="833.0" y="175.0"/>
         <di:waypoint xsi:type="dc:Point" x="874.0" y="175.0"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_2" name="Process for peer1">
+    <bpmndi:BPMNPlane id="BPMNPlane_2" bpmnElement="_Process_3">
+      <bpmndi:BPMNShape id="BPMNShape_StartEvent_2" bpmnElement="StartEvent_2">
+        <dc:Bounds height="36.0" width="36.0" x="82.0" y="142.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_EndEvent_2" bpmnElement="EndEvent_2">
+        <dc:Bounds height="36.0" width="36.0" x="512.0" y="132.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_SendTask_1" bpmnElement="SendTask_1">
+        <dc:Bounds height="50.0" width="110.0" x="155.0" y="115.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_SendTask_2" bpmnElement="SendTask_2">
+        <dc:Bounds height="50.0" width="110.0" x="345.0" y="205.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_ReceiveTask_1" bpmnElement="ReceiveTask_1">
+        <dc:Bounds height="50.0" width="110.0" x="310.0" y="60.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_3" bpmnElement="SequenceFlow_3" sourceElement="BPMNShape_StartEvent_2" targetElement="BPMNShape_SendTask_1">
+        <di:waypoint xsi:type="dc:Point" x="118.0" y="160.0"/>
+        <di:waypoint xsi:type="dc:Point" x="134.0" y="160.0"/>
+        <di:waypoint xsi:type="dc:Point" x="134.0" y="140.0"/>
+        <di:waypoint xsi:type="dc:Point" x="155.0" y="140.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_6" bpmnElement="SequenceFlow_6" sourceElement="BPMNShape_SendTask_1" targetElement="BPMNShape_ReceiveTask_1">
+        <di:waypoint xsi:type="dc:Point" x="265.0" y="140.0"/>
+        <di:waypoint xsi:type="dc:Point" x="285.0" y="140.0"/>
+        <di:waypoint xsi:type="dc:Point" x="285.0" y="85.0"/>
+        <di:waypoint xsi:type="dc:Point" x="310.0" y="85.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_7" bpmnElement="SequenceFlow_7" sourceElement="BPMNShape_ReceiveTask_1" targetElement="BPMNShape_SendTask_2">
+        <di:waypoint xsi:type="dc:Point" x="365.0" y="110.0"/>
+        <di:waypoint xsi:type="dc:Point" x="365.0" y="152.0"/>
+        <di:waypoint xsi:type="dc:Point" x="400.0" y="152.0"/>
+        <di:waypoint xsi:type="dc:Point" x="400.0" y="205.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_8" bpmnElement="SequenceFlow_8" sourceElement="BPMNShape_SendTask_2" targetElement="BPMNShape_EndEvent_2">
+        <di:waypoint xsi:type="dc:Point" x="455.0" y="230.0"/>
+        <di:waypoint xsi:type="dc:Point" x="530.0" y="230.0"/>
+        <di:waypoint xsi:type="dc:Point" x="530.0" y="168.0"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_4" name="Process for peer2">
+    <bpmndi:BPMNPlane id="BPMNPlane_4" bpmnElement="_Process_5">
+      <bpmndi:BPMNShape id="BPMNShape_StartEvent_3" bpmnElement="StartEvent_3">
+        <dc:Bounds height="36.0" width="36.0" x="62.0" y="122.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_EndEvent_3" bpmnElement="EndEvent_3">
+        <dc:Bounds height="36.0" width="36.0" x="482.0" y="122.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_9" bpmnElement="SequenceFlow_9" sourceElement="BPMNShape_StartEvent_3" targetElement="BPMNShape_EndEvent_3">
+        <di:waypoint xsi:type="dc:Point" x="98.0" y="140.0"/>
+        <di:waypoint xsi:type="dc:Point" x="270.0" y="140.0"/>
+        <di:waypoint xsi:type="dc:Point" x="270.0" y="140.0"/>
+        <di:waypoint xsi:type="dc:Point" x="482.0" y="140.0"/>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
