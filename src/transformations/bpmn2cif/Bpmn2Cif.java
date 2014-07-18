@@ -28,11 +28,14 @@ public class Bpmn2Cif {
             trans.dump();
             trans.cleanUp();
         } catch (IOException e) {
-            // DO NOTHING
+            System.out.println(e.getMessage());
+            e.printStackTrace();
         } catch (FmtException e) {
-            // DO NOTHING
+            System.out.println(e.getMessage());
+            e.printStackTrace();
         } catch (Throwable e) {
-            // DO NOTHING
+            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 

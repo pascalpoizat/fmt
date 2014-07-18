@@ -9,11 +9,14 @@ import models.base.IllegalModelException;
 import models.base.IllegalResourceException;
 import models.base.Model;
 import org.eclipse.bpmn2.*;
+import org.eclipse.bpmn2.impl.Bpmn2FactoryImpl;
+import org.eclipse.bpmn2.util.Bpmn2Resource;
 import org.eclipse.bpmn2.util.Bpmn2ResourceFactoryImpl;
 
 // jar Eclipse : org.eclipse.emf.ecore_2.9.1.[...].jar
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
 // jar Eclipse : org.eclipse.emf.common_2.9.1.[...].jar
@@ -52,13 +55,20 @@ public class BpmnModel extends Model {
     }
 
     private void loadEMF() throws IOException, IllegalResourceException, IllegalModelException {
-        // works as a stand-alone application and within the Eclipse IDE (for this, it requires jars from the BPMN2 modeller + EMF)
-        if (!EMFPlugin.IS_ECLIPSE_RUNNING) {
-            Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(getSuffix(), new Bpmn2ResourceFactoryImpl());
-        }
-        // load resource
+        // works as a stand-alone application and within the Eclipse IDE
+        // note : requires jars from the BPMN2 modeller + EMF
         URI uri = URI.createURI(getResource().getPath());
-        Resource res = new ResourceSetImpl().getResource(uri, true);
+        Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
+        reg.getExtensionToFactoryMap().put(getSuffix(), new Bpmn2ResourceFactoryImpl());
+        ResourceSet rs = new ResourceSetImpl();
+        Resource res = rs.getResource(uri,true);
+        res.load(null);
+// OLD
+//        if (!EMFPlugin.IS_ECLIPSE_RUNNING) {
+//            Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(getSuffix(), new Bpmn2ResourceFactoryImpl());
+//        }
+//        URI uri = URI.createURI(getResource().getPath());
+//        Resource res = new ResourceSetImpl().getResource(uri, true);
         EObject root = res.getContents().get(0);
         // search for the choreography instance
         Definitions definitions;
