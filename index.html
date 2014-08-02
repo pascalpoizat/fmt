@@ -4,7 +4,7 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="description" content="FMT : framework for manipulating formal models and transformations">
+    <meta name="description" content="FMT : a framework for formal models and transformations">
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
@@ -19,7 +19,7 @@
           <a id="forkme_banner" href="https://github.com/pascalpoizat/fmt">View on GitHub</a>
 
           <h1 id="project_title">FMT</h1>
-          <h2 id="project_tagline">framework for manipulating formal models and transformations</h2>
+          <h2 id="project_tagline">a framework for formal models and transformations</h2>
 
             <section id="downloads">
               <a class="zip_download_link" href="https://github.com/pascalpoizat/fmt/zipball/master">Download this project as a .zip file</a>
@@ -31,48 +31,59 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <h3>
-<a name="welcome-to-fmt-pages" class="anchor" href="#welcome-to-fmt-pages"><span class="octicon octicon-link"></span></a>Welcome to FMT pages.</h3>
+        <h2>
+<a name="welcome-to-fmt-pages" class="anchor" href="#welcome-to-fmt-pages"><span class="octicon octicon-link"></span></a>Welcome to FMT pages.</h2>
 
-<p>FMT is a framework for formal models and transformations between these models.</p>
+<p>FMT (Formal Models and Transformations) is a framework for formal models and for transformations between these models.</p>
+
+<h2>
+<a name="download" class="anchor" href="#download"><span class="octicon octicon-link"></span></a>Download</h2>
+
+<p>You can get the source code (master branch) as an archive using the links, above.
+Please also consider forking the project on GitHub using <a href="https://github.com/pascalpoizat/fmt/fork">https://github.com/pascalpoizat/fmt/fork</a>.</p>
+
+<h2>
+<a name="dependencies" class="anchor" href="#dependencies"><span class="octicon octicon-link"></span></a>Dependencies</h2>
+
+<p>The dependencies depend on the models / transformations you are interested in.</p>
 
 <h3>
-<a name="download" class="anchor" href="#download"><span class="octicon octicon-link"></span></a>Download</h3>
+<a name="for-the-bpmn-model-and-bpmn-cif-transformations" class="anchor" href="#for-the-bpmn-model-and-bpmn-cif-transformations"><span class="octicon octicon-link"></span></a>For the BPMN model and BPMN-&gt;CIF transformations:</h3>
 
-<p>You can get the source code as an archive using the links, above.
-Please also consider forking the project on GitHub using <a href="https://github.com/pascalpoizat/fmt/fork">https://github.com/pascalpoizat/fmt/fork</a></p>
+<h4>
+<a name="emf-framework" class="anchor" href="#emf-framework"><span class="octicon octicon-link"></span></a>EMF framework</h4>
+
+<p>required: org.eclipse.emf.common_2.9.1+, org.eclipse.emf.ecore_2.9.1+, org.eclipse.emf.ecore.xmi_2.9.1+.</p>
+
+<p>Available by installing Eclipse <a href="https://www.eclipse.org/">https://www.eclipse.org/</a></p>
+
+<h4>
+<a name="bpmn-modeller" class="anchor" href="#bpmn-modeller"><span class="octicon octicon-link"></span></a>BPMN modeller</h4>
+
+<p>required: org.eclipse.bpmn2_0.7.0+.</p>
+
+<p>Available using the Eclipse update site <a href="http://download.eclipse.org/bpmn2-modeler/updates/">http://download.eclipse.org/bpmn2-modeler/updates/</a>.</p>
 
 <h3>
-<a name="dependencies" class="anchor" href="#dependencies"><span class="octicon octicon-link"></span></a>Dependencies</h3>
+<a name="for-the-pnml-model-and-cif-pnml-transformations-ongoing-work" class="anchor" href="#for-the-pnml-model-and-cif-pnml-transformations-ongoing-work"><span class="octicon octicon-link"></span></a>For the PNML model and CIF-&gt;PNML transformations (ongoing work):</h3>
 
-<p>The required libraries depend on the models / transformations you are interested in.</p>
+<h4>
+<a name="pnml-framework" class="anchor" href="#pnml-framework"><span class="octicon octicon-link"></span></a>PNML framework</h4>
 
-<ul>
-<li>
-<p>For the BPMN model and BPMN-&gt;CIF transformations:</p>
+<p>required: fr.lip6.move.pnml.framework.coremodel_2.2.1+, fr.lip6.move.pnml.framework.ptnet_2.2.1+, fr.lip6.move.pnml.framework.utils_2.2.1+</p>
 
-<ul>
-<li><p>EMF framework (available by installing Eclipse, from <a href="https://www.eclipse.org/">https://www.eclipse.org/</a>, tested with Kepler)
-required for BPMN model and BPMN-&gt;CIF transformation: org.eclipse.emf.common_2.9.1+, org.eclipse.emf.ecore_2.9.1+, org.eclipse.emf.ecore.xmi_2.9.1+</p></li>
-<li><p>BPMN modeller (available using Eclipse update site <a href="http://download.eclipse.org/bpmn2-modeler/updates/">http://download.eclipse.org/bpmn2-modeler/updates/</a>, tested with Kepler)
-required for BPMN model and BPMN-&gt;CIF transformation: org.eclipse.bpmn2_0.7.0+</p></li>
-</ul>
-</li>
-<li>
-<p>For the PNML model and CIF-&gt;PNML transformations (<em>ongoing work</em>):</p>
+<p>Available using the Eclipse update site <a href="http://pnml.lip6.fr/pnmlframework/updatesite/">http://pnml.lip6.fr/pnmlframework/updatesite/</a> or at <a href="http://pnml.lip6.fr/">http://pnml.lip6.fr/</a>.</p>
 
-<ul>
-<li>PNML framework (available using Eclipse update site <a href="http://pnml.lip6.fr/pnmlframework/updatesite/">http://pnml.lip6.fr/pnmlframework/updatesite/</a> or <a href="http://pnml.lip6.fr/">http://pnml.lip6.fr/</a>)
-required for PNML model and CIF-&gt;PNML transformation: fr.lip6.move.pnml.framework.coremodel_2.2.1+, fr.lip6.move.pnml.framework.ptnet_2.2.1+, fr.lip6.move.pnml.framework.utils_2.2.1+</li>
-</ul>
-</li>
-</ul><h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+<h2>
+<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h2>
 
 <p>Pascal Poizat (<a href="https://github.com/pascalpoizat" class="user-mention">@pascalpoizat</a>), Université Paris Ouest and LIP6, CNRS - Université Pierre et Marie Curie</p>
 
 <h3>
 <a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
+
+<p>Please consider using the GitHub system (issues, pull requests).
+If not possible, see contact information here: <a href="http://lip6.fr/Pascal.Poizat/contact.html">http://lip6.fr/Pascal.Poizat/contact.html</a></p>
       </section>
     </div>
 
