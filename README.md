@@ -1,7 +1,7 @@
-FMT
-===
+FMT (Formal Models and Transformations)
+=======================================
 
-Formal Models and Transformations
+a framework for formal models and transformations
 
 http://pascalpoizat.github.io/fmt/
 
@@ -13,4 +13,5 @@ Contributors
 More information
 ================
 
-Please see the Web site.
+For more information, including dependencies, please refer to the Web site: http://pascalpoizat.github.io/fmt/
+
