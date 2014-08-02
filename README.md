@@ -1,5 +1,5 @@
-FMT (Formal Models and Transformations)
-=======================================
+FMT
+===
 
 a framework for formal models and transformations
 
