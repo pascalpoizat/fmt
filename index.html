@@ -37,53 +37,150 @@
 <p>FMT (Formal Models and Transformations) is a framework for formal models and for transformations between these models.</p>
 
 <h2>
-<a name="download" class="anchor" href="#download"><span class="octicon octicon-link"></span></a>Download</h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<h3>
+<a name="1-download-the-source-code" class="anchor" href="#1-download-the-source-code"><span class="octicon octicon-link"></span></a>1. Download the source code</h3>
 
 <p>You can get the source code (master branch) as an archive using the links, above.
 Please also consider forking the project on GitHub using <a href="https://github.com/pascalpoizat/fmt/fork">https://github.com/pascalpoizat/fmt/fork</a>.</p>
 
+<h3>
+<a name="2-dependencies" class="anchor" href="#2-dependencies"><span class="octicon octicon-link"></span></a>2. Dependencies</h3>
+
+<h4>
+<a name="21-java" class="anchor" href="#21-java"><span class="octicon octicon-link"></span></a>2.1 Java</h4>
+
+<p>To have FMT running, you will need a Java distribution <a href="http://www.java.com/download/">http://www.java.com/download/</a></p>
+
+<h4>
+<a name="22-model-related-dependencies" class="anchor" href="#22-model-related-dependencies"><span class="octicon octicon-link"></span></a>2.2 Model-related dependencies</h4>
+
+<p>Depending on the models you are interested in, you will need additional elements.</p>
+
+<h5>
+<a name="22a-bpmn-20-choreographies-choreography-diagrams" class="anchor" href="#22a-bpmn-20-choreographies-choreography-diagrams"><span class="octicon octicon-link"></span></a>2.2.a BPMN 2.0 Choreographies (Choreography Diagrams)</h5>
+
+<p>To work with BPMN choreographies, you will need the EMF framework and the BPMN model classes.</p>
+
+<h6>
+<a name="emf-framework" class="anchor" href="#emf-framework"><span class="octicon octicon-link"></span></a>EMF framework</h6>
+
+<p><strong>Required:</strong></p>
+
+<ul>
+<li>org.eclipse.emf.common_2.9.1+, </li>
+<li>org.eclipse.emf.ecore_2.9.1+, </li>
+<li>org.eclipse.emf.ecore.xmi_2.9.1+.</li>
+</ul><p>You can get them by installing <a href="https://www.eclipse.org/">Eclipse</a>.</p>
+
+<h6>
+<a name="bpmn-model-classes" class="anchor" href="#bpmn-model-classes"><span class="octicon octicon-link"></span></a>BPMN model classes</h6>
+
+<p><strong>Required:</strong></p>
+
+<ul>
+<li>org.eclipse.bpmn2_0.7.0+.</li>
+</ul><p>You can get it by updating your Eclipse IDE using the <a href="http://download.eclipse.org/bpmn2-modeler/updates/">BPMN update site</a>.</p>
+
+<h5>
+<a name="22b-petri-nets-pnml" class="anchor" href="#22b-petri-nets-pnml"><span class="octicon octicon-link"></span></a>2.2.b Petri Nets (PNML)</h5>
+
+<p><strong>Required:</strong></p>
+
+<ul>
+<li>fr.lip6.move.pnml.framework.coremodel_2.2.1+, </li>
+<li>fr.lip6.move.pnml.framework.ptnet_2.2.1+,</li>
+<li>fr.lip6.move.pnml.framework.utils_2.2.1+.</li>
+</ul><p>You can get them using one of these techniques:</p>
+
+<ul>
+<li>update your Eclipse IDE using the <a href="http://pnml.lip6.fr/pnmlframework/updatesite/">PNML framework update site</a>;</li>
+<li>download the archive of jar files from the <a href="http://pnml.lip6.fr/">PNML framework Web site</a>;</li>
+<li>retrieve source code from the <a href="https://github.com/lhillah/pnmlframework">PNML framework GitHub repository</a>.</li>
+</ul><h5>
+<a name="22c-choreography-intermediary-language-cif" class="anchor" href="#22c-choreography-intermediary-language-cif"><span class="octicon octicon-link"></span></a>2.2.c Choreography Intermediary Language (CIF)</h5>
+
+<p><strong>Bundled with FMT.</strong></p>
+
+<h3>
+<a name="compiling-the-sources" class="anchor" href="#compiling-the-sources"><span class="octicon octicon-link"></span></a>Compiling the sources</h3>
+
+<p>To compile the source and get a jar file, we recommend to use your favorite IDE. Do not forget to add the above-mentioned dependencies in the project libraries.</p>
+
 <h2>
-<a name="dependencies" class="anchor" href="#dependencies"><span class="octicon octicon-link"></span></a>Dependencies</h2>
+<a name="typical-use" class="anchor" href="#typical-use"><span class="octicon octicon-link"></span></a>Typical use</h2>
 
-<p>The dependencies depend on the models / transformations you are interested in.</p>
+<p>Make a working directory</p>
 
-<h3>
-<a name="for-the-bpmn-model-and-bpmn-cif-transformations" class="anchor" href="#for-the-bpmn-model-and-bpmn-cif-transformations"><span class="octicon octicon-link"></span></a>For the BPMN model and BPMN-&gt;CIF transformations:</h3>
+<pre><code>&gt; mkdir fmt-tests
+&gt; cd fmt-tests
+</code></pre>
 
-<h4>
-<a name="emf-framework" class="anchor" href="#emf-framework"><span class="octicon octicon-link"></span></a>EMF framework</h4>
+<p>Get the <code>sample.bpmn</code> sample BPMN choreography file <a href="sample.bpmn">here</a> and save it in <code>fmt-tests</code></p>
 
-<p>required: org.eclipse.emf.common_2.9.1+, org.eclipse.emf.ecore_2.9.1+, org.eclipse.emf.ecore.xmi_2.9.1+.</p>
+<pre><code>&gt; ls
+sample.bpmn
+</code></pre>
 
-<p>Available by installing Eclipse <a href="https://www.eclipse.org/">https://www.eclipse.org/</a></p>
+<p>Run a transformer on the sample file.</p>
 
-<h4>
-<a name="bpmn-modeller" class="anchor" href="#bpmn-modeller"><span class="octicon octicon-link"></span></a>BPMN modeller</h4>
+<pre><code>&gt; java -cp "$FMT_HOME/fmt.jar:$FMT_DEPENDENCIES/*" transformations.bpmn2cif.Bpmn2Cif sample.bpmn 
+</code></pre>
 
-<p>required: org.eclipse.bpmn2_0.7.0+.</p>
+<p>where:</p>
 
-<p>Available using the Eclipse update site <a href="http://download.eclipse.org/bpmn2-modeler/updates/">http://download.eclipse.org/bpmn2-modeler/updates/</a>.</p>
+<ul>
+<li>
+<code>$FMT_HOME</code> is the directory where you have installed the FMT jar file,</li>
+<li>
+<code>$FMT_DEPENDENCIES</code>is the directory where you have installed the dependencies. </li>
+</ul><p>You should then get something like this:</p>
 
-<h3>
-<a name="for-the-pnml-model-and-cif-pnml-transformations-ongoing-work" class="anchor" href="#for-the-pnml-model-and-cif-pnml-transformations-ongoing-work"><span class="octicon octicon-link"></span></a>For the PNML model and CIF-&gt;PNML transformations (ongoing work):</h3>
+<pre><code>bpmn2cif 1.1
+Resources set
+    working dir.:   /Users/pascalpoizat/fmt-tests
+    base name:      sample
+    input file:     /Users/pascalpoizat/fmt-tests/sample.bpmn
+    output file:    /Users/pascalpoizat/fmt-tests/sample.cif
+Loading input model (bpmn)
+Input model loaded
+WARNING: BPMN model has a task with no or incorrect first message flow (ChoreographyTask_10). The task information will be used.
+WARNING: BPMN model has a task with no or incorrect first message flow (ChoreographyTask_5). The task information will be used.
+WARNING: BPMN model has a task with no or incorrect first message flow (ChoreographyTask_9). The task information will be used.
+WARNING: BPMN model has a task with no or incorrect first message flow (ChoreographyTask_8). The task information will be used.
+WARNING: BPMN model has a task with no or incorrect first message flow (ChoreographyTask_2). The task information will be used.
+WARNING: BPMN model has a task with no or incorrect first message flow (ChoreographyTask_6). The task information will be used.
+WARNING: BPMN model has a task with no or incorrect first message flow (ChoreographyTask_7). The task information will be used.
+WARNING: BPMN model has a task with no or incorrect first message flow (ChoreographyTask_11). The task information will be used.
+WARNING: BPMN model has a task with no or incorrect first message flow (ChoreographyTask_3). The task information will be used.
+WARNING: BPMN model has a task with no or incorrect first message flow (ChoreographyTask_4). The task information will be used.
+Generating output model (cif)
+Output model generated
+</code></pre>
 
-<h4>
-<a name="pnml-framework" class="anchor" href="#pnml-framework"><span class="octicon octicon-link"></span></a>PNML framework</h4>
+<h2>
+<a name="api-main-entry-points" class="anchor" href="#api-main-entry-points"><span class="octicon octicon-link"></span></a>API main entry points</h2>
 
-<p>required: fr.lip6.move.pnml.framework.coremodel_2.2.1+, fr.lip6.move.pnml.framework.ptnet_2.2.1+, fr.lip6.move.pnml.framework.utils_2.2.1+</p>
+<ul>
+<li>transformations.bpmn2cif.Bpmn2Cif : transforms a BPMN 2.0 choreography into a CIF model</li>
+<li>transformations.cif2pnml.Cif2Pnml : transforms a CIF model into a PNML model</li>
+</ul><h2>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
 
-<p>Available using the Eclipse update site <a href="http://pnml.lip6.fr/pnmlframework/updatesite/">http://pnml.lip6.fr/pnmlframework/updatesite/</a> or at <a href="http://pnml.lip6.fr/">http://pnml.lip6.fr/</a>.</p>
+<p>See <a href="https://github.com/pascalpoizat/fmt/LICENSE.md">LICENSE.md</a>.</p>
 
 <h2>
 <a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h2>
 
-<p>Pascal Poizat (<a href="https://github.com/pascalpoizat" class="user-mention">@pascalpoizat</a>), Université Paris Ouest and LIP6, CNRS - Université Pierre et Marie Curie</p>
+<p>Pascal Poizat (<a href="https://github.com/pascalpoizat" class="user-mention">@pascalpoizat</a>),
+Université Paris Ouest and LIP6, CNRS - Université Pierre et Marie Curie</p>
 
 <h3>
 <a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
 
 <p>Please consider using the GitHub system (issues, pull requests).
-If not possible, see contact information here: <a href="http://lip6.fr/Pascal.Poizat/contact.html">http://lip6.fr/Pascal.Poizat/contact.html</a></p>
+If not possible, see contact information <a href="http://lip6.fr/Pascal.Poizat/contact.html">here</a>.</p>
       </section>
     </div>
 
