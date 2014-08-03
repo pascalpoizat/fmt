@@ -2,7 +2,7 @@
 
 FMT (Formal Models and Transformations) is a framework for formal models and for transformations between these models.
 
-To get started, check out <http://pascalpoizat.github.io/fmt/>!
+To get more information, check out <http://pascalpoizat.github.io/fmt/>.
 
 ## Contributors
 
@@ -14,4 +14,4 @@ To get started, check out <http://pascalpoizat.github.io/fmt/>!
 
 ## Copyright and license
 
-Code released under the [GPL v2](LICENSE).
+Code released under the [GPL v2](LICENSE.md).
