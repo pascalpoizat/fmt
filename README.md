@@ -1,16 +1,17 @@
-FMT
-===
+# [FMT](http://pascalpoizat.github.io/fmt/)
 
-a framework for formal models and transformations
+FMT (Formal Models and Transformations) is a framework for formal models and for transformations between these models.
 
-Web site: http://pascalpoizat.github.io/fmt/
+To get started, check out <http://pascalpoizat.github.io/fmt/>!
 
-Contributors
-============
+## Contributors
 
-- Pascal Poizat, Université Paris Ouest and LIP6, CNRS - Université Pierre et Marie Curie
+**Pascal Poizat**, Paris Ouest University and LIP6
 
-More information
-================
+- <http://twitter.com/pascalpoizat>
+- <http://github.com/pascalpoizat>
 
-For more information, including dependencies, please refer to the Web site.
+
+## Copyright and license
+
+Code released under the [GPL v2](LICENSE).
