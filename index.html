@@ -83,12 +83,12 @@ dependencies.
         <a name="installation-source" class="anchor" href="#installation-source"><span
                 class="octicon octicon-link"></span></a>Installation (source)</h3>
 
-    <p>The source distribution is available as a <a href="/pascalpoizat/fmt/tarball/master">.tar.gz archive</a>
-        and as a <a href="/pascalpoizat/fmt/tarball/master">.zip archive</a>.<br/>
+    <p>The source distribution is available as a <a href="https://github.com/pascalpoizat/fmt/tarball/master">.tar.gz archive</a>
+        and as a <a href="https://github.com/pascalpoizat/fmt/zipball/master">.zip archive</a>.<br/>
         It is also possible to clone the FMT repository as follows:
     <pre><code>$ git clone https://github.com/pascalpoizat/fmt.git</code></pre>
     <br/>
-    If you have a GitHub account, you may also consider <a href="/pascalpoizat/fmt/fork">forking FMT on GitHub</a>.
+    If you have a GitHub account, you may also consider <a href="https://github.com/pascalpoizat/fmt/fork">forking FMT on GitHub</a>.
     </p>
 
     <p>The source distribution includes also a jar file with the compiled sources. Still, if you want to compile the
@@ -188,7 +188,7 @@ dependencies.
 <pre><code>$ mkdir fmt-tests ; cd fmt-tests
 </code></pre>
 
-    <p>Get the <a href="sample.bpmn">sample BPMN choreography file</a> and save it in
+    <p>Get the <a href="https://raw.githubusercontent.com/pascalpoizat/fmt/gh-pages/sample.bpmn">sample BPMN choreography file</a> and save it in
         <code>fmt-tests</code></p>
 
     <p>Set up the places where the FMT jar file and the dependencies are installed (here the <code>fmt</code> directory
@@ -247,13 +247,13 @@ Output model generated
         <li><strong>BPMN 2.0 choreographies to CIF</strong><br/>
             supported: to be precised<br/>
             entry point (main class): <code>transformations.bpmn2cif.Bpmn2Cif</code> (<a
-                    href="/pascalpoizat/fmt/glob/master/src/transformations/bpmn2cif/Bpmn2Cif.java">code</a>)
+                    href="https://github.com/pascalpoizat/fmt/blob/master/src/transformations/bpmn2cif/Bpmn2Cif.java">code</a>)
         </li>
         <br/>
         <li><strong>CIF to Petri Nets</strong><br/>
             supported: ongoing work, to be put in a development branch<br/>
             entry point (main class): <code>transformations.cif2pnml.Cif2Pnml</code> (<a
-                    href="/pascalpoizat/fmt/glob/master/src/transformations/cif2pnml/Cif2Pnml.java">code</a>)
+                    href="https://github.com/pascalpoizat/fmt/blob/master/src/transformations/cif2pnml/Cif2Pnml.java">code</a>)
         </li>
     </ul>
     </p>
@@ -264,7 +264,7 @@ Output model generated
         writing:
     <ul>
         <li>a <code>transformations.x2y.X2YTransformer</code> class that extends <code>ATransformer</code>
-            (<a href="/pascalpoizat/fmt/glob/master/src/transformations/base/ATransformer.java">code</a>)
+            (<a href="https://github.com/pascalpoizat/fmt/blob/master/src/transformations/base/ATransformer.java">code</a>)
             and implements three methods:<br/><br/>
         <pre><code>public X2YTransformer(XFactory xFactory, YFactory yFactory);
 // calls super(xFactory, yFactory)
