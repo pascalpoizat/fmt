@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
+<head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="description" content="FMT : a framework for formal models and transformations">
@@ -9,190 +9,360 @@
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
     <title>FMT</title>
-  </head>
+</head>
 
-  <body>
+<body>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/pascalpoizat/fmt">View on GitHub</a>
+<!-- HEADER -->
+<div id="header_wrap" class="outer">
+    <header class="inner">
+        <a id="forkme_banner" href="https://github.com/pascalpoizat/fmt">View on GitHub</a>
 
-          <h1 id="project_title">FMT</h1>
-          <h2 id="project_tagline">a framework for formal models and transformations</h2>
+        <h1 id="project_title">FMT</h1>
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/pascalpoizat/fmt/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/pascalpoizat/fmt/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
+        <h2 id="project_tagline">a framework for formal models and transformations</h2>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h2>
-<a name="welcome-to-fmt-pages" class="anchor" href="#welcome-to-fmt-pages"><span class="octicon octicon-link"></span></a>Welcome to FMT pages.</h2>
+        <section id="downloads">
+            <a class="zip_download_link" href="https://github.com/pascalpoizat/fmt/zipball/master">Download this project
+                as a .zip file</a>
+            <a class="tar_download_link" href="https://github.com/pascalpoizat/fmt/tarball/master">Download this project
+                as a tar.gz file</a>
+        </section>
+    </header>
+</div>
 
-<p>FMT (Formal Models and Transformations) is a framework for formal models and for transformations between these models.</p>
-
+<!-- MAIN CONTENT -->
+<div id="main_content_wrap" class="outer">
+<section id="main_content" class="inner">
 <h2>
-<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+    <a name="welcome-to-fmt-pages" class="anchor" href="#welcome-to-fmt-pages"><span
+            class="octicon octicon-link"></span></a>Welcome to the FMT pages.</h2>
 
-<h3>
-<a name="1-download-the-source-code" class="anchor" href="#1-download-the-source-code"><span class="octicon octicon-link"></span></a>1. Download the source code</h3>
+<p>FMT (Formal Models and Transformations) is a framework for formal models and for transformations between
+    these models.</p>
 
-<p>You can get the source code (master branch) as an archive using the links, above.
-Please also consider forking the project on GitHub using <a href="https://github.com/pascalpoizat/fmt/fork">https://github.com/pascalpoizat/fmt/fork</a>.</p>
+<div>
+    <h2>
+        <a name="toc" class="anchor" href="#toc"><span
+                class="octicon octicon-link"></span></a>Table of contents</h2>
+    <ul>
+        <li><a href="#installation">Installation</a></li>
+        <li><a href="#dependencies">Dependencies</a></li>
+        <li><a href="#usage">Usage</a></li>
+        <li><a href="#models">Models</a></li>
+        <li><a href="#transformations">Transformations</a></li>
+        <li><a href="#support">Support and contribution</a></li>
+        <li><a href="#contributors">Contributors</a></li>
+        <li><a href="#license">License</a></li>
+    </ul>
+</div>
 
-<h3>
-<a name="2-dependencies" class="anchor" href="#2-dependencies"><span class="octicon octicon-link"></span></a>2. Dependencies</h3>
-
-<h4>
-<a name="21-java" class="anchor" href="#21-java"><span class="octicon octicon-link"></span></a>2.1 Java</h4>
-
-<p>To have FMT running, you will need a Java distribution <a href="http://www.java.com/download/">http://www.java.com/download/</a></p>
-
-<h4>
-<a name="22-model-related-dependencies" class="anchor" href="#22-model-related-dependencies"><span class="octicon octicon-link"></span></a>2.2 Model-related dependencies</h4>
-
-<p>Depending on the models you are interested in, you will need additional elements.</p>
-
-<h5>
-<a name="22a-bpmn-20-choreographies-choreography-diagrams" class="anchor" href="#22a-bpmn-20-choreographies-choreography-diagrams"><span class="octicon octicon-link"></span></a>2.2.a BPMN 2.0 Choreographies (Choreography Diagrams)</h5>
-
-<p>To work with BPMN choreographies, you will need the EMF framework and the BPMN model classes.</p>
-
-<h6>
-<a name="emf-framework" class="anchor" href="#emf-framework"><span class="octicon octicon-link"></span></a>EMF framework</h6>
-
-<p><strong>Required:</strong></p>
-
-<ul>
-<li>org.eclipse.emf.common_2.9.1+, </li>
-<li>org.eclipse.emf.ecore_2.9.1+, </li>
-<li>org.eclipse.emf.ecore.xmi_2.9.1+.</li>
-</ul><p>You can get them by installing <a href="https://www.eclipse.org/">Eclipse</a>.</p>
-
-<h6>
-<a name="bpmn-model-classes" class="anchor" href="#bpmn-model-classes"><span class="octicon octicon-link"></span></a>BPMN model classes</h6>
-
-<p><strong>Required:</strong></p>
-
-<ul>
-<li>org.eclipse.bpmn2_0.7.0+.</li>
-</ul><p>You can get it by updating your Eclipse IDE using the <a href="http://download.eclipse.org/bpmn2-modeler/updates/">BPMN update site</a>.</p>
-
-<h5>
-<a name="22b-petri-nets-pnml" class="anchor" href="#22b-petri-nets-pnml"><span class="octicon octicon-link"></span></a>2.2.b Petri Nets (PNML)</h5>
-
-<p><strong>Required:</strong></p>
-
-<ul>
-<li>fr.lip6.move.pnml.framework.coremodel_2.2.1+, </li>
-<li>fr.lip6.move.pnml.framework.ptnet_2.2.1+,</li>
-<li>fr.lip6.move.pnml.framework.utils_2.2.1+.</li>
-</ul><p>You can get them using one of these techniques:</p>
-
-<ul>
-<li>update your Eclipse IDE using the <a href="http://pnml.lip6.fr/pnmlframework/updatesite/">PNML framework update site</a>;</li>
-<li>download the archive of jar files from the <a href="http://pnml.lip6.fr/">PNML framework Web site</a>;</li>
-<li>retrieve source code from the <a href="https://github.com/lhillah/pnmlframework">PNML framework GitHub repository</a>.</li>
-</ul><h5>
-<a name="22c-choreography-intermediary-language-cif" class="anchor" href="#22c-choreography-intermediary-language-cif"><span class="octicon octicon-link"></span></a>2.2.c Choreography Intermediary Language (CIF)</h5>
-
-<p><strong>Bundled with FMT.</strong></p>
-
-<h3>
-<a name="compiling-the-sources" class="anchor" href="#compiling-the-sources"><span class="octicon octicon-link"></span></a>Compiling the sources</h3>
-
-<p>To compile the source and get a jar file, we recommend to use your favorite IDE. Do not forget to add the above-mentioned dependencies in the project libraries.</p>
-
+<div>
 <h2>
-<a name="typical-use" class="anchor" href="#typical-use"><span class="octicon octicon-link"></span></a>Typical use</h2>
+    <a name="installation" class="anchor" href="#installation"><span
+            class="octicon octicon-link"></span></a>Installation</h2>
 
-<p>Make a working directory</p>
-
-<pre><code>&gt; mkdir fmt-tests
-&gt; cd fmt-tests
-</code></pre>
-
-<p>Get the <code>sample.bpmn</code> sample BPMN choreography file <a href="sample.bpmn">here</a> and save it in <code>fmt-tests</code></p>
-
-<pre><code>&gt; ls
-sample.bpmn
-</code></pre>
-
-<p>Run a transformer on the sample file.</p>
-
-<pre><code>&gt; java -cp "$FMT_HOME/fmt.jar:$FMT_DEPENDENCIES/*" transformations.bpmn2cif.Bpmn2Cif sample.bpmn 
-</code></pre>
-
-<p>where:</p>
-
+<p>FMT is organized around formal models that are either defined within FMT or, when possible, by encapsulating
+    existing model libraries.<br/>
+    This means that:
 <ul>
-<li>
-<code>$FMT_HOME</code> is the directory where you have installed the FMT jar file,</li>
-<li>
-<code>$FMT_DEPENDENCIES</code>is the directory where you have installed the dependencies. </li>
-</ul><p>You should then get something like this:</p>
+    <li>to <strong>use</strong> FMT you will need to install <strong>any</strong> model library that you plan to
+        use;
+    </li>
+    <li>to <strong>compile</strong> FMT you will need to install <strong>all</strong> model libraries that FMT
+        supports.
+    </li>
+</ul>
+As a consequence, if you plan to use only some models or some transformations, you may consider <a
+        href="#installation-binary">installing the binary distribution</a> since it requires to install less
+dependencies.
+</p>
+
+<div>
+    <h3>
+        <a name="installation-source" class="anchor" href="#installation-source"><span
+                class="octicon octicon-link"></span></a>Installation (source)</h3>
+
+    <p>The source distribution is available as a <a href="/pascalpoizat/fmt/tarball/master">.tar.gz archive</a>
+        and as a <a href="/pascalpoizat/fmt/tarball/master">.zip archive</a>.<br/>
+        It is also possible to clone the FMT repository as follows:
+    <pre><code>$ git clone https://github.com/pascalpoizat/fmt.git</code></pre>
+    <br/>
+    If you have a GitHub account, you may also consider <a href="/pascalpoizat/fmt/fork">forking FMT on GitHub</a>.
+    </p>
+
+    <p>The source distribution includes also a jar file with the compiled sources. Still, if you want to compile the
+        sources yourself, the simplest is to use your favorite IDE.<br/>
+        <strong>Important: you will need to have installed the <a href="#dependencies">dependencies</a> to compile
+            the sources.</strong>
+    </p>
+</div>
+<div>
+    <h3>
+        <a name="installation-binary" class="anchor" href="#installation-binary"><span
+                class="octicon octicon-link"></span></a>Installation (binary)</h3>
+
+    <p>The source distribution includes the compiled sources as a single jar file, <code>fmt.jar</code>, in directory
+        <code>archive</code>.
+    </p>
+</div>
+
+
+<div>
+    <h2>
+        <a name="dependencies" class="anchor" href="#dependencies"><span
+                class="octicon octicon-link"></span></a>Dependencies</h2>
+
+    <p>To compile FMT, or to have it running, you will need a Java distribution.<br/>
+    <ul>
+        <li><a href="http://www.java.com/download/">get Java</a>
+        </li>
+    </ul>
+    </p>
+
+
+    <h3>BPMN 2.0 choreographies</h3>
+
+    <p>To work with BPMN choreographies, you will need the EMF framework and the BPMN model classes.</p>
+
+    <h4>EMF framework</h4>
+
+    <p><strong>Required:</strong></p>
+
+    <ul>
+        <li>org.eclipse.emf.common_2.9.1+,</li>
+        <li>org.eclipse.emf.ecore_2.9.1+,</li>
+        <li>org.eclipse.emf.ecore.xmi_2.9.1+.</li>
+    </ul>
+
+    <p>You can get them by installing <a href="https://www.eclipse.org/">Eclipse</a>.</p>
+
+    <h4>BPMN model classes</h4>
+
+    <p><strong>Required:</strong></p>
+
+    <ul>
+        <li>org.eclipse.bpmn2_0.7.0+.</li>
+    </ul>
+
+    <p>You can get it by updating your Eclipse IDE using the <a
+            href="http://download.eclipse.org/bpmn2-modeler/updates/">BPMN update site</a>.</p>
+
+
+    <h3>Choreography Intermediary Language (CIF)</h3>
+
+    <p><strong>Bundled with FMT.</strong></p>
+
+    <h3>Petri Nets (PNML)</h3>
+
+    <p><strong>Required:</strong></p>
+
+    <ul>
+        <li>fr.lip6.move.pnml.framework.coremodel_2.2.1+,</li>
+        <li>fr.lip6.move.pnml.framework.ptnet_2.2.1+,</li>
+        <li>fr.lip6.move.pnml.framework.utils_2.2.1+.</li>
+    </ul>
+
+    <p>You can get them using one of these techniques:</p>
+
+    <ul>
+        <li>update your Eclipse IDE using the <a href="http://pnml.lip6.fr/pnmlframework/updatesite/">PNML framework
+            update site</a>;
+        </li>
+        <li>download the archive of jar files from the <a href="http://pnml.lip6.fr/">PNML framework Web site</a>;
+        </li>
+        <li>retrieve source code from the <a href="https://github.com/lhillah/pnmlframework">PNML framework GitHub
+            repository</a>.
+        </li>
+    </ul>
+
+</div>
+
+<div>
+    <h2>
+        <a name="usage" class="anchor" href="#usage"><span
+                class="octicon octicon-link"></span></a>Usage</h2>
+
+    <p>Make a working directory</p>
+
+<pre><code>$ mkdir fmt-tests ; cd fmt-tests
+</code></pre>
+
+    <p>Get the <a href="sample.bpmn">sample BPMN choreography file</a> and save it in
+        <code>fmt-tests</code></p>
+
+    <p>Set up the places where the FMT jar file and the dependencies are installed (here the <code>fmt</code> directory
+        in the user home and the Eclipse
+        plugin directory).</p>
+
+    <pre><code>$ export FMT_HOME=$HOME/fmt ; export FMT_DEPS=/Applications/Eclipse/plugins</code></pre>
+
+    <p>Run a transformer on the sample file.</p>
+
+<pre><code>$ java -cp "$FMT_HOME/fmt.jar:$FMT_DEPS/*" transformations.bpmn2cif.Bpmn2Cif sample.bpmn
+</code></pre>
+
+    <p>You should then get something like this:</p>
 
 <pre><code>bpmn2cif 1.1
 Resources set
-    working dir.:   /Users/pascalpoizat/fmt-tests
-    base name:      sample
-    input file:     /Users/pascalpoizat/fmt-tests/sample.bpmn
-    output file:    /Users/pascalpoizat/fmt-tests/sample.cif
+working dir.: /Users/pascalpoizat/fmt-tests
+base name: sample
+input file: /Users/pascalpoizat/fmt-tests/sample.bpmn
+output file: /Users/pascalpoizat/fmt-tests/sample.cif
 Loading input model (bpmn)
 Input model loaded
-WARNING: BPMN model has a task with no or incorrect first message flow (ChoreographyTask_10). The task information will be used.
-WARNING: BPMN model has a task with no or incorrect first message flow (ChoreographyTask_5). The task information will be used.
-WARNING: BPMN model has a task with no or incorrect first message flow (ChoreographyTask_9). The task information will be used.
-WARNING: BPMN model has a task with no or incorrect first message flow (ChoreographyTask_8). The task information will be used.
-WARNING: BPMN model has a task with no or incorrect first message flow (ChoreographyTask_2). The task information will be used.
-WARNING: BPMN model has a task with no or incorrect first message flow (ChoreographyTask_6). The task information will be used.
-WARNING: BPMN model has a task with no or incorrect first message flow (ChoreographyTask_7). The task information will be used.
-WARNING: BPMN model has a task with no or incorrect first message flow (ChoreographyTask_11). The task information will be used.
-WARNING: BPMN model has a task with no or incorrect first message flow (ChoreographyTask_3). The task information will be used.
-WARNING: BPMN model has a task with no or incorrect first message flow (ChoreographyTask_4). The task information will be used.
+...
 Generating output model (cif)
 Output model generated
 </code></pre>
+</div>
 
-<h2>
-<a name="api-main-entry-points" class="anchor" href="#api-main-entry-points"><span class="octicon octicon-link"></span></a>API main entry points</h2>
+<div>
+    <h2>
+        <a name="models" class="anchor" href="#models"><span
+                class="octicon octicon-link"></span></a>Models</h2>
 
-<ul>
-<li>transformations.bpmn2cif.Bpmn2Cif : transforms a BPMN 2.0 choreography into a CIF model</li>
-<li>transformations.cif2pnml.Cif2Pnml : transforms a CIF model into a PNML model</li>
-</ul><h2>
-<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
+    <p>The following models are supported:
+    <ul>
+        <li>BPMN 2.0 choreographies (thanks to <a href="http://eclipse.org/bpmn2-modeler/">the BPMN2 Modeler</a>).</li>
+        <li>CIF (thanks to <a href="http://lip6.fr/Pascal.Poizat/VerChor/">the VerChor framework</a>)</li>
+        <li>Petri Nets (thanks to <a href="http://pnml.lip6.fr/">the PNML framework</a>).</li>
+    </ul>
+    </p>
 
-<p>See <a href="https://github.com/pascalpoizat/fmt/blob/master/LICENSE.md">LICENSE.md</a>.</p>
+    <h3>Extension</h3>
 
-<h2>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h2>
+    <p>to appear.</p>
 
-<p>Pascal Poizat (<a href="https://github.com/pascalpoizat" class="user-mention">@pascalpoizat</a>),
-Université Paris Ouest and LIP6, CNRS - Université Pierre et Marie Curie</p>
+</div>
 
-<h2>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h2>
+<div>
+    <h2>
+        <a name="transformations" class="anchor" href="#transformations"><span
+                class="octicon octicon-link"></span></a>Transformations</h2>
 
-<p>Please consider using the GitHub system (issues, pull requests).
-If not possible, see contact information <a href="http://lip6.fr/Pascal.Poizat/contact.html">here</a>.</p>
-      </section>
-    </div>
+    <p>The following transformations are supported:
+    <ul>
+        <li><strong>BPMN 2.0 choreographies to CIF</strong><br/>
+            supported: to be precised<br/>
+            entry point (main class): <code>transformations.bpmn2cif.Bpmn2Cif</code> (<a
+                    href="/pascalpoizat/fmt/glob/master/src/transformations/bpmn2cif/Bpmn2Cif.java">code</a>)
+        </li>
+        <br/>
+        <li><strong>CIF to Petri Nets</strong><br/>
+            supported: ongoing work, to be put in a development branch<br/>
+            entry point (main class): <code>transformations.cif2pnml.Cif2Pnml</code> (<a
+                    href="/pascalpoizat/fmt/glob/master/src/transformations/cif2pnml/Cif2Pnml.java">code</a>)
+        </li>
+    </ul>
+    </p>
 
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
+    <h3>Extension</h3>
+
+    <p>Adding a transformation between <code>X</code> and <code>Y</code> is done by
+        writing:
+    <ul>
+        <li>a <code>transformations.x2y.X2YTransformer</code> class that extends <code>ATransformer</code>
+            (<a href="/pascalpoizat/fmt/glob/master/src/transformations/base/ATransformer.java">code</a>)
+            and implements three methods:<br/><br/>
+        <pre><code>public X2YTransformer(XFactory xFactory, YFactory yFactory);
+// calls super(xFactory, yFactory)
+public void transform() throws IllegalModelException;
+// generates out_model from in_model
+public void about();
+// prints out NAME + VERSION</code></pre>
+        </li>
+        <br/>
+        <li>a <code>transformations.x2y.X2Y</code> class with the following pattern:<br/><br/>
+        <pre><code>package transformations.x2y;
+
+import models.base.FmtException;
+import transformations.base.ITransformer;
+import models.methodx.XFactory;
+import models.methody.YFactory;
+
+import java.io.IOException;
+
+public class X2Y {
+        public static void main(String[] args) {
+            XFactory xFactory = XFactory.getInstance();
+            YFactory yFactory = YFactory.getInstance();
+            ITransformer trans = new X2YTransformer(xFactory, yFactory);
+            trans.setVerbose(true);
+            trans.about();
+            if (args.length == 0) {
+                trans.error("missing file argument");
+                return;
+            }
+            try {
+                trans.setResources(args[0]);
+                trans.load();
+                trans.transform();
+                trans.dump();
+                trans.cleanUp();
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+                e.printStackTrace();
+            } catch (FmtException e) {
+                System.out.println(e.getMessage());
+                e.printStackTrace();
+            } catch (Throwable e) {
+                System.out.println(e.getMessage());
+                e.printStackTrace();
+            }
+        }
+}</code></pre>
+        </li>
+    </ul>
+
+    </p>
+</div>
+
+<div>
+    <h2>
+        <a name="support" class="anchor" href="#support"><span
+                class="octicon octicon-link"></span></a>Support and contribution</h2>
+
+    <p>Support and contribution can be achieved through <a href="https://github.com/pascalpoizat/fmt/issues">the issue
+        tracker</a>.<br/>
+        If you cannot use GitHub, see contact information <a href="http://lip6.fr/Pascal.Poizat/contact.html">here</a>.
+    </p>
+</div>
+
+<div>
+    <h2>
+        <a name="contributors" class="anchor" href="#contributors"><span
+                class="octicon octicon-link"></span></a>Contributors</h2>
+
+    <p><strong>Pascal Poizat</strong>, Paris Ouest University and LIP6</p>
+    <ul class="task-list">
+        <li><a href="http://twitter.com/pascalpoizat">http://twitter.com/pascalpoizat</a></li>
+        <li><a href="http://github.com/pascalpoizat">http://github.com/pascalpoizat</a></li>
+    </ul>
+</div>
+
+<div>
+    <h2>
+        <a name="license" class="anchor" href="#license"><span
+                class="octicon octicon-link"></span></a>License</h2>
+
+    <p>Code released under the <a href="/pascalpoizat/fmt/blob/master/LICENSE.md">GPL v2</a>.</p>
+</div>
+
+</div>
+</section>
+</div>
+
+<!-- FOOTER  -->
+<div id="footer_wrap" class="outer">
+    <footer class="inner">
         <p class="copyright">FMT maintained by <a href="https://github.com/pascalpoizat">pascalpoizat</a></p>
+
         <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
+    </footer>
+</div>
 
-    
 
-  </body>
+</body>
 </html>
