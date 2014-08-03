@@ -12,6 +12,6 @@ To get more information, check out <http://pascalpoizat.github.io/fmt/>.
 - <http://github.com/pascalpoizat>
 
 
-## Copyright and license
+## License
 
 Code released under the [GPL v2](LICENSE.md).
