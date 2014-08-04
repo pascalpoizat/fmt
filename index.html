@@ -46,15 +46,89 @@
         <a name="toc" class="anchor" href="#toc"><span
                 class="octicon octicon-link"></span></a>Table of contents</h2>
     <ul>
+        <li><a href="#models">Models</a></li>
+        <li><a href="#transformations">Transformations</a></li>
+        <li><a href="#branches">Branches</a></li>
         <li><a href="#installation">Installation</a></li>
         <li><a href="#dependencies">Dependencies</a></li>
         <li><a href="#usage">Usage</a></li>
-        <li><a href="#models">Models</a></li>
-        <li><a href="#transformations">Transformations</a></li>
+        <li><a href="#modelextension">Adding new models</a></li>
+        <li><a href="#transformationextension">Adding new transformations</a></li>
         <li><a href="#support">Support and contribution</a></li>
         <li><a href="#contributors">Contributors</a></li>
         <li><a href="#license">License</a></li>
     </ul>
+</div>
+
+<div>
+    <h2>
+        <a name="models" class="anchor" href="#models"><span
+                class="octicon octicon-link"></span></a>Models</h2>
+
+    <p>The following models are supported:
+    <ul>
+        <li><strong>BPMN 2.0 choreographies</strong> (using libraries from <a href="http://eclipse.org/bpmn2-modeler/">the BPMN2 Modeler</a>).<br />
+            branch: master<br />
+        </li>
+        <li><strong>CIF</strong> (using CIF schema description from <a href="http://lip6.fr/Pascal.Poizat/VerChor/">the VerChor framework</a>)<br />
+            branch: master<br />
+        </li>
+        <li><strong>Petri nets</strong> (using libraries from <a href="http://pnml.lip6.fr/">the PNML framework</a>).<br />
+            branch: master<br />
+        </li>
+        <li><strong>Dot files</strong> (ongoing work).<br />
+            branch: dot-model<br />
+        </li>
+</ul>
+    </p>
+</div>
+
+<div>
+    <h2>
+        <a name="transformations" class="anchor" href="#transformations"><span
+                class="octicon octicon-link"></span></a>Transformations</h2>
+
+    <p>The following transformations are supported:
+    <ul>
+        <li><strong>BPMN 2.0 choreographies to CIF</strong><br />
+            branch: master<br />
+            supported: to be precised<br/>
+            entry point (main class): <code>transformations.bpmn2cif.Bpmn2Cif</code> (<a
+                    href="https://github.com/pascalpoizat/fmt/blob/master/src/transformations/bpmn2cif/Bpmn2Cif.java">code</a>)
+        </li>
+        <li><strong>CIF to Petri Nets</strong><br />
+            branch: cif2pnml<br />
+            supported: to be precised<br/>
+            entry point (main class): <code>transformations.cif2pnml.Cif2Pnml</code> (<a
+                    href="https://github.com/pascalpoizat/fmt/blob/master/src/transformations/cif2pnml/Cif2Pnml.java">code</a>)
+        </li>
+    </ul>
+    </p>
+</div>
+
+<div>
+<h2>
+    <a name="branches" class="anchor" href="#branches"><span
+            class="octicon octicon-link"></span></a>Branches</h2>
+
+    <p>There are currently 4 active branches:</p>
+
+    <ul>
+        <li><strong>master</strong><br />
+            BPMN 2.0 choreographies, CIF, Petri nets,<br/>
+            BPMN 2.0 choreographies to CIF transformation
+        </li>
+        <li><strong>gh-pages</strong><br />
+            Web pages for FMT
+        </li>
+        <li><strong>dot-model</strong><br />
+            DOT files
+        </li>
+        <li><strong>cif2pnml</strong><br />
+            CIF to Petri nets transformation
+        </li>
+    </ul>
+
 </div>
 
 <div>
@@ -77,6 +151,9 @@ As a consequence, if you plan to use only some models or some transformations, y
         href="#installation-binary">using directly the provided jar file</a> since it requires to install less
 dependencies.
 </p>
+
+<p><strong>Important: the distribution is relative to the <a href="https://github.com/pascalpoizat/fmt">master branch</a>.
+    For features that are not in the master branch you will have to use <code>git</code> to clone or fork FMT.</strong></p>
 
 <div>
     <h3>
@@ -125,11 +202,11 @@ dependencies.
 
     <em>required if you plan to work with BPMN 2.0 choreography models</em>
 
-    <p>You will need the EMF framework and the BPMN model classes.</p>
-
-    <h4>EMF framework</h4>
+    <p>You will need the EMF framework and the BPMN model classes.<br />
 
     <!--
+    <h4>EMF framework</h4>
+
     <p><strong>Required:</strong></p>
 
     <ul>
@@ -139,11 +216,11 @@ dependencies.
     </ul>
     -->
 
-    <p>You can get EMF by installing <a href="https://www.eclipse.org/">Eclipse</a>.</p>
-
-    <h4>BPMN classes</h4>
+    You can get EMF by installing <a href="https://www.eclipse.org/">Eclipse</a>.<br />
 
     <!--
+    <h4>BPMN classes</h4>
+
     <p><strong>Required:</strong></p>
 
     <ul>
@@ -151,7 +228,7 @@ dependencies.
     </ul>
     -->
 
-    <p>You can get the BPMN classes by updating your Eclipse IDE using the <a
+    You can get the BPMN classes by updating your Eclipse IDE using the <a
             href="http://download.eclipse.org/bpmn2-modeler/updates/">BPMN update site</a>.</p>
 
 
@@ -232,45 +309,16 @@ Output model generated
 
 <div>
     <h2>
-        <a name="models" class="anchor" href="#models"><span
-                class="octicon octicon-link"></span></a>Models</h2>
+        <a name="modelextension" class="anchor" href="#modelextension"><span
+                class="octicon octicon-link"></span></a>Adding new models</h2>
 
-    <p>The following models are supported:
-    <ul>
-        <li>BPMN 2.0 choreographies (thanks to <a href="http://eclipse.org/bpmn2-modeler/">the BPMN2 Modeler</a>).</li>
-        <li>CIF (thanks to <a href="http://lip6.fr/Pascal.Poizat/VerChor/">the VerChor framework</a>)</li>
-        <li>Petri Nets (thanks to <a href="http://pnml.lip6.fr/">the PNML framework</a>).</li>
-    </ul>
-    </p>
-
-    <h3>Extension</h3>
-
-    <p>to appear.</p>
-
+    <p>To appear</p>
 </div>
 
 <div>
     <h2>
-        <a name="transformations" class="anchor" href="#transformations"><span
-                class="octicon octicon-link"></span></a>Transformations</h2>
-
-    <p>The following transformations are supported:
-    <ul>
-        <li><strong>BPMN 2.0 choreographies to CIF</strong><br/>
-            supported: to be precised<br/>
-            entry point (main class): <code>transformations.bpmn2cif.Bpmn2Cif</code> (<a
-                    href="https://github.com/pascalpoizat/fmt/blob/master/src/transformations/bpmn2cif/Bpmn2Cif.java">code</a>)
-        </li>
-        <br/>
-        <li><strong>CIF to Petri Nets</strong><br/>
-            supported: ongoing work, to be put in a development branch<br/>
-            entry point (main class): <code>transformations.cif2pnml.Cif2Pnml</code> (<a
-                    href="https://github.com/pascalpoizat/fmt/blob/master/src/transformations/cif2pnml/Cif2Pnml.java">code</a>)
-        </li>
-    </ul>
-    </p>
-
-    <h3>Extension</h3>
+        <a name="transformationextension" class="anchor" href="#transformationextension"><span
+                class="octicon octicon-link"></span></a>Adding new transformations</h2>
 
     <p>Adding a transformation between <code>X</code> and <code>Y</code> is done by
         writing:
@@ -279,11 +327,11 @@ Output model generated
             (<a href="https://github.com/pascalpoizat/fmt/blob/master/src/transformations/base/ATransformer.java">code</a>)
             and implements three methods:<br/><br/>
         <pre><code>public X2YTransformer(XFactory xFactory, YFactory yFactory);
-// calls super(xFactory, yFactory)
-public void transform() throws IllegalModelException;
-// generates out_model from in_model
-public void about();
-// prints out NAME + VERSION</code></pre>
+            // calls super(xFactory, yFactory)
+            public void transform() throws IllegalModelException;
+            // generates out_model from in_model
+            public void about();
+            // prints out NAME + VERSION</code></pre>
         </li>
         <br/>
         <li>a <code>transformations.x2y.X2Y</code> class with the following pattern:<br/><br/>
@@ -291,13 +339,13 @@ public void about();
 
 import models.base.FmtException;
 import transformations.base.ITransformer;
-import models.methodx.XFactory;
-import models.methody.YFactory;
+import models.x.XFactory;
+import models.y.YFactory;
 
 import java.io.IOException;
 
 public class X2Y {
-        public static void main(String[] args) {
+    public static void main(String[] args) {
             XFactory xFactory = XFactory.getInstance();
             YFactory yFactory = YFactory.getInstance();
             ITransformer trans = new X2YTransformer(xFactory, yFactory);
@@ -323,7 +371,7 @@ public class X2Y {
                 System.out.println(e.getMessage());
                 e.printStackTrace();
             }
-        }
+    }
 }</code></pre>
         </li>
     </ul>
