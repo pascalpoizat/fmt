@@ -6,8 +6,7 @@ import models.base.Model;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by pascalpoizat on 12/04/2014.
@@ -31,6 +30,14 @@ public class LtsModel extends Model {
         this.transitions = new HashMap<String, LtsTransition>();
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public Collection<LtsState> getStates() { return states.values(); }
+
+    public Collection<LtsTransition> getTransitions() { return transitions.values(); }
+
     @Override
     public String getSuffix() {
         return "dot";
@@ -53,28 +60,12 @@ public class LtsModel extends Model {
 
     @Override
     public String toString() {
-        String rtr = "";
-        rtr += "digraph ";
-        if (name != null) {
-            rtr += name;
-        }
-        rtr += " { \n";
-        int i = 1;
-        for (LtsState state : states.values()) {
-            rtr += state;
-            if (i<states.size() || (transitions.size()>0)) {
-                rtr += ";\n";
-            }
-        }
-        i = 1;
-        for (LtsTransition transition : transitions.values()) {
-            rtr += transition;
-            if (i<transitions.size()) {
-                rtr += ";\n";
-            }
-        }
-        rtr += "}";
-        return rtr;
+        // defaults to DOT format
+        return this.write(new DotLtsWriter());
+    }
+
+    public String write(LtsWriter ltsWriter) {
+        return ltsWriter.write(this);
     }
 
     @Override
@@ -83,15 +74,15 @@ public class LtsModel extends Model {
         transitions.clear();
     }
 
-    public LtsState addState(String id, Map<String,String> attributes) {
-        LtsState rtr = new LtsState(id,attributes);
-        states.put(id,rtr);
+    public LtsState addState(String id, Map<String, Object> attributes) {
+        LtsState rtr = new LtsState(id, attributes);
+        states.put(id, rtr);
         return rtr;
     }
 
-    public LtsTransition addTransition(String id, String source, String target, Map<String,String> attributes) {
-        LtsTransition rtr = new LtsTransition(id,source,target,attributes);
-        transitions.put(id,rtr);
+    public LtsTransition addTransition(String id, String source, String target, Map<String, Object> attributes) {
+        LtsTransition rtr = new LtsTransition(id, source, target, attributes);
+        transitions.put(id, rtr);
         return rtr;
     }
 }
