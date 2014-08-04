@@ -74,7 +74,7 @@
     </li>
 </ul>
 As a consequence, if you plan to use only some models or some transformations, you may consider <a
-        href="#installation-binary">installing the binary distribution</a> since it requires to install less
+        href="#installation-binary">using directly the provided jar file</a> since it requires to install less
 dependencies.
 </p>
 
@@ -83,15 +83,15 @@ dependencies.
         <a name="installation-source" class="anchor" href="#installation-source"><span
                 class="octicon octicon-link"></span></a>Installation (source)</h3>
 
-    <p>The source distribution is available as a <a href="https://github.com/pascalpoizat/fmt/tarball/master">.tar.gz archive</a>
+    <p>The distribution is available as a <a href="https://github.com/pascalpoizat/fmt/tarball/master">.tar.gz archive</a>
         and as a <a href="https://github.com/pascalpoizat/fmt/zipball/master">.zip archive</a>.<br/>
         It is also possible to clone the FMT repository as follows:
     <pre><code>$ git clone https://github.com/pascalpoizat/fmt.git</code></pre>
     <br/>
-    If you have a GitHub account, you may also consider <a href="https://github.com/pascalpoizat/fmt/fork">forking FMT on GitHub</a>.
+    If you have a GitHub account, please consider <a href="https://github.com/pascalpoizat/fmt/fork">forking FMT on GitHub</a>.
     </p>
 
-    <p>The source distribution includes also a jar file with the compiled sources. Still, if you want to compile the
+    <p>The distribution includes also a jar file with the compiled sources. Still, if you want to compile the
         sources yourself, the simplest is to use your favorite IDE.<br/>
         <strong>Important: you will need to have installed the <a href="#dependencies">dependencies</a> to compile
             the sources.</strong>
@@ -102,7 +102,7 @@ dependencies.
         <a name="installation-binary" class="anchor" href="#installation-binary"><span
                 class="octicon octicon-link"></span></a>Installation (binary)</h3>
 
-    <p>The source distribution includes the compiled sources as a single jar file, <code>fmt.jar</code>, in directory
+    <p>The distribution includes the compiled sources as a single jar file, <code>fmt.jar</code>, in directory
         <code>archive</code>.
     </p>
 </div>
@@ -123,10 +123,13 @@ dependencies.
 
     <h3>BPMN 2.0 choreographies</h3>
 
-    <p>To work with BPMN choreographies, you will need the EMF framework and the BPMN model classes.</p>
+    <em>required if you plan to work with BPMN 2.0 choreography models</em>
+
+    <p>You will need the EMF framework and the BPMN model classes.</p>
 
     <h4>EMF framework</h4>
 
+    <!--
     <p><strong>Required:</strong></p>
 
     <ul>
@@ -134,27 +137,35 @@ dependencies.
         <li>org.eclipse.emf.ecore_2.9.1+,</li>
         <li>org.eclipse.emf.ecore.xmi_2.9.1+.</li>
     </ul>
+    -->
 
-    <p>You can get them by installing <a href="https://www.eclipse.org/">Eclipse</a>.</p>
+    <p>You can get EMF by installing <a href="https://www.eclipse.org/">Eclipse</a>.</p>
 
-    <h4>BPMN model classes</h4>
+    <h4>BPMN classes</h4>
 
+    <!--
     <p><strong>Required:</strong></p>
 
     <ul>
         <li>org.eclipse.bpmn2_0.7.0+.</li>
     </ul>
+    -->
 
-    <p>You can get it by updating your Eclipse IDE using the <a
+    <p>You can get the BPMN classes by updating your Eclipse IDE using the <a
             href="http://download.eclipse.org/bpmn2-modeler/updates/">BPMN update site</a>.</p>
 
 
     <h3>Choreography Intermediary Language (CIF)</h3>
 
-    <p><strong>Bundled with FMT.</strong></p>
+    <em>required if you plan to work with CIF choreography models</em>
+
+    <p>CIF is bundled with FMT.</p>
 
     <h3>Petri Nets (PNML)</h3>
 
+    <em>required if you plan to work with Petri Net models</em>
+
+    <!--
     <p><strong>Required:</strong></p>
 
     <ul>
@@ -162,8 +173,9 @@ dependencies.
         <li>fr.lip6.move.pnml.framework.ptnet_2.2.1+,</li>
         <li>fr.lip6.move.pnml.framework.utils_2.2.1+.</li>
     </ul>
+    -->
 
-    <p>You can get them using one of these techniques:</p>
+    <p>You can get the PNML framework using one of these techniques:</p>
 
     <ul>
         <li>update your Eclipse IDE using the <a href="http://pnml.lip6.fr/pnmlframework/updatesite/">PNML framework
