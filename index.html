@@ -48,12 +48,12 @@
     <ul>
         <li><a href="#models">Models</a></li>
         <li><a href="#transformations">Transformations</a></li>
-        <li><a href="#branches">Branches</a></li>
         <li><a href="#installation">Installation</a></li>
         <li><a href="#dependencies">Dependencies</a></li>
         <li><a href="#usage">Usage</a></li>
         <li><a href="#modelextension">Adding new models</a></li>
         <li><a href="#transformationextension">Adding new transformations</a></li>
+        <li><a href="#branches">Branches</a></li>
         <li><a href="#support">Support and contribution</a></li>
         <li><a href="#contributors">Contributors</a></li>
         <li><a href="#license">License</a></li>
@@ -65,22 +65,20 @@
         <a name="models" class="anchor" href="#models"><span
                 class="octicon octicon-link"></span></a>Models</h2>
 
-    <p>The following models are supported:
+    <p>The following models are supported:</p>
     <ul>
         <li><strong>BPMN 2.0 choreographies</strong> (using libraries from <a href="http://eclipse.org/bpmn2-modeler/">the BPMN2 Modeler</a>).<br />
-            branch: master<br />
         </li>
         <li><strong>CIF</strong> (using CIF schema description from <a href="http://lip6.fr/Pascal.Poizat/VerChor/">the VerChor framework</a>)<br />
-            branch: master<br />
         </li>
         <li><strong>Petri nets</strong> (using libraries from <a href="http://pnml.lip6.fr/">the PNML framework</a>).<br />
-            branch: master<br />
         </li>
-        <li><strong>Dot files</strong> (ongoing work).<br />
-            branch: dot-model<br />
-        </li>
-</ul>
-    </p>
+    </ul>
+
+    <p>Ongoing work:</p>
+    <ul>
+        <li><strong>Dot files</strong> (branch: dot-model).<br />
+    </ul>
 </div>
 
 <div>
@@ -88,47 +86,21 @@
         <a name="transformations" class="anchor" href="#transformations"><span
                 class="octicon octicon-link"></span></a>Transformations</h2>
 
-    <p>The following transformations are supported:
+    <p>The following transformations are supported:</p>
     <ul>
         <li><strong>BPMN 2.0 choreographies to CIF</strong><br />
-            branch: master<br />
-            supported: to be precised<br/>
-            entry point (main class): <code>transformations.bpmn2cif.Bpmn2Cif</code> (<a
+            <code>transformations.bpmn2cif.Bpmn2Cif</code> (<a
                     href="https://github.com/pascalpoizat/fmt/blob/master/src/transformations/bpmn2cif/Bpmn2Cif.java">code</a>)
         </li>
-        <li><strong>CIF to Petri Nets</strong><br />
-            branch: cif2pnml<br />
-            supported: to be precised<br/>
-            entry point (main class): <code>transformations.cif2pnml.Cif2Pnml</code> (<a
+    </ul>
+
+    <p>Ongoing work:</p>
+    <ul>
+        <li><strong>CIF to Petri nets</strong> (branch: cif2pnml)<br />
+            <code>transformations.cif2pnml.Cif2Pnml</code> (<a
                     href="https://github.com/pascalpoizat/fmt/blob/master/src/transformations/cif2pnml/Cif2Pnml.java">code</a>)
         </li>
     </ul>
-    </p>
-</div>
-
-<div>
-<h2>
-    <a name="branches" class="anchor" href="#branches"><span
-            class="octicon octicon-link"></span></a>Branches</h2>
-
-    <p>There are currently 4 active branches:</p>
-
-    <ul>
-        <li><strong>master</strong><br />
-            BPMN 2.0 choreographies, CIF, Petri nets,<br/>
-            BPMN 2.0 choreographies to CIF transformation
-        </li>
-        <li><strong>gh-pages</strong><br />
-            Web pages for FMT
-        </li>
-        <li><strong>dot-model</strong><br />
-            DOT files
-        </li>
-        <li><strong>cif2pnml</strong><br />
-            CIF to Petri nets transformation
-        </li>
-    </ul>
-
 </div>
 
 <div>
@@ -152,7 +124,7 @@ As a consequence, if you plan to use only some models or some transformations, y
 dependencies.
 </p>
 
-<p><strong>Important: the distribution is relative to the <a href="https://github.com/pascalpoizat/fmt">master branch</a>.
+<p><strong>Important: the distribution is relative to the <a href="#branches">master branch</a>.
     For features that are not in the master branch you will have to use <code>git</code> to clone or fork FMT.</strong></p>
 
 <div>
@@ -377,6 +349,30 @@ public class X2Y {
     </ul>
 
     </p>
+</div>
+
+<div>
+    <h2>
+        <a name="branches" class="anchor" href="#branches"><span
+                class="octicon octicon-link"></span></a>Branches</h2>
+
+    <p>There are currently 4 active branches:</p>
+
+    <ul>
+        <li><strong>master</strong><br />
+            BPMN 2.0 choreographies, CIF, Petri nets,<br/>
+            BPMN 2.0 choreographies to CIF transformation
+        </li>
+        <li><strong>gh-pages</strong><br />
+            Web pages for FMT
+        </li>
+        <li><strong>dot-model</strong><br />
+            DOT files
+        </li>
+        <li><strong>cif2pnml</strong><br />
+            CIF to Petri nets transformation
+        </li>
+    </ul>
 </div>
 
 <div>
