@@ -1,4 +1,4 @@
-package models.dot;
+package models.lts;
 
 import models.base.IllegalModelException;
 import models.base.IllegalResourceException;
@@ -12,23 +12,23 @@ import java.util.Map;
 /**
  * Created by pascalpoizat on 12/04/2014.
  */
-public class DotModel extends Model {
+public class LtsModel extends Model {
     // only directed graphs for now on
     // Next Release : support more of the graphviz format
 
     private String name;
-    private Map<String, DotState> states;
-    private Map<String, DotTransition> transitions;
+    private Map<String, LtsState> states;
+    private Map<String, LtsTransition> transitions;
 
-    public DotModel() {
+    public LtsModel() {
         this(null);
     }
 
-    public DotModel(String name) {
+    public LtsModel(String name) {
         super();
         this.name = name;
-        this.states = new HashMap<String, DotState>();
-        this.transitions = new HashMap<String, DotTransition>();
+        this.states = new HashMap<String, LtsState>();
+        this.transitions = new HashMap<String, LtsTransition>();
     }
 
     @Override
@@ -60,14 +60,14 @@ public class DotModel extends Model {
         }
         rtr += " { \n";
         int i = 1;
-        for (DotState state : states.values()) {
+        for (LtsState state : states.values()) {
             rtr += state;
             if (i<states.size() || (transitions.size()>0)) {
                 rtr += ";\n";
             }
         }
         i = 1;
-        for (DotTransition transition : transitions.values()) {
+        for (LtsTransition transition : transitions.values()) {
             rtr += transition;
             if (i<transitions.size()) {
                 rtr += ";\n";
@@ -83,14 +83,14 @@ public class DotModel extends Model {
         transitions.clear();
     }
 
-    public DotState addState(String id, Map<String,String> attributes) {
-        DotState rtr = new DotState(id,attributes);
+    public LtsState addState(String id, Map<String,String> attributes) {
+        LtsState rtr = new LtsState(id,attributes);
         states.put(id,rtr);
         return rtr;
     }
 
-    public DotTransition addTransition(String id, String source, String target, Map<String,String> attributes) {
-        DotTransition rtr = new DotTransition(id,source,target,attributes);
+    public LtsTransition addTransition(String id, String source, String target, Map<String,String> attributes) {
+        LtsTransition rtr = new LtsTransition(id,source,target,attributes);
         transitions.put(id,rtr);
         return rtr;
     }

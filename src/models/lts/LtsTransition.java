@@ -1,4 +1,4 @@
-package models.dot;
+package models.lts;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,18 +6,24 @@ import java.util.Map;
 /**
  * Created by pascalpoizat on 12/04/2014.
  */
-public class DotState {
+public class LtsTransition {
 
     private String id;
     private Map<String, String> attributes;
+    private String source_state_id;
+    private String target_state_id;
 
-    public DotState(String id) {
+    public LtsTransition(String id, String source, String target) {
         this.id = id;
+        this.source_state_id = source;
+        this.target_state_id = target;
         attributes = new HashMap<String, String>();
     }
 
-    public DotState(String id, Map<String, String> attributes) {
+    public LtsTransition(String id, String source, String target, Map<String, String> attributes) {
         this.id = id;
+        this.source_state_id = source;
+        this.target_state_id = target;
         if (attributes == null) {
             this.attributes = new HashMap<String, String>();
         } else {
@@ -28,7 +34,7 @@ public class DotState {
     @Override
     public String toString() {
         String rtr = "";
-        rtr += String.format("\"%s\"", id);
+        rtr += String.format("\"%s\" -> \"%s\"", source_state_id, target_state_id);
         if (attributes.size() > 0) {
             rtr += " [";
             int i = 1;
@@ -40,6 +46,8 @@ public class DotState {
             }
             rtr += "]";
         }
+        rtr += ";\n";
         return rtr;
     }
+
 }
