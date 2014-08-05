@@ -1,5 +1,7 @@
 package models.base;
 
+import models.lts.LtsWriter;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -18,12 +20,15 @@ public abstract class Model {
 
     // sets resource
     public void setResource(File resource) throws IllegalResourceException {
-        if(resource==null) {
+        if (resource == null) {
             throw new IllegalResourceException("No resource given");
         }
+        // the following will now be supported through ModelReaders and ModelWriters
+        /*
         if (!resource.getName().endsWith("."+getSuffix())) {
             throw new IllegalResourceException("Wrong file suffix (should be "+getSuffix()+")");
         }
+        */
         this.resource = resource;
         is_loaded = false; // when the resource is changed the model should be re-loaded
     }
@@ -48,6 +53,16 @@ public abstract class Model {
 
     // dumps model
     public abstract void dump() throws IOException, IllegalResourceException;
+
+    // writes model to a String
+    public String modelToString(ModelWriter writer) throws IllegalResourceException {
+        return writer.modelToString(this);
+    }
+
+    // writes model to a file
+    public void modelToFile(ModelWriter writer) throws IllegalModelException, IllegalResourceException, IOException {
+        writer.modelToFile(this);
+    }
 
     // finalization (cleans up resources)
     public void cleanUp() {
