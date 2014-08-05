@@ -3,6 +3,8 @@ package models.lts;
 import models.base.IllegalModelException;
 import models.base.IllegalResourceException;
 import models.base.Model;
+import models.base.ModelWriter;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -34,38 +36,37 @@ public class LtsModel extends Model {
         return name;
     }
 
-    public Collection<LtsState> getStates() { return states.values(); }
+    public Collection<LtsState> getStates() {
+        return states.values();
+    }
 
-    public Collection<LtsTransition> getTransitions() { return transitions.values(); }
+    public Collection<LtsTransition> getTransitions() {
+        return transitions.values();
+    }
 
     @Override
     public String getSuffix() {
-        return "dot";
+        return "lts";
     }
 
     @Override
     public void dump() throws IOException, IllegalResourceException {
-        FileWriter fw = new FileWriter(getResource().getAbsolutePath());
-        if (fw == null) {
-            throw new IllegalResourceException("Cannot open output resource");
-        }
-        fw.write(this.toString());
-        fw.close();
+        throw new NotImplementedException();
     }
 
     @Override
     public void load() throws IOException, IllegalResourceException, IllegalModelException {
-        // Next release : implement the loading from a dot file
+        throw new NotImplementedException();
     }
 
     @Override
     public String toString() {
         // defaults to DOT format
-        return this.write(new DotLtsWriter());
-    }
-
-    public String write(LtsWriter ltsWriter) {
-        return ltsWriter.write(this);
+        try {
+            return this.modelToString(new DotLtsWriter());
+        } catch (IllegalResourceException e) {
+            return null;
+        } // impossible
     }
 
     @Override
