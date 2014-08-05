@@ -67,17 +67,27 @@
 
     <p>The following models are supported:</p>
     <ul>
-        <li><strong>BPMN 2.0 choreographies</strong> (using libraries from <a href="http://eclipse.org/bpmn2-modeler/">the BPMN2 Modeler</a>).<br />
+        <li><strong>BPMN 2.0 Choreography Diagrams (BPMN-ChorD)</strong><br />
+            Readers: BPMN<br/>
+            Writers: BPMN<br/>
         </li>
-        <li><strong>CIF</strong> (using CIF schema description from <a href="http://lip6.fr/Pascal.Poizat/VerChor/">the VerChor framework</a>)<br />
+        <li><strong>Choreography Intermediate Format (CIF)</strong><br />
+            Readers: CIF<br/>
+            Writers: CIF<br/>
         </li>
-        <li><strong>Petri nets</strong> (using libraries from <a href="http://pnml.lip6.fr/">the PNML framework</a>).<br />
+        <li><strong>Labelled Transition Systems (LTS)</strong><br/>
+            Readers: none<br/>
+            Writers: Aldebaran (aut), Graphviz (dot)<br/>
+        </li>
+        <li><strong>Petri Nets (PN)</strong><br />
+            Readers: PNML<br/>
+            Writers: PNML<br/>
         </li>
     </ul>
 
     <p>Ongoing work:</p>
     <ul>
-        <li><strong>Labelled Transition Systems</strong> (branch: lts-model).<br />
+        <li>n/a</li>
     </ul>
 </div>
 
@@ -88,7 +98,7 @@
 
     <p>The following transformations are supported:</p>
     <ul>
-        <li><strong>BPMN 2.0 choreographies to CIF</strong><br />
+        <li><strong>BPMN-ChorD&rarr;CIF</strong><br/>
             <code>transformations.bpmn2cif.Bpmn2Cif</code> (<a
                     href="https://github.com/pascalpoizat/fmt/blob/master/src/transformations/bpmn2cif/Bpmn2Cif.java">code</a>)
         </li>
@@ -96,7 +106,7 @@
 
     <p>Ongoing work:</p>
     <ul>
-        <li><strong>CIF to Petri nets</strong> (branch: cif2pnml)<br />
+        <li><strong>CIF&rarr;PN</strong> (branch: cif2pnml)<br/>
             <code>transformations.cif2pnml.Cif2Pnml</code> (<a
                     href="https://github.com/pascalpoizat/fmt/blob/cif2pnml/src/transformations/cif2pnml/Cif2Pnml.java">code</a>)
         </li>
@@ -125,19 +135,22 @@ dependencies.
 </p>
 
 <p><strong>Important: the distribution is relative to the <a href="#branches">master branch</a>.
-    For features that are not in the master branch you will have to use <code>git</code> to clone or fork FMT.</strong></p>
+    For features that are not in the master branch you will have to use <code>git</code> to clone or fork FMT.</strong>
+</p>
 
 <div>
     <h3>
         <a name="installation-source" class="anchor" href="#installation-source"><span
                 class="octicon octicon-link"></span></a>Installation (source)</h3>
 
-    <p>The distribution is available as a <a href="https://github.com/pascalpoizat/fmt/tarball/master">.tar.gz archive</a>
+    <p>The distribution is available as a <a href="https://github.com/pascalpoizat/fmt/tarball/master">.tar.gz
+        archive</a>
         and as a <a href="https://github.com/pascalpoizat/fmt/zipball/master">.zip archive</a>.<br/>
         It is also possible to clone the FMT repository as follows:
     <pre><code>$ git clone https://github.com/pascalpoizat/fmt.git</code></pre>
     <br/>
-    If you have a GitHub account, please consider <a href="https://github.com/pascalpoizat/fmt/fork">forking FMT on GitHub</a>.
+    If you have a GitHub account, please consider <a href="https://github.com/pascalpoizat/fmt/fork">forking FMT on
+    GitHub</a>.
     </p>
 
     <p>The distribution includes also a jar file with the compiled sources. Still, if you want to compile the
@@ -170,49 +183,49 @@ dependencies.
     </p>
 
 
-    <h3>BPMN 2.0 choreographies</h3>
+    <h3>BPMN Choreography Diagrams (BPMN-ChorD)</h3>
 
-    <em>required if you plan to work with BPMN 2.0 choreography models</em>
+    <em>required if you plan to work with BPMN choreography models:<br />- EMF 2.9.1+, BPMN model 0.7.0+</em>
 
-    <p>You will need the EMF framework and the BPMN model classes.<br />
+        <!--
+        <h4>EMF framework</h4>
 
-    <!--
-    <h4>EMF framework</h4>
+        <p><strong>Required:</strong></p>
 
-    <p><strong>Required:</strong></p>
+        <ul>
+            <li>org.eclipse.emf.common_2.9.1+,</li>
+            <li>org.eclipse.emf.ecore_2.9.1+,</li>
+            <li>org.eclipse.emf.ecore.xmi_2.9.1+.</li>
+        </ul>
+        -->
 
-    <ul>
-        <li>org.eclipse.emf.common_2.9.1+,</li>
-        <li>org.eclipse.emf.ecore_2.9.1+,</li>
-        <li>org.eclipse.emf.ecore.xmi_2.9.1+.</li>
-    </ul>
-    -->
+        <p>You can get EMF by installing <a href="https://www.eclipse.org/">Eclipse</a>.<br/>
 
-    You can get EMF by installing <a href="https://www.eclipse.org/">Eclipse</a>.<br />
+        <!--
+        <h4>BPMN classes</h4>
 
-    <!--
-    <h4>BPMN classes</h4>
+        <p><strong>Required:</strong></p>
 
-    <p><strong>Required:</strong></p>
+        <ul>
+            <li>org.eclipse.bpmn2_0.7.0+.</li>
+        </ul>
+        -->
 
-    <ul>
-        <li>org.eclipse.bpmn2_0.7.0+.</li>
-    </ul>
-    -->
-
-    You can get the BPMN classes by updating your Eclipse IDE using the <a
-            href="http://download.eclipse.org/bpmn2-modeler/updates/">BPMN update site</a>.</p>
+        You can get the BPMN model by updating your Eclipse IDE using the <a
+                href="http://download.eclipse.org/bpmn2-modeler/updates/">BPMN update site</a>.</p>
 
 
-    <h3>Choreography Intermediary Language (CIF)</h3>
+    <h3>Choreography Intermediate Format (CIF)</h3>
 
-    <em>required if you plan to work with CIF choreography models</em>
+    <em>required if you plan to work with CIF choreography models:<br />- nothing</em>
 
-    <p>CIF is bundled with FMT.</p>
+    <h3>Labelled Transition Systems (LTS)</h3>
 
-    <h3>Petri Nets (PNML)</h3>
+    <em>required if you plan to work with LTS models:<br />- nothing</em>
 
-    <em>required if you plan to work with Petri Net models</em>
+    <h3>Petri Nets (PN)</h3>
+
+    <em>required if you plan to work with Petri Net models:<br />- PNML framework 2.2.1+</em>
 
     <!--
     <p><strong>Required:</strong></p>
@@ -249,7 +262,8 @@ dependencies.
 <pre><code>$ mkdir fmt-tests ; cd fmt-tests
 </code></pre>
 
-    <p>Get the <a href="https://raw.githubusercontent.com/pascalpoizat/fmt/gh-pages/sample.bpmn">sample BPMN choreography file</a> and save it in
+    <p>Get the <a href="https://raw.githubusercontent.com/pascalpoizat/fmt/gh-pages/sample.bpmn">sample BPMN
+        choreography file</a> and save it in
         <code>fmt-tests</code></p>
 
     <p>Set up the places where the FMT jar file and the dependencies are installed (here the <code>fmt</code> directory
@@ -299,11 +313,11 @@ Output model generated
             (<a href="https://github.com/pascalpoizat/fmt/blob/master/src/transformations/base/ATransformer.java">code</a>)
             and implements three methods:<br/><br/>
         <pre><code>public X2YTransformer(XFactory xFactory, YFactory yFactory);
-    // calls super(xFactory, yFactory)
+// calls super(xFactory, yFactory)
 public void transform() throws IllegalModelException;
-    // generates out_model from in_model
+// generates out_model from in_model
 public void about();
-    // prints out NAME + VERSION</code></pre>
+// prints out NAME + VERSION</code></pre>
         </li>
         <br/>
         <li>a <code>transformations.x2y.X2Y</code> class with the following pattern:<br/><br/>
@@ -318,31 +332,31 @@ import java.io.IOException;
 
 public class X2Y {
     public static void main(String[] args) {
-            XFactory xFactory = XFactory.getInstance();
-            YFactory yFactory = YFactory.getInstance();
-            ITransformer trans = new X2YTransformer(xFactory, yFactory);
-            trans.setVerbose(true);
-            trans.about();
-            if (args.length == 0) {
-                trans.error("missing file argument");
-                return;
-            }
-            try {
-                trans.setResources(args[0]);
-                trans.load();
-                trans.transform();
-                trans.dump();
-                trans.cleanUp();
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-                e.printStackTrace();
-            } catch (FmtException e) {
-                System.out.println(e.getMessage());
-                e.printStackTrace();
-            } catch (Throwable e) {
-                System.out.println(e.getMessage());
-                e.printStackTrace();
-            }
+        XFactory xFactory = XFactory.getInstance();
+        YFactory yFactory = YFactory.getInstance();
+        ITransformer trans = new X2YTransformer(xFactory, yFactory);
+        trans.setVerbose(true);
+        trans.about();
+        if (args.length == 0) {
+            trans.error("missing file argument");
+            return;
+        }
+        try {
+            trans.setResources(args[0]);
+            trans.load();
+            trans.transform();
+            trans.dump();
+            trans.cleanUp();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        } catch (FmtException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        } catch (Throwable e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
     }
 }</code></pre>
         </li>
@@ -356,23 +370,27 @@ public class X2Y {
         <a name="branches" class="anchor" href="#branches"><span
                 class="octicon octicon-link"></span></a>Branches</h2>
 
-    <p>There are currently 4 active branches (<a href="https://github.com/pascalpoizat/fmt/network">see graph</a>):</p>
+    <p>There are currently 3 active branches (<a href="https://github.com/pascalpoizat/fmt/network">see graph</a>):</p>
 
     <ul>
-        <li><strong>master</strong><br />
-            BPMN 2.0 choreographies, CIF, Petri nets,<br/>
-            BPMN 2.0 choreographies to CIF transformation
+        <li><strong>master</strong><br/>
+            BPMN-ChorD, BPMN-ChorD&uparrow;BPMN, BPMN-ChorD&downarrow;BPMN,<br />
+            CIF, CIF&uparrow;CIF, CIF&downarrow;CIF,<br />
+            LTS, LTS&downarrow;aut, LTS&downarrow;dot,<br />
+            PN, PN&uparrow;PNML, PN&downarrow;PNML,<br />
+            BPMN-ChorD&rarr;CIF, BPMN-ChorD&uparrow;BPMN, BPMN-ChorD&downarrow;BPMN
         </li>
-        <li><strong>gh-pages</strong><br />
+        <br />
+        <li><strong>gh-pages</strong><br/>
             Web pages for FMT
         </li>
-        <li><strong>lts-model</strong><br />
-            Labelled Transition Systems
-        </li>
-        <li><strong>cif2pnml</strong><br />
-            CIF to Petri nets transformation
+        <br />
+        <li><strong>cif2pnml</strong><br/>
+            CIF&rarr;PN
         </li>
     </ul>
+
+    <p>legend: X:model, X&uparrow;F: reader, X&downarrow;F: writer, X&rarr;Y: transformation</p>
 </div>
 
 <div>
