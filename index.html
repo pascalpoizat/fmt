@@ -53,6 +53,7 @@
         <li><a href="#usage">Usage</a></li>
         <li><a href="#modelextension">Adding new models</a></li>
         <li><a href="#transformationextension">Adding new transformations</a></li>
+        <li><a href="#issues">Issues and enhancements</a></li>
         <li><a href="#branches">Branches</a></li>
         <li><a href="#support">Support and contribution</a></li>
         <li><a href="#contributors">Contributors</a></li>
@@ -67,29 +68,23 @@
 
     <p>The following models are supported:</p>
     <ul>
-        <li><strong>BPMN 2.0 Choreography Diagrams (BPMN-ChorD)</strong><br />
+        <li><strong>BPMN 2.0 Choreography Diagrams (BPMN-ChorD)</strong><br/>
             I/O: bpmn&uparrow;BPMN
         </li>
-        <li><strong>Choreography Intermediate Format (CIF)</strong><br />
+        <li><strong>Choreography Intermediate Format (CIF)</strong><br/>
             I/O: CIF&downarrow;cif
         </li>
         <li><strong>Labelled Transition Systems (LTS)</strong><br/>
             I/O: LTS&downarrow;aut (aldebaran files), LTS&downarrow;dot (graphviz files)
         </li>
-        <li><strong>Petri Nets (PN)</strong><br />
+        <li><strong>Petri Nets (PN)</strong><br/>
             I/O: pnml&uparrow;PNML, PNML&downarrow;pnml<br/>
         </li>
     </ul>
 
     <p>legend: f&uparrow;X: reader (read X from f), X&downarrow;f: writer (write X to f), X&rarr;Y: transformation</p>
 
-    <p>Ongoing work:</p>
-    <ul>
-        <li>aut&uparrow;LTS</li>
-        <li>BPMN-Chord&downarrow;bpmn</li>
-        <li>cif&uparrow;CIF</li>
-        <li><strong>Symbolic Transition Graphs (STG)</strong></li>
-    </ul>
+    <p>Ongoing work: see <a href="#issues">issues and enhancements</a>.</p>
 </div>
 
 <div>
@@ -105,13 +100,7 @@
         </li>
     </ul>
 
-    <p>Ongoing work:</p>
-    <ul>
-        <li><strong>CIF&rarr;PN</strong> (branch: cif2pnml)<br/>
-            <code>transformations.cif2pnml.Cif2Pnml</code> (<a
-                    href="https://github.com/pascalpoizat/fmt/blob/cif2pnml/src/transformations/cif2pnml/Cif2Pnml.java">code</a>)
-        </li>
-    </ul>
+    <p>Ongoing work: see <a href="#issues">issues and enhancements</a>.</p>
 </div>
 
 <div>
@@ -186,21 +175,21 @@ dependencies.
 
     <h3>BPMN Choreography Diagrams (BPMN-ChorD)</h3>
 
-    <em>required if you plan to work with BPMN choreography models:<br />- EMF 2.9.1+, BPMN model 0.7.0+</em>
+    <em>required if you plan to work with BPMN choreography models:<br/>- EMF 2.9.1+, BPMN model 0.7.0+</em>
 
-        <!--
-        <h4>EMF framework</h4>
+    <!--
+    <h4>EMF framework</h4>
 
-        <p><strong>Required:</strong></p>
+    <p><strong>Required:</strong></p>
 
-        <ul>
-            <li>org.eclipse.emf.common_2.9.1+,</li>
-            <li>org.eclipse.emf.ecore_2.9.1+,</li>
-            <li>org.eclipse.emf.ecore.xmi_2.9.1+.</li>
-        </ul>
-        -->
+    <ul>
+        <li>org.eclipse.emf.common_2.9.1+,</li>
+        <li>org.eclipse.emf.ecore_2.9.1+,</li>
+        <li>org.eclipse.emf.ecore.xmi_2.9.1+.</li>
+    </ul>
+    -->
 
-        <p>You can get EMF by installing <a href="https://www.eclipse.org/">Eclipse</a>.<br/>
+    <p>You can get EMF by installing <a href="https://www.eclipse.org/">Eclipse</a>.<br/>
 
         <!--
         <h4>BPMN classes</h4>
@@ -218,15 +207,15 @@ dependencies.
 
     <h3>Choreography Intermediate Format (CIF)</h3>
 
-    <em>required if you plan to work with CIF choreography models:<br />- nothing</em>
+    <em>required if you plan to work with CIF choreography models:<br/>- nothing</em>
 
     <h3>Labelled Transition Systems (LTS)</h3>
 
-    <em>required if you plan to work with LTS models:<br />- nothing</em>
+    <em>required if you plan to work with LTS models:<br/>- nothing</em>
 
     <h3>Petri Nets (PN)</h3>
 
-    <em>required if you plan to work with Petri Net models:<br />- PNML framework 2.2.1+</em>
+    <em>required if you plan to work with Petri Net models:<br/>- PNML framework 2.2.1+</em>
 
     <!--
     <p><strong>Required:</strong></p>
@@ -281,16 +270,16 @@ dependencies.
     <p>You should then get something like this:</p>
 
 <pre><code>bpmn2cif 1.1
-Resources set
-working dir.: /Users/pascalpoizat/fmt-tests
-base name: sample
-input file: /Users/pascalpoizat/fmt-tests/sample.bpmn
-output file: /Users/pascalpoizat/fmt-tests/sample.cif
-Loading input model (bpmn)
-Input model loaded
-...
-Generating output model (cif)
-Output model generated
+    Resources set
+    working dir.: /Users/pascalpoizat/fmt-tests
+    base name: sample
+    input file: /Users/pascalpoizat/fmt-tests/sample.bpmn
+    output file: /Users/pascalpoizat/fmt-tests/sample.cif
+    Loading input model (bpmn)
+    Input model loaded
+    ...
+    Generating output model (cif)
+    Output model generated
 </code></pre>
 </div>
 
@@ -314,56 +303,75 @@ Output model generated
             (<a href="https://github.com/pascalpoizat/fmt/blob/master/src/transformations/base/ATransformer.java">code</a>)
             and implements three methods:<br/><br/>
         <pre><code>public X2YTransformer(XFactory xFactory, YFactory yFactory);
-// calls super(xFactory, yFactory)
-public void transform() throws IllegalModelException;
-// generates out_model from in_model
-public void about();
-// prints out NAME + VERSION</code></pre>
+            // calls super(xFactory, yFactory)
+            public void transform() throws IllegalModelException;
+            // generates out_model from in_model
+            public void about();
+            // prints out NAME + VERSION</code></pre>
         </li>
         <br/>
         <li>a <code>transformations.x2y.X2Y</code> class with the following pattern:<br/><br/>
         <pre><code>package transformations.x2y;
 
-import models.base.FmtException;
-import transformations.base.ITransformer;
-import models.x.XFactory;
-import models.y.YFactory;
+            import models.base.FmtException;
+            import transformations.base.ITransformer;
+            import models.x.XFactory;
+            import models.y.YFactory;
 
-import java.io.IOException;
+            import java.io.IOException;
 
-public class X2Y {
-    public static void main(String[] args) {
-        XFactory xFactory = XFactory.getInstance();
-        YFactory yFactory = YFactory.getInstance();
-        ITransformer trans = new X2YTransformer(xFactory, yFactory);
-        trans.setVerbose(true);
-        trans.about();
-        if (args.length == 0) {
+            public class X2Y {
+            public static void main(String[] args) {
+            XFactory xFactory = XFactory.getInstance();
+            YFactory yFactory = YFactory.getInstance();
+            ITransformer trans = new X2YTransformer(xFactory, yFactory);
+            trans.setVerbose(true);
+            trans.about();
+            if (args.length == 0) {
             trans.error("missing file argument");
             return;
-        }
-        try {
+            }
+            try {
             trans.setResources(args[0]);
             trans.load();
             trans.transform();
             trans.dump();
             trans.cleanUp();
-        } catch (IOException e) {
+            } catch (IOException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
-        } catch (FmtException e) {
+            } catch (FmtException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
-        } catch (Throwable e) {
+            } catch (Throwable e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
-        }
-    }
-}</code></pre>
+            }
+            }
+            }</code></pre>
         </li>
     </ul>
 
     </p>
+</div>
+
+<div>
+    <h2>
+        <a name="issues" class="anchor" href="#issues"><span
+                class="octicon octicon-link"></span></a>Issues and enhancements</h2>
+
+    <p>To see the list of issues and requested enhancements of FMT, see <a href="https://github.com/pascalpoizat/fmt/issues">the issue tracker</a>.<br />
+        The main enhancements under work are:</p>
+
+    <ul>
+        <li>aut&uparrow;LTS</li>
+        <li>BPMN-Chord&downarrow;bpmn</li>
+        <li>cif&uparrow;CIF</li>
+        <li>Symbolic Transition Graphs (STG)</li>
+        <li>CIF&rarr;PN</li>
+    </ul>
+
+    <p>legend: f&uparrow;X: reader (read X from f), X&downarrow;f: writer (write X to f), X&rarr;Y: transformation</p>
 </div>
 
 <div>
@@ -375,21 +383,21 @@ public class X2Y {
 
     <ul>
         <li><strong>master</strong><br/>
-            BPMN-ChorD, bpmn&uparrow;BPMN-ChorD,<br />
-            CIF, CIF&downarrow;cif,<br />
-            LTS, LTS&downarrow;aut, LTS&downarrow;dot,<br />
-            PN, pnml&uparrow;PN, PN&downarrow;pnml,<br />
+            BPMN-ChorD, bpmn&uparrow;BPMN-ChorD,<br/>
+            CIF, CIF&downarrow;cif,<br/>
+            LTS, LTS&downarrow;aut, LTS&downarrow;dot,<br/>
+            PN, pnml&uparrow;PN, PN&downarrow;pnml,<br/>
             BPMN-ChorD&rarr;CIF
         </li>
-        <br />
+        <br/>
         <li><strong>gh-pages</strong><br/>
             Web pages for FMT
         </li>
-        <br />
+        <br/>
         <li><strong>cif2pnml (ongoing work)</strong><br/>
             cif&uparrow;CIF, CIF&rarr;PN
         </li>
-        <br />
+        <br/>
         <li><strong>stg-model (ongoing work)</strong><br/>
             STG
         </li>
