@@ -270,16 +270,16 @@ dependencies.
     <p>You should then get something like this:</p>
 
 <pre><code>bpmn2cif 1.1
-    Resources set
-    working dir.: /Users/pascalpoizat/fmt-tests
-    base name: sample
-    input file: /Users/pascalpoizat/fmt-tests/sample.bpmn
-    output file: /Users/pascalpoizat/fmt-tests/sample.cif
-    Loading input model (bpmn)
-    Input model loaded
-    ...
-    Generating output model (cif)
-    Output model generated
+Resources set
+working dir.: /Users/pascalpoizat/fmt-tests
+base name: sample
+input file: /Users/pascalpoizat/fmt-tests/sample.bpmn
+output file: /Users/pascalpoizat/fmt-tests/sample.cif
+Loading input model (bpmn)
+Input model loaded
+...
+Generating output model (cif)
+Output model generated
 </code></pre>
 </div>
 
@@ -303,52 +303,52 @@ dependencies.
             (<a href="https://github.com/pascalpoizat/fmt/blob/master/src/transformations/base/ATransformer.java">code</a>)
             and implements three methods:<br/><br/>
         <pre><code>public X2YTransformer(XFactory xFactory, YFactory yFactory);
-            // calls super(xFactory, yFactory)
-            public void transform() throws IllegalModelException;
-            // generates out_model from in_model
-            public void about();
-            // prints out NAME + VERSION</code></pre>
+// calls super(xFactory, yFactory)
+public void transform() throws IllegalModelException;
+// generates out_model from in_model
+public void about();
+// prints out NAME + VERSION</code></pre>
         </li>
         <br/>
         <li>a <code>transformations.x2y.X2Y</code> class with the following pattern:<br/><br/>
         <pre><code>package transformations.x2y;
 
-            import models.base.FmtException;
-            import transformations.base.ITransformer;
-            import models.x.XFactory;
-            import models.y.YFactory;
+import models.base.FmtException;
+import transformations.base.ITransformer;
+import models.x.XFactory;
+import models.y.YFactory;
 
-            import java.io.IOException;
+import java.io.IOException;
 
-            public class X2Y {
-            public static void main(String[] args) {
-            XFactory xFactory = XFactory.getInstance();
-            YFactory yFactory = YFactory.getInstance();
-            ITransformer trans = new X2YTransformer(xFactory, yFactory);
-            trans.setVerbose(true);
-            trans.about();
-            if (args.length == 0) {
+public class X2Y {
+    public static void main(String[] args) {
+        XFactory xFactory = XFactory.getInstance();
+        YFactory yFactory = YFactory.getInstance();
+        ITransformer trans = new X2YTransformer(xFactory, yFactory);
+        trans.setVerbose(true);
+        trans.about();
+        if (args.length == 0) {
             trans.error("missing file argument");
             return;
-            }
-            try {
+        }
+        try {
             trans.setResources(args[0]);
             trans.load();
             trans.transform();
             trans.dump();
             trans.cleanUp();
-            } catch (IOException e) {
+        } catch (IOException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
-            } catch (FmtException e) {
+        } catch (FmtException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
-            } catch (Throwable e) {
+        } catch (Throwable e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
-            }
-            }
-            }</code></pre>
+        }
+    }
+}</code></pre>
         </li>
     </ul>
 
