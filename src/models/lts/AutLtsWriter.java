@@ -36,7 +36,7 @@ import java.util.stream.Collectors;
  * l, l', ... are labels of transitions
  * important:
  * some tools require that state ids (x,x',y,y',...) begin at 0 and go up to S-1 without any integer missing
- * this means state ids may have to be changed to support this (TODO)
+ * this means state ids may have to be changed to support this (state_mapping is used for this)
  * Created by pascalpoizat on 04/08/2014.
  */
 public class AutLtsWriter extends LtsWriter {
