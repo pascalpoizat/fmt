@@ -68,25 +68,26 @@
     <p>The following models are supported:</p>
     <ul>
         <li><strong>BPMN 2.0 Choreography Diagrams (BPMN-ChorD)</strong><br />
-            Readers: BPMN<br/>
-            Writers: BPMN<br/>
+            I/O: bpmn&uparrow;BPMN
         </li>
         <li><strong>Choreography Intermediate Format (CIF)</strong><br />
-            Readers: CIF<br/>
-            Writers: CIF<br/>
+            I/O: CIF&downarrow;cif
         </li>
         <li><strong>Labelled Transition Systems (LTS)</strong><br/>
-            Readers: none<br/>
-            Writers: Aldebaran (aut), Graphviz (dot)<br/>
+            I/O: LTS&downarrow;aut (aldebaran files), LTS&downarrow;dot (graphviz files)
         </li>
         <li><strong>Petri Nets (PN)</strong><br />
-            Readers: PNML<br/>
-            Writers: PNML<br/>
+            I/O: pnml&uparrow;PNML, PNML&downarrow;pnml<br/>
         </li>
     </ul>
 
+    <p>legend: f&uparrow;X: reader (read X from f), X&downarrow;f: writer (write X to f), X&rarr;Y: transformation</p>
+
     <p>Ongoing work:</p>
     <ul>
+        <li>aut&uparrow;LTS</li>
+        <li>BPMN-Chord&downarrow;bpmn</li>
+        <li>cif&uparrow;CIF</li>
         <li><strong>Symbolic Transition Graphs (STG)</strong></li>
     </ul>
 </div>
@@ -374,25 +375,26 @@ public class X2Y {
 
     <ul>
         <li><strong>master</strong><br/>
-            BPMN-ChorD, BPMN&uparrow;BPMN-ChorD, BPMN-ChorD&downarrow;BPMN,<br />
-            CIF, CIF&uparrow;CIF, CIF&downarrow;CIF,<br />
+            BPMN-ChorD, bpmn&uparrow;BPMN-ChorD,<br />
+            CIF, CIF&downarrow;cif,<br />
             LTS, LTS&downarrow;aut, LTS&downarrow;dot,<br />
-            PN, PNML&uparrow;PN, PN&downarrow;PNML,<br />
-            BPMN-ChorD&rarr;CIF, BPMN-ChorD&uparrow;BPMN, BPMN-ChorD&downarrow;BPMN
+            PN, pnml&uparrow;PN, PN&downarrow;pnml,<br />
+            BPMN-ChorD&rarr;CIF
         </li>
         <br />
         <li><strong>gh-pages</strong><br/>
             Web pages for FMT
         </li>
         <br />
-        <li><strong>cif2pnml</strong><br/>
+        <li><strong>cif2pnml (ongoing work)</strong><br/>
             CIF&rarr;PN
         </li>
-        <li><strong>stg-model</strong><br/>
+        <br />
+        <li><strong>stg-model (ongoing work)</strong><br/>
             STG
         </li>
     </ul>
-    <p>legend: F&uparrow;X: reader (read X from F), X&downarrow;F: writer (write X to F), X&rarr;Y: transformation</p>
+    <p>legend: f&uparrow;X: reader (read X from f), X&downarrow;f: writer (write X to f), X&rarr;Y: transformation</p>
 </div>
 
 <div>
