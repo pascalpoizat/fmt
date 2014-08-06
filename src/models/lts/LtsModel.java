@@ -28,8 +28,8 @@ public class LtsModel extends Model {
     public LtsModel(String name) {
         super();
         this.name = name;
-        this.states = new HashMap<String, LtsState>();
-        this.transitions = new HashMap<String, LtsTransition>();
+        this.states = new HashMap<>();
+        this.transitions = new HashMap<>();
     }
 
     public String getName() {
@@ -71,19 +71,23 @@ public class LtsModel extends Model {
 
     @Override
     public void cleanUp() {
-        states.clear();
-        transitions.clear();
+        this.name = null;
+        this.states = null;
+        this.transitions = null;
+        super.cleanUp();
     }
 
-    public LtsState addState(String id, Map<String, Object> attributes) {
-        LtsState rtr = new LtsState(id, attributes);
+
+    public LtsState addState(String id) {
+        LtsState rtr = new LtsState(id);
         states.put(id, rtr);
         return rtr;
     }
 
-    public LtsTransition addTransition(String id, String source, String target, Map<String, Object> attributes) {
-        LtsTransition rtr = new LtsTransition(id, source, target, attributes);
+    public LtsTransition addTransition(String id, String source, String target, LtsLabel label) {
+        LtsTransition rtr = new LtsTransition(id, source, target, label);
         transitions.put(id, rtr);
         return rtr;
     }
+
 }

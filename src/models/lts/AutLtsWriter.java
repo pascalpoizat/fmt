@@ -41,7 +41,7 @@ import java.util.stream.Collectors;
  */
 public class AutLtsWriter extends LtsWriter {
 
-    private Map<String,Integer> state_mapping = new HashMap<String,Integer>();
+    private Map<String, Integer> state_mapping = new HashMap<String, Integer>();
     boolean state_mapping_is_built = false;
 
     public AutLtsWriter() {
@@ -66,41 +66,15 @@ public class AutLtsWriter extends LtsWriter {
     @Override
     String modelToString(LtsTransition ltsTransition) throws IllegalResourceException {
         String rtr = "";
-        Object object = "";
-        LtsLabel label = null;
-        if (ltsTransition.getAttributes().containsKey("label")) {
-            object = ltsTransition.getAttributes().get("label");
-            if(!(object instanceof LtsLabel)) {
-                throw new IllegalResourceException("");
-            }
-            label = (LtsLabel)object;
-            try {
-                label.modelToString(this);
-            }
-            catch (IllegalResourceException e) {
-                return null; // impossible
-            }
-        }
-        if(!state_mapping_is_built) {
+        if (!state_mapping_is_built) {
             throw new IllegalResourceException("Impossible to compute a String for the transition, mapping between states and integers has not been built");
         }
-        rtr += String.format("(%s,\"%s\",%s)", state_mapping.get(ltsTransition.getSource()), label, state_mapping.get(ltsTransition.getTarget()));
         // state_mapping MUST have been built before
-        // attributes are not supported in AUT format
+        rtr += String.format("(%s,\"%s\",%s)",
+                state_mapping.get(ltsTransition.getSource()),
+                ltsTransition.getLabel().modelToString(this),
+                state_mapping.get(ltsTransition.getTarget()));
         return rtr;
-    }
-
-    @Override
-    public void modelToFile(Model model) throws IOException, IllegalResourceException, IllegalModelException {
-        if (!model.getResource().getName().endsWith("." + getSuffix())) {
-            throw new IllegalResourceException("Wrong file suffix (should be " + getSuffix() + ")");
-        }
-        FileWriter fw = new FileWriter(model.getResource().getAbsolutePath());
-        if (fw == null) {
-            throw new IllegalResourceException("Cannot open output resource");
-        }
-        fw.write(modelToString(model));
-        fw.close();
     }
 
     @Override
@@ -120,8 +94,8 @@ public class AutLtsWriter extends LtsWriter {
         int nb_transitions = ltsModel.getTransitions().size();
         // build the mapping between state ids and integers (required by the AUT format)
         int i = 0;
-        for(LtsState state : ((LtsModel) model).getStates()) {
-            state_mapping.put(state.getId(),i++);
+        for (LtsState state : ((LtsModel) model).getStates()) {
+            state_mapping.put(state.getId(), i++);
         }
         state_mapping_is_built = true;
         // build string for states

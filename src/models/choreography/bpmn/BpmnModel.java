@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 // jar Eclipse : org.eclipse.emf.common_2.9.1.[...].jar
 import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.common.util.URI;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 // jar Eclipse : org.eclipse.emf.ecore.xmi_2.9.1.[...].jar
 
@@ -40,7 +41,7 @@ public class BpmnModel extends Model {
 
     public BpmnModel() {
         super();
-        model = null; // NEXT RELEASE implement
+        model = null; // NEXT RELEASE : construct base model
     }
 
     @Override
@@ -100,14 +101,17 @@ public class BpmnModel extends Model {
     }
 
     private void dumpEMF() throws IOException, IllegalResourceException {
+        /* tbc, should save the whole BPMN model
         if (!EMFPlugin.IS_ECLIPSE_RUNNING) {
             Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(getSuffix(), new Bpmn2ResourceFactoryImpl());
         }
         // save resource
         URI uri = URI.createURI(getResource().getPath());
         Resource res = new ResourceSetImpl().createResource(uri);
-        res.getContents().add(model);
+        res.getContents().add(...); // more than model, the whole document read
         res.save(null);
+        */
+        throw new NotImplementedException();
     }
 
     public String getName() throws IllegalModelException {
@@ -150,6 +154,12 @@ public class BpmnModel extends Model {
             return model.getFlowElements();
         }
 
+    }
+
+    @Override
+    public void cleanUp() {
+        model = null; // NEXT RELEASE : construct base model
+        super.cleanUp();
     }
 
 }

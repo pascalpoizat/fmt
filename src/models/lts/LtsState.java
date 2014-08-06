@@ -12,7 +12,6 @@ import java.util.Map;
 public class LtsState {
 
     private String id;
-    private Map<String, Object> attributes;
 
     public LtsState(String id) {
         this(id, null);
@@ -20,19 +19,10 @@ public class LtsState {
 
     public LtsState(String id, Map<String, Object> attributes) {
         this.id = id;
-        if (attributes == null) {
-            this.attributes = new HashMap<String, Object>();
-        } else {
-            this.attributes = attributes;
-        }
     }
 
     public String getId() {
         return id;
-    }
-
-    public Map<String, Object> getAttributes() {
-        return attributes;
     }
 
     @Override

@@ -12,23 +12,15 @@ import java.util.Map;
 public class LtsTransition {
 
     private String id;
-    private Map<String, Object> attributes;
     private String source_state_id;
     private String target_state_id;
+    private LtsLabel label;
 
-    public LtsTransition(String id, String source, String target) {
-        this(id, source, target, null);
-    }
-
-    public LtsTransition(String id, String source, String target, Map<String, Object> attributes) {
+    public LtsTransition(String id, String source, String target, LtsLabel label) {
         this.id = id;
         this.source_state_id = source;
         this.target_state_id = target;
-        if (attributes == null) {
-            this.attributes = new HashMap<String, Object>();
-        } else {
-            this.attributes = attributes;
-        }
+        this.label = label;
     }
 
     public String getId() {
@@ -43,9 +35,7 @@ public class LtsTransition {
         return target_state_id;
     }
 
-    public Map<String, Object> getAttributes() {
-        return attributes;
-    }
+    public LtsLabel getLabel() { return label; }
 
     @Override
     public String toString() {

@@ -1,5 +1,6 @@
 package models.base;
 
+import java.io.FileWriter;
 import java.io.IOException;
 
 /**
@@ -10,7 +11,21 @@ public abstract class ModelWriter {
     public abstract String getSuffix();
 
     // writes model to a file
-    public abstract void modelToFile(Model model) throws IOException, IllegalResourceException, IllegalModelException;
+    // by default, uses modelToString(), can be modified by inheritance (eg for writers using EMF or XML)
+    public void modelToFile(Model model) throws IOException, IllegalResourceException {
+        if (model==null || model.getResource()==null)  {
+            throw new IllegalResourceException("Model is not set up");
+        }
+        if (!model.getResource().getName().endsWith("." + getSuffix())) {
+            throw new IllegalResourceException("Wrong file suffix (should be "+getSuffix()+")");
+        }
+        FileWriter fw = new FileWriter(model.getResource().getAbsolutePath());
+        if (fw == null) {
+            throw new IllegalResourceException("Cannot open output resource");
+        }
+        fw.write(modelToString(model));
+        fw.close();
+    }
 
     // writes model to a String
     public abstract String modelToString(Model model) throws IllegalResourceException;

@@ -39,54 +39,24 @@ public class DotLtsWriter extends LtsWriter {
     @Override
     String modelToString(LtsState ltsState) {
         String rtr = "";
-        rtr += String.format("\"%s\"", ltsState.getId());
-        if (ltsState.getAttributes().size() > 0) {
-            rtr += " [";
-            int i = 1;
-            for (String attribute : ltsState.getAttributes().keySet()) {
-                rtr += String.format("%s=\"%s\"", attribute, ltsState.getAttributes().get(attribute));
-                if (i < ltsState.getAttributes().size()) {
-                    rtr += ", ";
-                }
-                i++;
-            }
-            rtr += "]";
-        }
-        rtr += ";";
+        rtr += String.format("\"%s\";", ltsState.getId());
         return rtr;
     }
 
     @Override
     String modelToString(LtsTransition ltsTransition) {
         String rtr = "";
-        rtr += String.format("\"%s\" -> \"%s\"", ltsTransition.getSource(), ltsTransition.getTarget());
-        if (ltsTransition.getAttributes().size() > 0) {
-            rtr += " [";
-            int i = 1;
-            for (String attribute : ltsTransition.getAttributes().keySet()) {
-                rtr += String.format("%s=\"%s\"", attribute, ltsTransition.getAttributes().get(attribute));
-                if (i < ltsTransition.getAttributes().size()) {
-                    rtr += ", ";
-                }
-                i++;
-            }
-            rtr += "]";
+        try {
+            rtr += String.format("\"%s\" -> \"%s\" [label=\"%s\"]",
+                    ltsTransition.getSource(),
+                    ltsTransition.getTarget(),
+                    ltsTransition.getLabel().modelToString(this));
+            rtr += ";";
         }
-        rtr += ";";
+        catch (IllegalResourceException e) {
+            return null; // impossible
+        }
         return rtr;
-    }
-
-    @Override
-    public void modelToFile(Model model) throws IOException, IllegalResourceException, IllegalModelException {
-        if (!model.getResource().getName().endsWith("." + getSuffix())) {
-            throw new IllegalResourceException("Wrong file suffix (should be "+getSuffix()+")");
-        }
-        FileWriter fw = new FileWriter(model.getResource().getAbsolutePath());
-        if (fw == null) {
-            throw new IllegalResourceException("Cannot open output resource");
-        }
-        fw.write(modelToString(model));
-        fw.close();
     }
 
     @Override

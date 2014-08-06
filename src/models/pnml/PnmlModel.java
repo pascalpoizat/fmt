@@ -1,6 +1,7 @@
 package models.pnml;
 
 // import fr.lip6.fr.lip6.move.pnml.framework.general.PnmlExport;
+
 import fr.lip6.move.pnml.framework.utils.exception.InvalidIDException;
 import fr.lip6.move.pnml.framework.utils.exception.VoidRepositoryException;
 import fr.lip6.move.pnml.ptnet.hlapi.PetriNetHLAPI;
@@ -26,8 +27,8 @@ public class PnmlModel extends Model {
 
     public PnmlModel() {
         super();
-        model = null;
-        doc = null;
+        model = null; // NEXT RELEASE : construct base model
+        doc = null; // NEXT RELEASE : construct base model
         try {
             ModelRepository.getInstance().createDocumentWorkspace("main_workspace");
             doc = new PetriNetDocHLAPI();
@@ -80,6 +81,9 @@ public class PnmlModel extends Model {
             ModelRepository.getInstance().destroyCurrentWorkspace();
         } catch (VoidRepositoryException e) {
         }
+        model = null; // NEXT RELEASE : construct base model
+        doc = null; // NEXT RELEASE : construct base model
+        super.cleanUp();
     }
 
     public PetriNetHLAPI getModel() {

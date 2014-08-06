@@ -120,12 +120,6 @@ public class Bpmn2CifTransformer extends ATransformer {
 
     @Override
     public void transform() throws IllegalModelException {
-        if (!in_model.isLoaded()) {
-            IllegalModelException e = new IllegalModelException("Model is not loaded");
-            error(e.getMessage());
-            throw e;
-        }
-        // set fields of the output model
         if (in_model == null || out_model == null) {
             IllegalModelException e = new IllegalModelException("Model error");
             error(e.getMessage());

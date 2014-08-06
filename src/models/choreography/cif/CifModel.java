@@ -4,6 +4,7 @@ import models.base.IllegalModelException;
 import models.base.IllegalResourceException;
 import models.base.Model;
 import models.choreography.cif.generated.*;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.xml.bind.*;
 import java.io.*;
@@ -35,6 +36,8 @@ public class CifModel extends Model {
 
     @Override
     public void load() throws IOException, IllegalResourceException, IllegalModelException {
+        /*
+        tbc, this should load the model and initialize its internal lists
         if (getResource() == null) {
             throw new IllegalResourceException("Input resource is not correctly set");
         }
@@ -49,6 +52,8 @@ public class CifModel extends Model {
             fis.close();
         }
         super.load();
+        */
+        throw new NotImplementedException();
     }
 
     @Override
@@ -151,8 +156,15 @@ public class CifModel extends Model {
     }
 
     @Override
-    public void finalize() {
-
+    public void cleanUp() {
+        model = new Choreography();
+        PeerList pl = new PeerList();
+        MessageList ml = new MessageList();
+        StateMachine sm = new StateMachine();
+        model.setParticipants(pl);
+        model.setAlphabet(ml);
+        model.setStateMachine(sm);
+        super.cleanUp();
     }
 
 }
