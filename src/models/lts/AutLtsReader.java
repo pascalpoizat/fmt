@@ -4,6 +4,7 @@ import models.base.IllegalModelException;
 import models.base.IllegalResourceException;
 import models.base.Model;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -15,8 +16,8 @@ public class AutLtsReader extends LtsReader {
     private Pattern transition_line_pattern;
 
     public AutLtsReader() {
-        description_line_pattern = Pattern.compile("^des\\(([0-9]+),([0-9]+),([0-9]+)\\)$");
-        transition_line_pattern = Pattern.compile("^\\(([0-9]+),\"([^)]*)\",([0-9]+)\\)$");
+        description_line_pattern = Pattern.compile("^\\s*des\\s*\\(\\s*([0-9]+)\\s*,\\s*([0-9]+)\\s*,\\s*([0-9]+)\\s*\\)\\s*$");
+        transition_line_pattern = Pattern.compile("^\\s*\\(\\s*([0-9]+)\\s*,\\s*\"([^)]*)\"\\s*,\\s*([0-9]+)\\s*\\)\\s*$");
     }
 
     @Override
@@ -33,15 +34,44 @@ public class AutLtsReader extends LtsReader {
         }
         LtsModel ltsModel = (LtsModel) model;
         String lines[] = string.split("\n");
-        String description_line;
-        int i = 0;
+        String line;
+        String source;
+        String target;
+        String label;
         // check that there is a first line (description)
-        if(lines.length==0) {
-            throw new IllegalResourceException("Incorrect model, could not find 'des(x,y,z)' line");
+        if (lines.length == 0) {
+            throw new IllegalResourceException("Incorrect model, empty information");
         }
 
         // get first line and check it
+        line = lines[0];
+        Matcher matcher = description_line_pattern.matcher(line);
+        if (!matcher.find()) {
+            throw new IllegalResourceException(String.format("Incorrect model at '%s', could not find 'des (x,y,z)' line", line));
+        }
+        try {
+            int nb_transitions = Integer.parseInt(matcher.group(2));
+            int nb_states = Integer.parseInt(matcher.group(3));
+        } catch (NumberFormatException e) {
+            throw new IllegalResourceException(String.format("Incorrect model at '%s'", line));
+        }
 
         // for all other lines, check them and add transition to model
+        for (int i = 1; i < lines.length; i++) {
+            matcher = transition_line_pattern.matcher(lines[i]);
+            if (!matcher.find()) {
+                throw new IllegalResourceException(String.format("Incorrect model at '%s', could not find '(source,\"label\",transition)' line", line));
+            }
+            source = matcher.group(1);
+            label = matcher.group(2);
+            target = matcher.group(3);
+            if (!ltsModel.getStateIds().contains(source)) {
+                ltsModel.addState(source);
+            }
+            if (!ltsModel.getStateIds().contains(target)) {
+                ltsModel.addState(target);
+            }
+            ltsModel.addTransition(source, target, new LtsLabel(label));
+        }
     }
 }

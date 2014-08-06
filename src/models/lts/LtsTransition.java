@@ -11,20 +11,14 @@ import java.util.Map;
  */
 public class LtsTransition {
 
-    private String id;
     private String source_state_id;
     private String target_state_id;
     private LtsLabel label;
 
-    public LtsTransition(String id, String source, String target, LtsLabel label) {
-        this.id = id;
+    public LtsTransition(String source, String target, LtsLabel label) {
         this.source_state_id = source;
         this.target_state_id = target;
         this.label = label;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public String getSource() {

@@ -18,12 +18,14 @@ public abstract class ModelReader {
         if (!model.getResource().getName().endsWith("." + getSuffix())) {
             throw new IllegalResourceException("Wrong file suffix (should be " + getSuffix() + ")");
         }
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(model.getResource()));
+        FileReader file = new FileReader(model.getResource());
+        BufferedReader bufferedReader = new BufferedReader(file);
         String s;
         StringBuilder builder = new StringBuilder();
         while ((s = bufferedReader.readLine()) != null) {
-            builder.append(s);
+            builder.append(s+"\n");
         }
+        file.close();
         modelFromString(model, builder.toString());
     }
 

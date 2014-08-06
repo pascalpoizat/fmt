@@ -18,8 +18,8 @@ public class LtsModel extends Model {
     // Next Release : support more of the graphviz format
 
     private String name;
-    private Map<String, LtsState> states;
-    private Map<String, LtsTransition> transitions;
+    private Map<String, LtsState> states; // state id -> state
+    private List<LtsTransition> transitions;
 
     public LtsModel() {
         this(null);
@@ -28,8 +28,8 @@ public class LtsModel extends Model {
     public LtsModel(String name) {
         super();
         this.name = name;
-        this.states = new HashMap<>();
-        this.transitions = new HashMap<>();
+        this.states = new HashMap<String, LtsState>();
+        this.transitions = new ArrayList<LtsTransition>();
     }
 
     public String getName() {
@@ -40,9 +40,11 @@ public class LtsModel extends Model {
         return states.values();
     }
 
-    public Collection<LtsTransition> getTransitions() {
-        return transitions.values();
+    public List<LtsTransition> getTransitions() {
+        return transitions;
     }
+
+    public Collection<String> getStateIds() { return states.keySet(); }
 
     @Override
     public String getSuffix() {
@@ -84,9 +86,9 @@ public class LtsModel extends Model {
         return rtr;
     }
 
-    public LtsTransition addTransition(String id, String source, String target, LtsLabel label) {
-        LtsTransition rtr = new LtsTransition(id, source, target, label);
-        transitions.put(id, rtr);
+    public LtsTransition addTransition(String source, String target, LtsLabel label) {
+        LtsTransition rtr = new LtsTransition(source, target, label);
+        transitions.add(rtr);
         return rtr;
     }
 

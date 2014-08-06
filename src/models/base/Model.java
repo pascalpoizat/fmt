@@ -45,8 +45,18 @@ public abstract class Model {
     }
 
     // writes model to a file
-    public void modelToFile(ModelWriter writer) throws IllegalModelException, IllegalResourceException, IOException {
+    public void modelToFile(ModelWriter writer) throws IllegalResourceException, IOException {
         writer.modelToFile(this);
+    }
+
+    // reads model from a String
+    public void modelFromString(ModelReader reader, String string) throws IllegalResourceException {
+        reader.modelFromString(this, string);
+    }
+
+    // reads model from a file
+    public void modelFromFile(ModelReader reader) throws IllegalResourceException, IOException {
+        reader.modelFromFile(this);
     }
 
     // finalization (cleans up resources)

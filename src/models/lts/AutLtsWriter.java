@@ -77,6 +77,28 @@ public class AutLtsWriter extends LtsWriter {
         return rtr;
     }
 
+    private void build_state_mapping(LtsModel model) {
+        // F = ()
+        // i = 0
+        // for each transition tt = s--l-->t
+        //  if s not in dom(F), add (s,i) in F and i=i+1
+        //  if t not in dom(F), add (t,i) in F and i=i+1
+        // end for
+        state_mapping = new HashMap<String,Integer>();
+        int i = 0;
+        for (LtsTransition tt : model.getTransitions()) {
+            String s = tt.getSource();
+            String t = tt.getTarget();
+            if (!state_mapping.containsKey(s)) {
+                state_mapping.put(s,i++);
+            }
+            if (!state_mapping.containsKey(t)) {
+                state_mapping.put(t, i++);
+            }
+        }
+        state_mapping_is_built = true;
+    }
+
     @Override
     public String modelToString(Model model) throws IllegalResourceException {
         if (!(model instanceof LtsModel)) {
@@ -85,19 +107,10 @@ public class AutLtsWriter extends LtsWriter {
                     LtsModel.class.toString()));
         }
         LtsModel ltsModel = (LtsModel) model;
-        String name = "";
-        String states_as_string = "";
         String transitions_as_string = "";
-        List<String> lstates = null;
-        List<String> ltransitions = null;
-        int nb_states = ltsModel.getStates().size();
         int nb_transitions = ltsModel.getTransitions().size();
         // build the mapping between state ids and integers (required by the AUT format)
-        int i = 0;
-        for (LtsState state : ((LtsModel) model).getStates()) {
-            state_mapping.put(state.getId(), i++);
-        }
-        state_mapping_is_built = true;
+        build_state_mapping(ltsModel);
         // build string for states
         // none in this format only transitions are saved
         // build string for transitions
@@ -107,7 +120,7 @@ public class AutLtsWriter extends LtsWriter {
         } catch (RuntimeException e) {
             return null; // impossible
         }
-        return String.format("des (0,%d,%d)\n%s\n", nb_transitions, nb_states, transitions_as_string);
+        return String.format("des (0,%d,%d)\n%s\n", nb_transitions, state_mapping.keySet().size(), transitions_as_string);
     }
 
 }
