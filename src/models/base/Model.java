@@ -70,8 +70,8 @@ public abstract class Model {
     }
 
     // reads model from a String
-    public void modelFromString(ModelReader reader, String string) throws IllegalResourceException {
-        reader.modelFromString(this, string);
+    public void modelFromString(ModelReader reader, String stringModel) throws IllegalResourceException {
+        reader.modelFromString(this, stringModel);
     }
 
     // reads model from a file

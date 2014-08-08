@@ -36,7 +36,7 @@ public abstract class LtsReader extends ModelReader {
 
     // reads model from a String
     @Override
-    public abstract void modelFromString(Model model, String string) throws IllegalResourceException;
+    public abstract void modelFromString(Model model, String stringModel) throws IllegalResourceException;
 
     // specific to LTS
 

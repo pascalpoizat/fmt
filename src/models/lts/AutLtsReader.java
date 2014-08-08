@@ -46,14 +46,14 @@ public class AutLtsReader extends LtsReader {
     }
 
     @Override
-    public void modelFromString(Model model, String string) throws IllegalResourceException {
+    public void modelFromString(Model model, String stringModel) throws IllegalResourceException {
         if (!(model instanceof LtsModel)) {
             throw new IllegalResourceException(String.format("Wrong kind of model (%s), should be %s",
                     model.getClass().toString(),
                     LtsModel.class.toString()));
         }
         LtsModel ltsModel = (LtsModel) model;
-        String lines[] = string.split("\n");
+        String lines[] = stringModel.split("\n");
         String line;
         String source;
         String target;

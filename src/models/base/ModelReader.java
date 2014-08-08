@@ -50,5 +50,5 @@ public abstract class ModelReader {
     }
 
     // reads model from a String
-    public abstract void modelFromString(Model model, String string) throws IllegalResourceException;
+    public abstract void modelFromString(Model model, String stringModel) throws IllegalResourceException;
 }
