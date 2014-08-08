@@ -20,27 +20,29 @@
 
 package models.pnml;
 
-import models.base.ModelFactory;
-import models.base.Model;
+import models.base.AbstractModel;
+import models.base.AbstractModelFactory;
 
 /**
  * Created by pascalpoizat on 11/01/2014.
  */
-public class PnmlFactory extends ModelFactory {
+public final class PnmlFactory extends AbstractModelFactory {
 
     private static PnmlFactory instance;
 
     private PnmlFactory() {
+        super();
     }
 
     public static PnmlFactory getInstance() {
-        if (instance == null)
+        if (instance == null) {
             instance = new PnmlFactory();
+        }
         return instance;
     }
 
-    public Model create() {
-        Model model = new PnmlModel();
+    public AbstractModel create() {
+        final AbstractModel model = new PnmlModel();
         return model;
     }
 

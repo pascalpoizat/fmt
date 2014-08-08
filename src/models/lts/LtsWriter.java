@@ -20,17 +20,14 @@
 
 package models.lts;
 
-import models.base.IllegalModelException;
+import models.base.AbstractModel;
+import models.base.AbstractModelWriter;
 import models.base.IllegalResourceException;
-import models.base.Model;
-import models.base.ModelWriter;
-
-import java.io.IOException;
 
 /**
  * Created by pascalpoizat on 04/08/2014.
  */
-public abstract class LtsWriter extends ModelWriter {
+public abstract class LtsWriter extends AbstractModelWriter {
     // from ModelWriter
 
     // returns the suffix of the files the writer works with
@@ -39,7 +36,7 @@ public abstract class LtsWriter extends ModelWriter {
 
     // writes model to a String
     @Override
-    public abstract String modelToString(Model model) throws IllegalResourceException;
+    public abstract String modelToString(AbstractModel model) throws IllegalResourceException;
 
     // specific to LTS
 

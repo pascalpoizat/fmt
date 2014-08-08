@@ -20,8 +20,8 @@
 
 package models.lts;
 
+import models.base.AbstractModelWriter;
 import models.base.IllegalResourceException;
-import models.base.ModelWriter;
 
 /**
  * Created by pascalpoizat on 05/08/2014.
@@ -52,7 +52,7 @@ public class LtsLabel {
         } // impossible
     }
 
-    public String modelToString(ModelWriter writer) throws IllegalResourceException {
+    public String modelToString(AbstractModelWriter writer) throws IllegalResourceException {
         if (!(writer instanceof LtsWriter)) {
             throw new IllegalResourceException(String.format("Wrong kind of writer (%s), should be %s",
                     writer.getClass().toString(),

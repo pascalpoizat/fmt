@@ -20,26 +20,28 @@
 
 package models.choreography.cif;
 
-import models.base.ModelFactory;
-import models.base.Model;
+import models.base.AbstractModel;
+import models.base.AbstractModelFactory;
 
 /**
  * Created by pascalpoizat on 11/01/2014.
  */
-public class CifFactory extends ModelFactory {
+public final class CifFactory extends AbstractModelFactory {
 
     private static CifFactory instance;
 
     private CifFactory() {
+        super();
     }
 
     public static CifFactory getInstance() {
-        if (instance == null)
+        if (instance == null) {
             instance = new CifFactory();
+        }
         return instance;
     }
 
-    public Model create() {
+    public AbstractModel create() {
         return new CifModel();
     }
 

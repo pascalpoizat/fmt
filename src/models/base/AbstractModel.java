@@ -20,24 +20,22 @@
 
 package models.base;
 
-import models.lts.LtsWriter;
-
 import java.io.File;
 import java.io.IOException;
 
 /**
  * Created by pascalpoizat on 11/01/2014.
  */
-public abstract class Model {
+public abstract class AbstractModel {
 
     private File resource;
 
-    public Model() {
+    public AbstractModel() {
         resource = null;
     }
 
     // sets resource
-    public void setResource(File resource) throws IllegalResourceException {
+    public void setResource(final File resource) throws IllegalResourceException {
         if (resource == null) {
             throw new IllegalResourceException("No resource given");
         }
@@ -52,30 +50,29 @@ public abstract class Model {
     // gets regular file suffix for resource
     public abstract String getSuffix();
 
-    // loads model (just sets the flag, to be overriden + call to super)
-    public void load() throws IOException, IllegalResourceException, IllegalModelException {
-    }
+    // loads model
+    public abstract void load() throws IOException, IllegalResourceException, IllegalModelException;
 
     // dumps model
     public abstract void dump() throws IOException, IllegalResourceException;
 
     // writes model to a String
-    public String modelToString(ModelWriter writer) throws IllegalResourceException {
+    public String modelToString(final AbstractModelWriter writer) throws IllegalResourceException {
         return writer.modelToString(this);
     }
 
     // writes model to a file
-    public void modelToFile(ModelWriter writer) throws IllegalResourceException, IOException {
+    public void modelToFile(final AbstractModelWriter writer) throws IllegalResourceException, IOException {
         writer.modelToFile(this);
     }
 
     // reads model from a String
-    public void modelFromString(ModelReader reader, String stringModel) throws IllegalResourceException {
+    public void modelFromString(final AbstractModelReader reader, final String stringModel) throws IllegalResourceException {
         reader.modelFromString(this, stringModel);
     }
 
     // reads model from a file
-    public void modelFromFile(ModelReader reader) throws IllegalResourceException, IOException {
+    public void modelFromFile(final AbstractModelReader reader) throws IllegalResourceException, IOException {
         reader.modelFromFile(this);
     }
 

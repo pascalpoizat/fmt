@@ -25,24 +25,19 @@ import java.io.IOException;
 import java.util.List;
 
 // jar Eclipse : org.eclipse.bpmn2_0.7.0.[...].jar
+import models.base.AbstractModel;
 import models.base.IllegalModelException;
 import models.base.IllegalResourceException;
-import models.base.Model;
 import org.eclipse.bpmn2.*;
-import org.eclipse.bpmn2.impl.Bpmn2FactoryImpl;
-import org.eclipse.bpmn2.util.Bpmn2Resource;
 import org.eclipse.bpmn2.util.Bpmn2ResourceFactoryImpl;
 
 // jar Eclipse : org.eclipse.emf.ecore_2.9.1.[...].jar
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
 // jar Eclipse : org.eclipse.emf.common_2.9.1.[...].jar
-import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.common.util.URI;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 // jar Eclipse : org.eclipse.emf.ecore.xmi_2.9.1.[...].jar
 
@@ -53,9 +48,9 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 /**
  * Created by pascalpoizat on 11/01/2014.
  */
-public class BpmnModel extends Model {
+public class BpmnModel extends AbstractModel {
 
-    public static String MAIN_CLASS = "Choreography";
+    public static final String MAINCLASS = "Choreography";
 
     private Choreography model;
 
@@ -72,17 +67,15 @@ public class BpmnModel extends Model {
     @Override
     public void load() throws IOException, IllegalResourceException, IllegalModelException {
         loadEMF();
-        super.load();
     }
 
     private void loadEMF() throws IOException, IllegalResourceException, IllegalModelException {
         // works as a stand-alone application and within the Eclipse IDE
         // note : requires jars from the BPMN2 modeller + EMF
-        URI uri = URI.createURI(getResource().getPath());
-        Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
+        final URI uri = URI.createURI(getResource().getPath());
+        final Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
         reg.getExtensionToFactoryMap().put(getSuffix(), new Bpmn2ResourceFactoryImpl());
-        ResourceSet rs = new ResourceSetImpl();
-        Resource res = rs.getResource(uri,true);
+        final Resource res = new ResourceSetImpl().getResource(uri,true);
         res.load(null);
 // OLD
 //        if (!EMFPlugin.IS_ECLIPSE_RUNNING) {
@@ -90,7 +83,7 @@ public class BpmnModel extends Model {
 //        }
 //        URI uri = URI.createURI(getResource().getPath());
 //        Resource res = new ResourceSetImpl().getResource(uri, true);
-        EObject root = res.getContents().get(0);
+        final EObject root = res.getContents().get(0);
         // search for the choreography instance
         Definitions definitions;
         boolean found = false;
@@ -100,8 +93,8 @@ public class BpmnModel extends Model {
             definitions = (Definitions) root;
         }
         if (definitions.eContents().size() > 0) {
-            for (EObject definition : definitions.eContents()) {
-                if (definition.eClass().getName().equals(MAIN_CLASS)) {
+            for (final EObject definition : definitions.eContents()) {
+                if (definition.eClass().getName().equals(MAINCLASS)) {
                     model = (Choreography) definition;
                     found = true;
                     break;
@@ -131,7 +124,7 @@ public class BpmnModel extends Model {
         res.getContents().add(...); // more than model, the whole document read
         res.save(null);
         */
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     public String getName() throws IllegalModelException {

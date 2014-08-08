@@ -28,12 +28,9 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 */
 
-import models.base.IllegalModelException;
+import models.base.AbstractModel;
 import models.base.IllegalResourceException;
-import models.base.Model;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -80,7 +77,7 @@ public class DotLtsWriter extends LtsWriter {
     }
 
     @Override
-    public String modelToString(Model model) throws IllegalResourceException {
+    public String modelToString(AbstractModel model) throws IllegalResourceException {
         if (!(model instanceof LtsModel)) {
             throw new IllegalResourceException(String.format("Wrong kind of model (%s), should be %s",
                     model.getClass().toString(),

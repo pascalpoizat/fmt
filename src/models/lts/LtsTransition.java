@@ -20,11 +20,8 @@
 
 package models.lts;
 
+import models.base.AbstractModelWriter;
 import models.base.IllegalResourceException;
-import models.base.ModelWriter;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by pascalpoizat on 12/04/2014.
@@ -61,7 +58,7 @@ public class LtsTransition {
         } // impossible
     }
 
-    public String modelToString(ModelWriter writer) throws RuntimeException {
+    public String modelToString(AbstractModelWriter writer) throws RuntimeException {
         try {
             if (!(writer instanceof LtsWriter)) {
                 throw new IllegalResourceException(String.format("Wrong kind of writer (%s), should be %s",

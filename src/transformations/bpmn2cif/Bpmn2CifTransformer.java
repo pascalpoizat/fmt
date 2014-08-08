@@ -30,13 +30,13 @@ import models.choreography.cif.generated.*;
 import org.eclipse.bpmn2.*;
 import models.base.IllegalModelException;
 import models.choreography.cif.generated.Message;
-import transformations.base.ATransformer;
+import transformations.base.AbstractTransformer;
 import models.choreography.bpmn.BpmnModel;
 
 /**
  * Created by pascalpoizat on 10/01/2014.
  */
-public class Bpmn2CifTransformer extends ATransformer {
+public class Bpmn2CifTransformer extends AbstractTransformer {
 
     // CONSTRAINTS
     //
@@ -140,13 +140,13 @@ public class Bpmn2CifTransformer extends ATransformer {
 
     @Override
     public void transform() throws IllegalModelException {
-        if (in_model == null || out_model == null) {
+        if (inputModel == null || outputModel == null) {
             IllegalModelException e = new IllegalModelException("Model error");
             error(e.getMessage());
             throw e;
         }
-        CifModel mout = ((CifModel) out_model);
-        BpmnModel min = ((BpmnModel) in_model);
+        CifModel mout = ((CifModel) outputModel);
+        BpmnModel min = ((BpmnModel) inputModel);
         mout.setChoreoID(getChoreoID(min));
         setParticipants(min, mout);
         setAlphabet(min, mout);

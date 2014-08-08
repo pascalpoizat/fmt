@@ -31,8 +31,8 @@ import fr.lip6.move.pnml.ptnet.hlapi.NameHLAPI;
 import fr.lip6.move.pnml.framework.hlapi.HLAPIClass;
 import fr.lip6.move.pnml.framework.general.PnmlImport;
 import fr.lip6.move.pnml.framework.utils.ModelRepository;
+import models.base.AbstractModel;
 import models.base.IllegalModelException;
-import models.base.Model;
 import models.base.IllegalResourceException;
 
 import java.io.*;
@@ -40,7 +40,7 @@ import java.io.*;
 /**
  * Created by pascalpoizat on 11/01/2014.
  */
-public class PnmlModel extends Model {
+public class PnmlModel extends AbstractModel {
 
     private PetriNetHLAPI model;
     private PetriNetDocHLAPI doc;
@@ -65,11 +65,11 @@ public class PnmlModel extends Model {
 
     @Override
     public void load() throws IOException, IllegalResourceException, IllegalModelException {
-        HLAPIClass rawModel;
         if (getResource() == null) {
             throw new IllegalResourceException("PNML resource is not set");
         }
-        PnmlImport pnmlImport = new PnmlImport();
+        final PnmlImport pnmlImport = new PnmlImport();
+        HLAPIClass rawModel;
         try {
             rawModel = pnmlImport.importFile(getResource().getAbsolutePath());
         } catch (Exception e) {  // NEXT RELEASE deal with specific exceptions
@@ -80,19 +80,18 @@ public class PnmlModel extends Model {
             throw new IllegalResourceException("PNML resource is incorrect (no net in PNML doc)");
         }
         model = doc.getNetsHLAPI().get(0); // if more than one net, use the first one
-        super.load();
     }
 
     @Override
     public void dump() throws IOException, IllegalResourceException {
-        ModelRepository mr = ModelRepository.getInstance();
-        mr.setPrettyPrintStatus(true);
-        FileWriter fw = new FileWriter(getResource().getAbsolutePath());
-        if (fw == null) {
+        final ModelRepository modelRepository = ModelRepository.getInstance();
+        modelRepository.setPrettyPrintStatus(true);
+        final FileWriter fileWriter = new FileWriter(getResource().getAbsolutePath());
+        if (fileWriter == null) {
             throw new IllegalResourceException("Cannot open output resource");
         }
-        fw.write(doc.toPNML());
-        fw.close();
+        fileWriter.write(doc.toPNML());
+        fileWriter.close();
     }
 
     @Override

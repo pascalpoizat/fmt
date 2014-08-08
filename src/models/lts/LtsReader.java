@@ -20,14 +20,14 @@
 
 package models.lts;
 
+import models.base.AbstractModel;
+import models.base.AbstractModelReader;
 import models.base.IllegalResourceException;
-import models.base.Model;
-import models.base.ModelReader;
 
 /**
  * Created by pascalpoizat on 06/08/2014.
  */
-public abstract class LtsReader extends ModelReader {
+public abstract class LtsReader extends AbstractModelReader {
     // from ModelReader
 
     // returns the suffix of the files the writer works with
@@ -36,7 +36,7 @@ public abstract class LtsReader extends ModelReader {
 
     // reads model from a String
     @Override
-    public abstract void modelFromString(Model model, String stringModel) throws IllegalResourceException;
+    public abstract void modelFromString(AbstractModel model, String stringModel) throws IllegalResourceException;
 
     // specific to LTS
 

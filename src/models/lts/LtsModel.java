@@ -20,20 +20,18 @@
 
 package models.lts;
 
+import models.base.AbstractModel;
 import models.base.IllegalModelException;
 import models.base.IllegalResourceException;
-import models.base.Model;
-import models.base.ModelWriter;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
 /**
  * Created by pascalpoizat on 12/04/2014.
  */
-public class LtsModel extends Model {
+public class LtsModel extends AbstractModel {
     // only directed graphs for now on
     // Next Release : support more of the graphviz format
 

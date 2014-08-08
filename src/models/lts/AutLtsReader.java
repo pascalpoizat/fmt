@@ -20,9 +20,8 @@
 
 package models.lts;
 
-import models.base.IllegalModelException;
+import models.base.AbstractModel;
 import models.base.IllegalResourceException;
-import models.base.Model;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -46,7 +45,7 @@ public class AutLtsReader extends LtsReader {
     }
 
     @Override
-    public void modelFromString(Model model, String stringModel) throws IllegalResourceException {
+    public void modelFromString(AbstractModel model, String stringModel) throws IllegalResourceException {
         if (!(model instanceof LtsModel)) {
             throw new IllegalResourceException(String.format("Wrong kind of model (%s), should be %s",
                     model.getClass().toString(),

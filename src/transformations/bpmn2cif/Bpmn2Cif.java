@@ -21,7 +21,7 @@
 package transformations.bpmn2cif;
 
 import models.base.FmtException;
-import transformations.base.ITransformer;
+import transformations.base.Transformer;
 import models.choreography.bpmn.BpmnFactory;
 import models.choreography.cif.CifFactory;
 
@@ -34,7 +34,7 @@ public class Bpmn2Cif {
     public static void main(String[] args) {
         BpmnFactory bpmnFactory = BpmnFactory.getInstance();
         CifFactory cifFactory = CifFactory.getInstance();
-        ITransformer trans = new Bpmn2CifTransformer(bpmnFactory, cifFactory);
+        Transformer trans = new Bpmn2CifTransformer(bpmnFactory, cifFactory);
         trans.setVerbose(true);
         trans.about();
         if (args.length == 0) {

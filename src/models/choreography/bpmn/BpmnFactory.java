@@ -20,27 +20,29 @@
 
 package models.choreography.bpmn;
 
-import models.base.ModelFactory;
-import models.base.Model;
+import models.base.AbstractModel;
+import models.base.AbstractModelFactory;
 
 
 /**
  * Created by pascalpoizat on 11/01/2014.
  */
-public class BpmnFactory extends ModelFactory {
+public class BpmnFactory extends AbstractModelFactory {
 
     private static BpmnFactory instance;
 
     private BpmnFactory() {
+        super();
     }
 
     public static BpmnFactory getInstance() {
-        if (instance == null)
+        if (instance == null) {
             instance = new BpmnFactory();
+        }
         return instance;
     }
 
-    public Model create() {
+    public AbstractModel create() {
         return new BpmnModel();
     }
 
