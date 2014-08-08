@@ -299,13 +299,13 @@ Output model generated
     <p>Adding a transformation between <code>X</code> and <code>Y</code> is done by
         writing:
     <ul>
-        <li>a <code>transformations.x2y.X2YTransformer</code> class that extends <code>ATransformer</code>
-            (<a href="https://github.com/pascalpoizat/fmt/blob/master/src/transformations/base/ATransformer.java">code</a>)
+        <li>a <code>transformations.x2y.X2YTransformer</code> class that extends <code>AbstractTransformer</code>
+            (<a href="https://github.com/pascalpoizat/fmt/blob/master/src/transformations/base/AbstractTransformer.java">code</a>)
             and implements three methods:<br/><br/>
         <pre><code>public X2YTransformer(XFactory xFactory, YFactory yFactory);
 // calls super(xFactory, yFactory)
 public void transform() throws IllegalModelException;
-// generates out_model from in_model
+// generates outputModel from inputModel
 public void about();
 // prints out NAME + VERSION</code></pre>
         </li>
@@ -314,7 +314,7 @@ public void about();
         <pre><code>package transformations.x2y;
 
 import models.base.FmtException;
-import transformations.base.ITransformer;
+import transformations.base.Transformer;
 import models.x.XFactory;
 import models.y.YFactory;
 
@@ -324,7 +324,7 @@ public class X2Y {
     public static void main(String[] args) {
         XFactory xFactory = XFactory.getInstance();
         YFactory yFactory = YFactory.getInstance();
-        ITransformer trans = new X2YTransformer(xFactory, yFactory);
+        Transformer trans = new X2YTransformer(xFactory, yFactory);
         trans.setVerbose(true);
         trans.about();
         if (args.length == 0) {
