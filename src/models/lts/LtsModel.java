@@ -46,8 +46,8 @@ public class LtsModel extends AbstractModel {
     public LtsModel(String name) {
         super();
         this.name = name;
-        this.states = new HashMap<String, LtsState>();
-        this.transitions = new ArrayList<LtsTransition>();
+        this.states = new HashMap<>();
+        this.transitions = new ArrayList<>();
     }
 
     public String getName() {

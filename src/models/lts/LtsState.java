@@ -23,8 +23,6 @@ package models.lts;
 import models.base.AbstractModelWriter;
 import models.base.IllegalResourceException;
 
-import java.util.Map;
-
 /**
  * Created by pascalpoizat on 12/04/2014.
  */
@@ -33,10 +31,6 @@ public class LtsState {
     private String id;
 
     public LtsState(String id) {
-        this(id, null);
-    }
-
-    public LtsState(String id, Map<String, Object> attributes) {
         this.id = id;
     }
 

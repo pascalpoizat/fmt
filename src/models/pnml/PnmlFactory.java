@@ -42,8 +42,7 @@ public final class PnmlFactory extends AbstractModelFactory {
     }
 
     public AbstractModel create() {
-        final AbstractModel model = new PnmlModel();
-        return model;
+        return new PnmlModel();
     }
 
 }

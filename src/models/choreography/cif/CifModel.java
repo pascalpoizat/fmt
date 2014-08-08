@@ -121,7 +121,7 @@ public class CifModel extends AbstractModel {
     }
 
     public HashMap<String, Message> getAlphabetAsMap() throws IllegalModelException {
-        final HashMap<String, Message> rtr = new HashMap<String, Message>();
+        final HashMap<String, Message> rtr = new HashMap<>();
         Message message;
         if (model == null) {
             throw new IllegalModelException(BADMODEL);

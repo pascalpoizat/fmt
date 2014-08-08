@@ -31,7 +31,6 @@ import java.util.ArrayList;
 import models.base.AbstractModel;
 import models.base.IllegalResourceException;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -50,7 +49,7 @@ public class DotLtsWriter extends LtsWriter {
 
     @Override
     String modelToString(LtsLabel ltsLabel) {
-        return ltsLabel.getLabel().toString();
+        return ltsLabel.getLabel();
     }
 
     @Override
@@ -85,13 +84,16 @@ public class DotLtsWriter extends LtsWriter {
         }
         LtsModel ltsModel = (LtsModel) model;
         String name = "";
-        String states_as_string = "";
-        String transitions_as_string = "";
-        List<String> lstates = null;
-        List<String> ltransitions = null;
+        String states_as_string;
+        String transitions_as_string;
         if (ltsModel.getName() != null) {
             name = ltsModel.getName();
         }
+        // Java 1.7
+        /*
+        List<String> lstates = null;
+        List<String> ltransitions = null;
+        */
         // build string for states
         try {
             // Java 1.7

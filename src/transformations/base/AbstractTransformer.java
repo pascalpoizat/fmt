@@ -89,13 +89,7 @@ public abstract class AbstractTransformer implements Transformer {
             message("Loading input model (" + inputModel.getSuffix() + ")");
             inputModel.load();
             message("Input model loaded");
-        } catch (IllegalResourceException e) {
-            error(e.getMessage());
-            throw e;
-        } catch (IllegalModelException e) {
-            error(e.getMessage());
-            throw e;
-        } catch (IOException e) {
+        } catch (IllegalResourceException | IllegalModelException | IOException e) {
             error(e.getMessage());
             throw e;
         }
@@ -110,10 +104,7 @@ public abstract class AbstractTransformer implements Transformer {
             message("Generating output model (" + outputModel.getSuffix() + ")");
             outputModel.dump();
             message("Output model generated");
-        } catch (IOException e) {
-            error(e.getMessage());
-            throw e;
-        } catch (IllegalResourceException e) {
+        } catch (IOException | IllegalResourceException e) {
             error(e.getMessage());
             throw e;
         }

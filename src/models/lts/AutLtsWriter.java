@@ -55,7 +55,7 @@ import java.util.stream.Collectors;
  */
 public class AutLtsWriter extends LtsWriter {
 
-    private Map<String, Integer> state_mapping = new HashMap<String, Integer>();
+    private Map<String, Integer> state_mapping = new HashMap<>();
     boolean state_mapping_is_built = false;
 
     public AutLtsWriter() {
@@ -68,7 +68,7 @@ public class AutLtsWriter extends LtsWriter {
 
     @Override
     String modelToString(LtsLabel ltsLabel) {
-        return ltsLabel.getLabel().toString();
+        return ltsLabel.getLabel();
     }
 
     @Override
@@ -98,7 +98,7 @@ public class AutLtsWriter extends LtsWriter {
         //  if s not in dom(F), add (s,i) in F and i=i+1
         //  if t not in dom(F), add (t,i) in F and i=i+1
         // end for
-        state_mapping = new HashMap<String,Integer>();
+        state_mapping = new HashMap<>();
         int i = 0;
         for (LtsTransition tt : model.getTransitions()) {
             String s = tt.getSource();
@@ -121,7 +121,7 @@ public class AutLtsWriter extends LtsWriter {
                     LtsModel.class.toString()));
         }
         LtsModel ltsModel = (LtsModel) model;
-        String transitions_as_string = "";
+        String transitions_as_string;
         int nb_transitions = ltsModel.getTransitions().size();
         // build the mapping between state ids and integers (required by the AUT format)
         build_state_mapping(ltsModel);

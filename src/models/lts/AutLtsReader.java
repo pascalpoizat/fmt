@@ -69,8 +69,8 @@ public class AutLtsReader extends LtsReader {
             throw new IllegalResourceException(String.format("Incorrect model at '%s', could not find 'des (x,y,z)' line", line));
         }
         try {
-            int nb_transitions = Integer.parseInt(matcher.group(2));
-            int nb_states = Integer.parseInt(matcher.group(3));
+            Integer.parseInt(matcher.group(2));
+            Integer.parseInt(matcher.group(3));
         } catch (NumberFormatException e) {
             throw new IllegalResourceException(String.format("Incorrect model at '%s'", line));
         }
