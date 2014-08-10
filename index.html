@@ -50,7 +50,8 @@
         <li><a href="#transformations">Transformations</a></li>
         <li><a href="#installation">Installation</a></li>
         <li><a href="#dependencies">Dependencies</a></li>
-        <li><a href="#usage">Usage</a></li>
+        <li><a href="#usagem">Usage (models, readers, and writers)</a></li>
+        <li><a href="#usaget">Usage (transformations)</a></li>
         <li><a href="#modelextension">Adding new models</a></li>
         <li><a href="#transformationextension">Adding new transformations</a></li>
         <li><a href="#issues">Issues and enhancements</a></li>
@@ -79,6 +80,9 @@
         </li>
         <li><strong>Petri Nets (PN)</strong><br/>
             I/O: pnml&uparrow;PNML, PNML&downarrow;pnml<br/>
+        </li>
+        <li><strong>Symbolic Transition Graphs for choreography (STG-Chor)</strong><br />
+            I/O: stg&uparrow;STG-Chor, STG-Chor&downarrow;stg, STG-Chor&downarrow;dot (graphviz files)
         </li>
     </ul>
 
@@ -177,33 +181,9 @@ dependencies.
 
     <em>required if you plan to work with BPMN choreography models:<br/>- EMF 2.9.1+, BPMN model 0.7.0+</em>
 
-    <!--
-    <h4>EMF framework</h4>
-
-    <p><strong>Required:</strong></p>
-
-    <ul>
-        <li>org.eclipse.emf.common_2.9.1+,</li>
-        <li>org.eclipse.emf.ecore_2.9.1+,</li>
-        <li>org.eclipse.emf.ecore.xmi_2.9.1+.</li>
-    </ul>
-    -->
-
     <p>You can get EMF by installing <a href="https://www.eclipse.org/">Eclipse</a>.<br/>
-
-        <!--
-        <h4>BPMN classes</h4>
-
-        <p><strong>Required:</strong></p>
-
-        <ul>
-            <li>org.eclipse.bpmn2_0.7.0+.</li>
-        </ul>
-        -->
-
         You can get the BPMN model by updating your Eclipse IDE using the <a
                 href="http://download.eclipse.org/bpmn2-modeler/updates/">BPMN update site</a>.</p>
-
 
     <h3>Choreography Intermediate Format (CIF)</h3>
 
@@ -216,16 +196,6 @@ dependencies.
     <h3>Petri Nets (PN)</h3>
 
     <em>required if you plan to work with Petri Net models:<br/>- PNML framework 2.2.1+</em>
-
-    <!--
-    <p><strong>Required:</strong></p>
-
-    <ul>
-        <li>fr.lip6.move.pnml.framework.coremodel_2.2.1+,</li>
-        <li>fr.lip6.move.pnml.framework.ptnet_2.2.1+,</li>
-        <li>fr.lip6.move.pnml.framework.utils_2.2.1+.</li>
-    </ul>
-    -->
 
     <p>You can get the PNML framework using one of these techniques:</p>
 
@@ -240,31 +210,125 @@ dependencies.
         </li>
     </ul>
 
+    <h3>Symbolic Transition Graphs for choreography (STG-Chor)</h3>
+
+    <em>required if you plan to work with STG choreography models:<br/>- EMF 2.9.1+, SChorA, Z3</em>
+
+    <p>You can get EMF by installing <a href="https://www.eclipse.org/">Eclipse</a>.<br/>
+        You can get SChorA at the <a href="https://github.com/pascalpoizat/schora">SChorA GitHub repository</a>.<br />
+        Unless you want to compile from sources, the <code>archive/schora.jar</code> file includes the necessary SMT-API dependencies (<code>smt-api.jar</code>).<br />
+        You can get Z3 at <a href="http://z3.codeplex.com/">http://z3.codeplex.com/</a>
+        (scroll down the main page to find the <strong>Platform</strong> section where you can find archives for Windows, Linux, and OSX).
+    </p>
+
 </div>
 
 <div>
     <h2>
-        <a name="usage" class="anchor" href="#usage"><span
-                class="octicon octicon-link"></span></a>Usage</h2>
+        <a name="usagem" class="anchor" href="#usagem"><span
+                class="octicon octicon-link"></span></a>Usage (models, readers, and writers)
+    </h2>
+
+
+    <p>We give here an example based on the STG-Chor model.<br />
+        Other models, readers, and writers, should respect the same coding pattern (see <a href="#modelextension">adding models</a>), hence be used in the same way.</p>
+
+    <p>Make a working directory</p>
+
+    <pre><code>$ mkdir fmt-tests ; cd fmt-tests
+</code></pre>
+
+    <p>Get the <a href="https://github.com/pascalpoizat/fmt/blob/gh-pages/files/sample.stg">sample STG
+        choreography file</a> and save it in
+        <code>fmt-tests</code></p>
+
+    <p>We will write a small program to make a copy of this file (this is just for demonstration purposes) and to generate a picture for the model.<br />
+    Save the following Java source code (you may <a href="https://github.com/pascalpoizat/fmt/blob/gh-pages/files/CopyPaste.java">get it there</a>) as <code>CopyPaste.java</code>.
+
+    <pre><code>import models.base.AbstractModel;
+import models.base.IllegalResourceException;
+import models.choreography.stg.*;
+import java.io.File;
+import java.io.IOException;
+
+public class CopyPaste {
+    public static void main(String[] args) {
+        try {
+            // read the input model using an stg/STG reader
+            AbstractModel model = new StgModel();
+            model.setResource(new File("sample.stg"));
+            model.modelFromFile(new StgStgReader());
+
+            // write the model using an STG/stg writer
+            model.setResource(new File("sample_copy.stg"));
+            model.modelToFile(new StgStgWriter());
+
+            // write the model using an STG/dot writer
+            model.setResource(new File("sample_copy.dot"));
+            model.modelToFile(new DotStgWriter());
+
+        } catch (IllegalResourceException e) {
+            System.out.println(e.getMessage());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}</code></pre>
+
+    <p>Set up the place where the FMT jar is installed (here the <code>/tmp</code> directory).</p>
+
+    <pre><code>$ export FMT_HOME=/tmp
+</code></pre>
+
+    <p>Compile the code</p>
+
+    <pre><code>$ javac -cp $FMT_HOME/fmt.jar CopyPaste.java</code></pre>
+
+    <p>Set up the place where the dependencies are installed (here the <code>/tmp</code> directory for the SChorA jar and the Eclipse plugins directory for the EMF jars.</p>
+
+    <pre><code>$ export SCHORA_HOME=/tmp
+$ export EMF_HOME=/Applications/Eclipse/plugins</code></pre>
+
+    <p>Run the program</p>
+
+    <pre><code>$ java -cp $FMT_HOME/fmt.jar:$SCHORA_HOME/schora.jar:$EMF_HOME/*:. CopyPaste</code></pre>
+
+    <p>If you have <a href="http://www.graphviz.org/">graphviz</a> installed, you can generate a png file for the model with</p>
+
+    <pre><code>$ dot -Tpng sample_copy.dot -o sample_copy.png</code></pre>
+
+    <img src="files/sample_copy.png" alt="png picture of sample_copy.png" />
+
+</div>
+
+<div>
+    <h2>
+        <a name="usaget" class="anchor" href="#usaget"><span
+                class="octicon octicon-link"></span></a>Usage (transformations)
+    </h2>
+
+    <p>We give here an example based on the BPMN-ChorD&rarr;CIF transformation.<br />
+    Other transformation should respect the same coding pattern (see <a href="#transformationextension">adding transformations</a>), hence be used in the same way.</p>
 
     <p>Make a working directory</p>
 
 <pre><code>$ mkdir fmt-tests ; cd fmt-tests
 </code></pre>
 
-    <p>Get the <a href="https://github.com/pascalpoizat/fmt/blob/gh-pages/sample.bpmn">sample BPMN
+    <p>Get the <a href="https://github.com/pascalpoizat/fmt/blob/gh-pages/files/sample.bpmn">sample BPMN
         choreography file</a> and save it in
         <code>fmt-tests</code></p>
 
-    <p>Set up the places where the FMT jar file and the dependencies are installed (here the <code>fmt</code> directory
-        in the user home and the Eclipse
+    <p>Set up the places where the FMT jar file and the dependencies are installed (here the <code>/tmp</code> directory
+        and the Eclipse
         plugin directory).</p>
 
-    <pre><code>$ export FMT_HOME=$HOME/fmt ; export FMT_DEPS=/Applications/Eclipse/plugins</code></pre>
+    <pre><code>$ export FMT_HOME=/tmp
+$ export EMF_HOME=/Applications/Eclipse/plugins</code></pre>
 
     <p>Run a transformer on the sample file.</p>
 
-<pre><code>$ java -cp "$FMT_HOME/fmt.jar:$FMT_DEPS/*" transformations.bpmn2cif.Bpmn2Cif sample.bpmn
+<pre><code>$ java -cp $FMT_HOME/fmt.jar:$EMF_HOME/*:. transformations.bpmn2cif.Bpmn2Cif sample.bpmn
 </code></pre>
 
     <p>You should then get something like this:</p>
@@ -366,8 +430,8 @@ public class X2Y {
     <ul>
         <li>BPMN-Chord&downarrow;bpmn</li>
         <li>cif&uparrow;CIF</li>
-        <li>Symbolic Transition Graphs (STG)</li>
         <li>CIF&rarr;PN</li>
+        <li>CIF&rarr;STG-Chor</li>
     </ul>
 
     <p>legend: f&uparrow;X: reader (read X from f), X&downarrow;f: writer (write X to f), X&rarr;Y: transformation</p>
@@ -386,6 +450,7 @@ public class X2Y {
             CIF, CIF&downarrow;cif,<br/>
             LTS, aut&uparrow;LTS, LTS&downarrow;aut, LTS&downarrow;dot,<br/>
             PN, pnml&uparrow;PN, PN&downarrow;pnml,<br/>
+            STG-Chor, stg&uparrow;STG-Chor, STG-Chor&downarrow;stg, STG-Chor&downarrow;dot,<br />
             BPMN-ChorD&rarr;CIF
         </li>
         <br/>
@@ -397,8 +462,8 @@ public class X2Y {
             cif&uparrow;CIF, CIF&rarr;PN
         </li>
         <br/>
-        <li><strong>stg-model (ongoing work)</strong><br/>
-            STG
+        <li><strong>cif2stg (ongoing work)</strong><br/>
+            CIF&rarr;STG-Chor
         </li>
     </ul>
     <p>legend: f&uparrow;X: reader (read X from f), X&downarrow;f: writer (write X to f), X&rarr;Y: transformation</p>

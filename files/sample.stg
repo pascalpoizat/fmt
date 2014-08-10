@@ -1,0 +1,7 @@
+1 [label="a"];
+2 [label="b"];
+3 [label="3"];
+1->2 [label="request[a,b].<x>"];
+2->1 [label="[x > x * 5 * 2 + 3] response[a,b].<y>"];
+2->3 [label="[x < 0] request[c,b].<x>"];
+3->3 [label="[x > 0] response[c,a].<y>"];
