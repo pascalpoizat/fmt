@@ -1,0 +1,58 @@
+digraph overview {
+rankdir=LR;
+fontname="Arial";
+fontsize="12";
+concentrate=true;
+edge [style=bold, color=black];
+
+subgraph no_cluster_models {
+color = "/spectral10/8";
+style = "bold";
+node  [style="filled,bold,rounded", shape=box, fixedsize=true, width=1.5, fontname="Arial", fontsize="16", color="/spectral10/8", fillcolor="/spectral10/7"];
+
+subgraph cluster_choreography_models {
+label = "Choreography Models";
+bpmnchord [label="BPMN-ChorD"];
+cif [label="CIF"];
+stgchor [label="STG-Chor"];
+}
+
+subgraph cluster_allpurpose_models {
+label = "All-purpose Models";
+lts [label="LTS"];
+pn [label="PN"];
+}
+
+}
+
+subgraph no_cluster_files {
+label = "Files";
+color = "/spectral10/4";
+style = "bold";
+node  [style="filled,bold", shape=circle, fixedsize=true, width=0.5, fontname="Arial", fontsize="12", color="/spectral10/4", fillcolor="/spectral10/5"];
+
+file_bpmn [label=".bpmn"];
+file_cif [label=".cif"];
+file_aut [label=".aut"];
+file_dot [label=".dot"];
+file_pnml [label=".pnml"];
+file_stg [label=".stg"];
+}
+
+bpmnchord->cif;
+file_cif->cif [style="dashed,bold", color=black];
+bpmnchord->file_bpmn [style="dashed,bold", color=black];
+cif->stgchor [style="dashed,bold", color=black];
+
+cif->file_cif;
+file_bpmn->bpmnchord;
+lts->file_aut;
+file_aut->lts;
+lts->file_dot;
+pn->file_pnml;
+file_pnml->pn;
+stgchor->file_dot;
+file_stg->stgchor;
+stgchor->file_stg;
+
+}
