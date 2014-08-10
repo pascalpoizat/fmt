@@ -66,6 +66,16 @@ public class StgModel extends AbstractModel {
     }
 
     /**
+     * returns the dot representation for the model
+     * used by StgWriters
+     * delegates to STG::toStgFormat()
+     * @return the stg representation for the model
+     */
+    String toStg() {
+        return model.toStgFormat();
+    }
+
+    /**
      * returns the STG model that is parsed from a string in the stg format
      * users by StgReaders
      * delegates to STG::parser()
@@ -74,7 +84,7 @@ public class StgModel extends AbstractModel {
      * @return
      * @throws IllegalResourceException
      */
-    static STG fromDot(String stringModel, boolean onlyReachable) throws IllegalResourceException {
+    static STG fromStg(String stringModel, boolean onlyReachable) throws IllegalResourceException {
         STG readModel, reachableModel;
         try {
             readModel = STG.parser(stringModel);
