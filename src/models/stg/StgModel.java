@@ -1,12 +1,3 @@
-package models.stg;
-
-import models.base.IllegalModelException;
-import models.base.IllegalResourceException;
-import models.base.Model;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
-import java.io.IOException;
-
 /**
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,7 +18,16 @@ import java.io.IOException;
  * emails: pascal.poizat@lip6.fr
  */
 
-public class StgModel extends Model {
+package models.stg;
+
+import models.base.AbstractModel;
+import models.base.IllegalModelException;
+import models.base.IllegalResourceException;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
+import java.io.IOException;
+
+public class StgModel extends AbstractModel {
 
     public StgModel() {
         super();

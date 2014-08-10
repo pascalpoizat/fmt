@@ -10,8 +10,8 @@ import fr.lip6.move.pnml.ptnet.hlapi.NameHLAPI;
 import fr.lip6.move.pnml.framework.hlapi.HLAPIClass;
 import fr.lip6.move.pnml.framework.general.PnmlImport;
 import fr.lip6.move.pnml.framework.utils.ModelRepository;
+import models.base.AbstractModel;
 import models.base.IllegalModelException;
-import models.base.Model;
 import models.base.IllegalResourceException;
 
 import java.io.*;
@@ -19,7 +19,7 @@ import java.io.*;
 /**
  * Created by pascalpoizat on 11/01/2014.
  */
-public class PnmlModel extends Model {
+public class PnmlModel extends AbstractModel {
 
     private PetriNetHLAPI model;
     private PetriNetDocHLAPI doc;
@@ -59,7 +59,6 @@ public class PnmlModel extends Model {
             throw new IllegalResourceException("PNML resource is incorrect (no net in PNML doc)");
         }
         model = doc.getNetsHLAPI().get(0); // if more than one net, use the first one
-        super.load();
     }
 
     @Override
