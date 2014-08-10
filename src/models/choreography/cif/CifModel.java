@@ -151,8 +151,8 @@ public class CifModel extends Model {
     }
 
     @Override
-    public void finalize() {
-
+    public void cleanUp() {
+        super.cleanUp();
     }
 
 }

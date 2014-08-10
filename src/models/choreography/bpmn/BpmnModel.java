@@ -152,5 +152,10 @@ public class BpmnModel extends Model {
 
     }
 
+    @Override
+    public void cleanUp() {
+        super.cleanUp();
+    }
+
 }
 

@@ -73,6 +73,7 @@ public class LtsModel extends Model {
     public void cleanUp() {
         states.clear();
         transitions.clear();
+        super.cleanUp();
     }
 
     public LtsState addState(String id, Map<String, Object> attributes) {
