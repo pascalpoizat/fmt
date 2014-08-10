@@ -2,6 +2,7 @@ digraph overview {
 rankdir=LR;
 fontname="Arial";
 fontsize="12";
+bgcolor="transparent";
 concentrate=true;
 edge [style=bold, color=black];
 
