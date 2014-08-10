@@ -18,34 +18,36 @@
  * emails: pascal.poizat@lip6.fr
  */
 
-package models.lts;
+package models.base;
 
-import models.base.AbstractModel;
-import models.base.AbstractModelWriter;
-import models.base.IllegalResourceException;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
- * Created by pascalpoizat on 04/08/2014.
+ * Created by pascalpoizat on 05/08/2014.
  */
-public abstract class LtsWriter extends AbstractModelWriter {
-    // from ModelWriter
-
+public abstract class AbstractModelWriter {
     // returns the suffix of the files the writer works with
-    @Override
     public abstract String getSuffix();
 
+    // writes model to a file
+    // by default, uses modelToString(), can be modified by inheritance (eg for writers using EMF or XML)
+    public void modelToFile(final AbstractModel model) throws IOException, IllegalResourceException {
+        if (model == null || model.getResource() == null) {
+            throw new IllegalResourceException("Model is not set up");
+        }
+        if (!model.getResource().getName().endsWith("." + getSuffix())) {
+            throw new IllegalResourceException("Wrong file suffix (should be " + getSuffix() + ")");
+        }
+        final String apath = model.getResource().getAbsolutePath();
+        final FileWriter file = new FileWriter(apath);
+        if (file == null) {
+            throw new IllegalResourceException("Cannot open output resource");
+        }
+        file.write(modelToString(model));
+        file.close();
+    }
+
     // writes model to a String
-    @Override
     public abstract String modelToString(AbstractModel model) throws IllegalResourceException;
-
-    // specific to LTS
-
-    // writes a state to a String
-    abstract String modelToString(LtsState ltsState) throws IllegalResourceException;
-
-    // writes a transition to a String
-    abstract String modelToString(LtsTransition ltsTransition) throws IllegalResourceException;
-
-    // writes a label to a String
-    abstract String modelToString(LtsLabel ltsLabel);
 }

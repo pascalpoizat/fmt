@@ -1,3 +1,23 @@
+/**
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * <p>
+ * {description}
+ * Copyright (C) 2014  pascalpoizat
+ * emails: pascal.poizat@lip6.fr
+ */
+
 package models.lts;
 
 // Java 1.7
@@ -8,13 +28,9 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 */
 
-import models.base.IllegalModelException;
+import models.base.AbstractModel;
 import models.base.IllegalResourceException;
-import models.base.Model;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -33,64 +49,34 @@ public class DotLtsWriter extends LtsWriter {
 
     @Override
     String modelToString(LtsLabel ltsLabel) {
-        return ltsLabel.getLabel().toString();
+        return ltsLabel.getLabel();
     }
 
     @Override
     String modelToString(LtsState ltsState) {
         String rtr = "";
-        rtr += String.format("\"%s\"", ltsState.getId());
-        if (ltsState.getAttributes().size() > 0) {
-            rtr += " [";
-            int i = 1;
-            for (String attribute : ltsState.getAttributes().keySet()) {
-                rtr += String.format("%s=\"%s\"", attribute, ltsState.getAttributes().get(attribute));
-                if (i < ltsState.getAttributes().size()) {
-                    rtr += ", ";
-                }
-                i++;
-            }
-            rtr += "]";
-        }
-        rtr += ";";
+        rtr += String.format("\"%s\";", ltsState.getId());
         return rtr;
     }
 
     @Override
     String modelToString(LtsTransition ltsTransition) {
         String rtr = "";
-        rtr += String.format("\"%s\" -> \"%s\"", ltsTransition.getSource(), ltsTransition.getTarget());
-        if (ltsTransition.getAttributes().size() > 0) {
-            rtr += " [";
-            int i = 1;
-            for (String attribute : ltsTransition.getAttributes().keySet()) {
-                rtr += String.format("%s=\"%s\"", attribute, ltsTransition.getAttributes().get(attribute));
-                if (i < ltsTransition.getAttributes().size()) {
-                    rtr += ", ";
-                }
-                i++;
-            }
-            rtr += "]";
+        try {
+            rtr += String.format("\"%s\" -> \"%s\" [label=\"%s\"]",
+                    ltsTransition.getSource(),
+                    ltsTransition.getTarget(),
+                    ltsTransition.getLabel().modelToString(this));
+            rtr += ";";
         }
-        rtr += ";";
+        catch (IllegalResourceException e) {
+            return null; // impossible
+        }
         return rtr;
     }
 
     @Override
-    public void modelToFile(Model model) throws IOException, IllegalResourceException, IllegalModelException {
-        if (!model.getResource().getName().endsWith("." + getSuffix())) {
-            throw new IllegalResourceException("Wrong file suffix (should be "+getSuffix()+")");
-        }
-        FileWriter fw = new FileWriter(model.getResource().getAbsolutePath());
-        if (fw == null) {
-            throw new IllegalResourceException("Cannot open output resource");
-        }
-        fw.write(modelToString(model));
-        fw.close();
-    }
-
-    @Override
-    public String modelToString(Model model) throws IllegalResourceException {
+    public String modelToString(AbstractModel model) throws IllegalResourceException {
         if (!(model instanceof LtsModel)) {
             throw new IllegalResourceException(String.format("Wrong kind of model (%s), should be %s",
                     model.getClass().toString(),
@@ -98,13 +84,16 @@ public class DotLtsWriter extends LtsWriter {
         }
         LtsModel ltsModel = (LtsModel) model;
         String name = "";
-        String states_as_string = "";
-        String transitions_as_string = "";
-        List<String> lstates = null;
-        List<String> ltransitions = null;
+        String states_as_string;
+        String transitions_as_string;
         if (ltsModel.getName() != null) {
             name = ltsModel.getName();
         }
+        // Java 1.7
+        /*
+        List<String> lstates = null;
+        List<String> ltransitions = null;
+        */
         // build string for states
         try {
             // Java 1.7

@@ -1,3 +1,23 @@
+/**
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * <p>
+ * {description}
+ * Copyright (C) 2014  pascalpoizat
+ * emails: pascal.poizat@lip6.fr
+ */
+
 package models.lts;
 
 // Java 1.7
@@ -8,17 +28,11 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 */
 
-import models.base.IllegalModelException;
+import models.base.AbstractModel;
 import models.base.IllegalResourceException;
-import models.base.Model;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -36,12 +50,12 @@ import java.util.stream.Collectors;
  * l, l', ... are labels of transitions
  * important:
  * some tools require that state ids (x,x',y,y',...) begin at 0 and go up to S-1 without any integer missing
- * this means state ids may have to be changed to support this (TODO)
+ * this means state ids may have to be changed to support this (state_mapping is used for this)
  * Created by pascalpoizat on 04/08/2014.
  */
 public class AutLtsWriter extends LtsWriter {
 
-    private Map<String,Integer> state_mapping = new HashMap<String,Integer>();
+    private Map<String, Integer> state_mapping = new HashMap<>();
     boolean state_mapping_is_built = false;
 
     public AutLtsWriter() {
@@ -54,7 +68,7 @@ public class AutLtsWriter extends LtsWriter {
 
     @Override
     String modelToString(LtsLabel ltsLabel) {
-        return ltsLabel.getLabel().toString();
+        return ltsLabel.getLabel();
     }
 
     @Override
@@ -66,64 +80,51 @@ public class AutLtsWriter extends LtsWriter {
     @Override
     String modelToString(LtsTransition ltsTransition) throws IllegalResourceException {
         String rtr = "";
-        Object object = "";
-        LtsLabel label = null;
-        if (ltsTransition.getAttributes().containsKey("label")) {
-            object = ltsTransition.getAttributes().get("label");
-            if(!(object instanceof LtsLabel)) {
-                throw new IllegalResourceException("");
-            }
-            label = (LtsLabel)object;
-            try {
-                label.modelToString(this);
-            }
-            catch (IllegalResourceException e) {
-                return null; // impossible
-            }
-        }
-        if(!state_mapping_is_built) {
+        if (!state_mapping_is_built) {
             throw new IllegalResourceException("Impossible to compute a String for the transition, mapping between states and integers has not been built");
         }
-        rtr += String.format("(%s,\"%s\",%s)", state_mapping.get(ltsTransition.getSource()), label, state_mapping.get(ltsTransition.getTarget()));
         // state_mapping MUST have been built before
-        // attributes are not supported in AUT format
+        rtr += String.format("(%s,\"%s\",%s)",
+                state_mapping.get(ltsTransition.getSource()),
+                ltsTransition.getLabel().modelToString(this),
+                state_mapping.get(ltsTransition.getTarget()));
         return rtr;
     }
 
-    @Override
-    public void modelToFile(Model model) throws IOException, IllegalResourceException, IllegalModelException {
-        if (!model.getResource().getName().endsWith("." + getSuffix())) {
-            throw new IllegalResourceException("Wrong file suffix (should be " + getSuffix() + ")");
+    private void build_state_mapping(LtsModel model) {
+        // F = ()
+        // i = 0
+        // for each transition tt = s--l-->t
+        //  if s not in dom(F), add (s,i) in F and i=i+1
+        //  if t not in dom(F), add (t,i) in F and i=i+1
+        // end for
+        state_mapping = new HashMap<>();
+        int i = 0;
+        for (LtsTransition tt : model.getTransitions()) {
+            String s = tt.getSource();
+            String t = tt.getTarget();
+            if (!state_mapping.containsKey(s)) {
+                state_mapping.put(s,i++);
+            }
+            if (!state_mapping.containsKey(t)) {
+                state_mapping.put(t, i++);
+            }
         }
-        FileWriter fw = new FileWriter(model.getResource().getAbsolutePath());
-        if (fw == null) {
-            throw new IllegalResourceException("Cannot open output resource");
-        }
-        fw.write(modelToString(model));
-        fw.close();
+        state_mapping_is_built = true;
     }
 
     @Override
-    public String modelToString(Model model) throws IllegalResourceException {
+    public String modelToString(AbstractModel model) throws IllegalResourceException {
         if (!(model instanceof LtsModel)) {
             throw new IllegalResourceException(String.format("Wrong kind of model (%s), should be %s",
                     model.getClass().toString(),
                     LtsModel.class.toString()));
         }
         LtsModel ltsModel = (LtsModel) model;
-        String name = "";
-        String states_as_string = "";
-        String transitions_as_string = "";
-        List<String> lstates = null;
-        List<String> ltransitions = null;
-        int nb_states = ltsModel.getStates().size();
+        String transitions_as_string;
         int nb_transitions = ltsModel.getTransitions().size();
         // build the mapping between state ids and integers (required by the AUT format)
-        int i = 0;
-        for(LtsState state : ((LtsModel) model).getStates()) {
-            state_mapping.put(state.getId(),i++);
-        }
-        state_mapping_is_built = true;
+        build_state_mapping(ltsModel);
         // build string for states
         // none in this format only transitions are saved
         // build string for transitions
@@ -133,7 +134,7 @@ public class AutLtsWriter extends LtsWriter {
         } catch (RuntimeException e) {
             return null; // impossible
         }
-        return String.format("des (0,%d,%d)\n%s\n", nb_transitions, nb_states, transitions_as_string);
+        return String.format("des (0,%d,%d)\n%s\n", nb_transitions, state_mapping.keySet().size(), transitions_as_string);
     }
 
 }

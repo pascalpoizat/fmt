@@ -1,25 +1,43 @@
+/**
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * <p>
+ * {description}
+ * Copyright (C) 2014  pascalpoizat
+ * emails: pascal.poizat@lip6.fr
+ */
+
 package models.lts;
 
+import models.base.AbstractModel;
 import models.base.IllegalModelException;
 import models.base.IllegalResourceException;
-import models.base.Model;
-import models.base.ModelWriter;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
 /**
  * Created by pascalpoizat on 12/04/2014.
  */
-public class LtsModel extends Model {
+public class LtsModel extends AbstractModel {
     // only directed graphs for now on
     // Next Release : support more of the graphviz format
 
     private String name;
-    private Map<String, LtsState> states;
-    private Map<String, LtsTransition> transitions;
+    private Map<String, LtsState> states; // state id -> state
+    private List<LtsTransition> transitions;
 
     public LtsModel() {
         this(null);
@@ -28,8 +46,8 @@ public class LtsModel extends Model {
     public LtsModel(String name) {
         super();
         this.name = name;
-        this.states = new HashMap<String, LtsState>();
-        this.transitions = new HashMap<String, LtsTransition>();
+        this.states = new HashMap<>();
+        this.transitions = new ArrayList<>();
     }
 
     public String getName() {
@@ -40,9 +58,11 @@ public class LtsModel extends Model {
         return states.values();
     }
 
-    public Collection<LtsTransition> getTransitions() {
-        return transitions.values();
+    public List<LtsTransition> getTransitions() {
+        return transitions;
     }
+
+    public Collection<String> getStateIds() { return states.keySet(); }
 
     @Override
     public String getSuffix() {
@@ -71,20 +91,23 @@ public class LtsModel extends Model {
 
     @Override
     public void cleanUp() {
-        states.clear();
-        transitions.clear();
+        this.name = null;
+        this.states = null;
+        this.transitions = null;
         super.cleanUp();
     }
 
-    public LtsState addState(String id, Map<String, Object> attributes) {
-        LtsState rtr = new LtsState(id, attributes);
+
+    public LtsState addState(String id) {
+        LtsState rtr = new LtsState(id);
         states.put(id, rtr);
         return rtr;
     }
 
-    public LtsTransition addTransition(String id, String source, String target, Map<String, Object> attributes) {
-        LtsTransition rtr = new LtsTransition(id, source, target, attributes);
-        transitions.put(id, rtr);
+    public LtsTransition addTransition(String source, String target, LtsLabel label) {
+        LtsTransition rtr = new LtsTransition(source, target, label);
+        transitions.add(rtr);
         return rtr;
     }
+
 }

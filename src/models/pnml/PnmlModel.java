@@ -80,7 +80,6 @@ public class PnmlModel extends Model {
             ModelRepository.getInstance().destroyCurrentWorkspace();
         } catch (VoidRepositoryException e) {
         }
-        super.cleanUp();
     }
 
     public PetriNetHLAPI getModel() {

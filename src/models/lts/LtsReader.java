@@ -18,31 +18,26 @@
  * emails: pascal.poizat@lip6.fr
  */
 
-package models.choreography.cif;
+package models.lts;
 
 import models.base.AbstractModel;
-import models.base.AbstractModelFactory;
+import models.base.AbstractModelReader;
+import models.base.IllegalResourceException;
 
 /**
- * Created by pascalpoizat on 11/01/2014.
+ * Created by pascalpoizat on 06/08/2014.
  */
-public final class CifFactory extends AbstractModelFactory {
+public abstract class LtsReader extends AbstractModelReader {
+    // from ModelReader
 
-    private static CifFactory instance;
+    // returns the suffix of the files the writer works with
+    @Override
+    public abstract String getSuffix();
 
-    private CifFactory() {
-        super();
-    }
+    // reads model from a String
+    @Override
+    public abstract void modelFromString(AbstractModel model, String stringModel) throws IllegalResourceException;
 
-    public static CifFactory getInstance() {
-        if (instance == null) {
-            instance = new CifFactory();
-        }
-        return instance;
-    }
-
-    public AbstractModel create() {
-        return new CifModel();
-    }
+    // specific to LTS
 
 }
