@@ -72,7 +72,7 @@ public abstract class AbstractTransformer implements Transformer {
         }
         inputFile = new File(inputResourcePath).getAbsoluteFile();
         workingDirectory = inputFile.getParentFile();
-        basename = inputFile.getName().substring(0, inputFile.getName().length() - inputModel.getSuffix().length() + 1);
+        basename = inputFile.getName().substring(0, inputFile.getName().length() - inputModel.getSuffix().length()-1);
         outputFile = new File(workingDirectory, basename + "." + outputModel.getSuffix()).getAbsoluteFile();
         inputModel.setResource(inputFile);
         outputModel.setResource(outputFile);
