@@ -1,8 +1,28 @@
+/**
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * <p>
+ * {description}
+ * Copyright (C) 2014  pascalpoizat
+ * emails: pascal.poizat@lip6.fr
+ */
+
 package models.choreography.cif;
 
+import models.base.AbstractModel;
 import models.base.IllegalModelException;
 import models.base.IllegalResourceException;
-import models.base.Model;
 import models.choreography.cif.generated.*;
 
 import javax.xml.bind.*;
@@ -13,19 +33,20 @@ import java.util.List;
 /**
  * Created by pascalpoizat on 11/01/2014.
  */
-public class CifModel extends Model {
+public class CifModel extends AbstractModel {
 
+    public static final String BADMODEL = "CIF model is incorrect";
     private Choreography model;
 
     public CifModel() {
         super();
         model = new Choreography();
-        PeerList pl = new PeerList();
-        MessageList ml = new MessageList();
-        StateMachine sm = new StateMachine();
-        model.setParticipants(pl);
-        model.setAlphabet(ml);
-        model.setStateMachine(sm);
+        final PeerList peerList = new PeerList();
+        final MessageList messageList = new MessageList();
+        final StateMachine stateMachine = new StateMachine();
+        model.setParticipants(peerList);
+        model.setAlphabet(messageList);
+        model.setStateMachine(stateMachine);
     }
 
     @Override
@@ -35,6 +56,8 @@ public class CifModel extends Model {
 
     @Override
     public void load() throws IOException, IllegalResourceException, IllegalModelException {
+        /*
+        tbc, this should load the model and initialize its internal lists
         if (getResource() == null) {
             throw new IllegalResourceException("Input resource is not correctly set");
         }
@@ -49,6 +72,8 @@ public class CifModel extends Model {
             fis.close();
         }
         super.load();
+        */
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -56,10 +81,10 @@ public class CifModel extends Model {
         if (getResource() == null) {
             throw new IllegalResourceException("Output resource is not correctly set");
         }
-        FileOutputStream fos = new FileOutputStream(getResource());
+        final FileOutputStream fos = new FileOutputStream(getResource());
         try {
-            JAXBContext ctx = JAXBContext.newInstance(Choreography.class);
-            Marshaller marshaller = ctx.createMarshaller();
+            final JAXBContext ctx = JAXBContext.newInstance(Choreography.class);
+            final Marshaller marshaller = ctx.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
             marshaller.marshal(model, fos);
         } catch (JAXBException e) {
@@ -69,7 +94,7 @@ public class CifModel extends Model {
         }
     }
 
-    public void setChoreoID(String value) {
+    public void setChoreoID(final String value) {
         if (model != null) {
             model.setChoreoID(value);
         }
@@ -77,9 +102,9 @@ public class CifModel extends Model {
 
     public PeerList getParticipants() throws IllegalModelException {
         if (model == null) {
-            throw new IllegalModelException("CIF model is incorrect");
+            throw new IllegalModelException(BADMODEL);
         } else if (model.getParticipants() == null) {
-            throw new IllegalModelException("CIF model is incorrect (no participant list)");
+            throw new IllegalModelException(BADMODEL +" (no participant list)");
         } else {
             return model.getParticipants();
         }
@@ -87,25 +112,25 @@ public class CifModel extends Model {
 
     public MessageList getAlphabet() throws IllegalModelException {
         if (model == null) {
-            throw new IllegalModelException("CIF model is incorrect");
+            throw new IllegalModelException(BADMODEL);
         } else if (model.getAlphabet() == null) {
-            throw new IllegalModelException("CIF model is incorrect (no alphabet)");
+            throw new IllegalModelException(BADMODEL +" (no alphabet)");
         } else {
             return model.getAlphabet();
         }
     }
 
     public HashMap<String, Message> getAlphabetAsMap() throws IllegalModelException {
-        HashMap<String, Message> rtr = new HashMap<String, Message>();
-        Message m;
+        final HashMap<String, Message> rtr = new HashMap<>();
+        Message message;
         if (model == null) {
-            throw new IllegalModelException("CIF model is incorrect");
+            throw new IllegalModelException(BADMODEL);
         } else if (model.getAlphabet() == null) {
-            throw new IllegalModelException("CIF model is incorrect (no alphabet)");
+            throw new IllegalModelException(BADMODEL +" (no alphabet)");
         } else {
-            for (Object o : model.getAlphabet().getMessageOrAction()) {
-                m = (Message) o;
-                rtr.put(m.getMsgID(), m);
+            for (final Object object : model.getAlphabet().getMessageOrAction()) {
+                message = (Message) object;
+                rtr.put(message.getMsgID(), message);
             }
         }
         return rtr;
@@ -113,9 +138,9 @@ public class CifModel extends Model {
 
     public StateMachine getStateMachine() throws IllegalModelException {
         if (model == null) {
-            throw new IllegalModelException("CIF model is incorrect");
+            throw new IllegalModelException(BADMODEL);
         } else if (model.getStateMachine() == null) {
-            throw new IllegalModelException("CIF model is incorrect (no state machine)");
+            throw new IllegalModelException(BADMODEL +" (no state machine)");
         } else {
             return model.getStateMachine();
         }
@@ -123,7 +148,7 @@ public class CifModel extends Model {
 
     public InitialState getInitialState() throws IllegalModelException {
         if (model == null || model.getStateMachine().getInitial() == null) {
-            throw new IllegalModelException("CIF model is incorrect (no initial state)");
+            throw new IllegalModelException(BADMODEL +" (no initial state)");
         } else {
             return model.getStateMachine().getInitial();
         }
@@ -131,18 +156,18 @@ public class CifModel extends Model {
 
     public List<FinalState> getFinalStates() throws IllegalModelException {
         if (model == null || model.getStateMachine().getFinal() == null || model.getStateMachine().getFinal().size() == 0) {
-            throw new IllegalModelException("CIF model is incorrect (no final state)");
+            throw new IllegalModelException(BADMODEL +" (no final state)");
         } else {
             return model.getStateMachine().getFinal();
         }
     }
 
-    public BaseState getStateById(String id) throws IllegalModelException {
+    public BaseState getStateById(final String stateId) throws IllegalModelException {
         // could be avoided with states in CIF model encoded using a HashTable
         BaseState rtr = null;
-        List<BaseState> states = getStateMachine().getInteractionOrInternalActionOrSubsetJoin();
-        for (BaseState state : states) {
-            if (state.getStateID().equals(id)) {
+        final List<BaseState> states = getStateMachine().getInteractionOrInternalActionOrSubsetJoin();
+        for (final BaseState state : states) {
+            if (state.getStateID().equals(stateId)) {
                 rtr = state;
                 break;
             }
@@ -151,8 +176,15 @@ public class CifModel extends Model {
     }
 
     @Override
-    public void finalize() {
-
+    public void cleanUp() {
+        model = new Choreography();
+        final PeerList peerList = new PeerList();
+        final MessageList messageList = new MessageList();
+        final StateMachine stateMachine = new StateMachine();
+        model.setParticipants(peerList);
+        model.setAlphabet(messageList);
+        model.setStateMachine(stateMachine);
+        super.cleanUp();
     }
 
 }

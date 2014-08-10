@@ -18,31 +18,25 @@
  * emails: pascal.poizat@lip6.fr
  */
 
-package models.choreography.cif;
+package models.choreography.stg;
 
 import models.base.AbstractModel;
-import models.base.AbstractModelFactory;
+import models.base.IllegalResourceException;
 
-/**
- * Created by pascalpoizat on 11/01/2014.
- */
-public final class CifFactory extends AbstractModelFactory {
-
-    private static CifFactory instance;
-
-    private CifFactory() {
-        super();
+public class DotStgWriter extends StgWriter {
+    @Override
+    public String getSuffix() {
+        return "dot";
     }
 
-    public static CifFactory getInstance() {
-        if (instance == null) {
-            instance = new CifFactory();
+    @Override
+    public String modelToString(AbstractModel model) throws IllegalResourceException {
+        if (!(model instanceof StgModel)) {
+            throw new IllegalResourceException(String.format("Wrong kind of model (%s), should be %s",
+                    model.getClass().toString(),
+                    StgModel.class.toString()));
         }
-        return instance;
+        StgModel stgModel = (StgModel)model;
+        return stgModel.toDot();
     }
-
-    public AbstractModel create() {
-        return new CifModel();
-    }
-
 }

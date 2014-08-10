@@ -18,31 +18,9 @@
  * emails: pascal.poizat@lip6.fr
  */
 
-package models.choreography.cif;
+package models.choreography.stg;
 
-import models.base.AbstractModel;
-import models.base.AbstractModelFactory;
+import models.base.AbstractModelReader;
 
-/**
- * Created by pascalpoizat on 11/01/2014.
- */
-public final class CifFactory extends AbstractModelFactory {
-
-    private static CifFactory instance;
-
-    private CifFactory() {
-        super();
-    }
-
-    public static CifFactory getInstance() {
-        if (instance == null) {
-            instance = new CifFactory();
-        }
-        return instance;
-    }
-
-    public AbstractModel create() {
-        return new CifModel();
-    }
-
+public abstract class StgReader extends AbstractModelReader {
 }

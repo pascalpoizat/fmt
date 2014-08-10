@@ -7,7 +7,7 @@ import java.util.List;
 // jar Eclipse : org.eclipse.bpmn2_0.7.0.[...].jar
 import models.base.IllegalModelException;
 import models.base.IllegalResourceException;
-import models.base.Model;
+import models.base.AbstractModel;
 import org.eclipse.bpmn2.*;
 import org.eclipse.bpmn2.impl.Bpmn2FactoryImpl;
 import org.eclipse.bpmn2.util.Bpmn2Resource;
@@ -32,7 +32,7 @@ import org.eclipse.emf.common.util.URI;
 /**
  * Created by pascalpoizat on 11/01/2014.
  */
-public class BpmnModel extends Model {
+public class BpmnModel extends AbstractModel {
 
     public static String MAIN_CLASS = "Choreography";
 
@@ -51,7 +51,6 @@ public class BpmnModel extends Model {
     @Override
     public void load() throws IOException, IllegalResourceException, IllegalModelException {
         loadEMF();
-        super.load();
     }
 
     private void loadEMF() throws IOException, IllegalResourceException, IllegalModelException {
