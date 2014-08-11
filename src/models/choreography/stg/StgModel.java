@@ -122,7 +122,7 @@ public class StgModel extends AbstractModel {
 
     @Override
     public void dump() throws IOException, IllegalResourceException {
-
+        throw new NotImplementedException();
     }
 
     @Override
