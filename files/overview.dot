@@ -55,6 +55,7 @@ file_dot [label=".dot"];
 cif->pn [style="dashed, bold", color=black, constraint=false];
 
 lts->file_dot;
+cif->file_dot;
 stgchor->file_dot [constraint=false];
 
 }
