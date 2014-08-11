@@ -21,5 +21,5 @@ package models.pnml;
 
 import models.base.AbstractModelWriter;
 
-public abstract class AbstractPnmlWriter extends AbstractModelWriter{
+public abstract class AbstractPnmlWriter extends AbstractModelWriter {
 }

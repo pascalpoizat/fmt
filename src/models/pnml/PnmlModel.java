@@ -1,6 +1,7 @@
 package models.pnml;
 
 // import fr.lip6.fr.lip6.move.pnml.framework.general.PnmlExport;
+
 import fr.lip6.move.pnml.framework.utils.exception.InvalidIDException;
 import fr.lip6.move.pnml.framework.utils.exception.VoidRepositoryException;
 import fr.lip6.move.pnml.ptnet.hlapi.PetriNetHLAPI;
@@ -13,6 +14,7 @@ import fr.lip6.move.pnml.framework.utils.ModelRepository;
 import models.base.AbstractModel;
 import models.base.IllegalModelException;
 import models.base.IllegalResourceException;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.io.*;
 
@@ -43,34 +45,13 @@ public class PnmlModel extends AbstractModel {
     }
 
     @Override
-    public void load() throws IOException, IllegalResourceException, IllegalModelException {
-        HLAPIClass rawModel;
-        if (getResource() == null) {
-            throw new IllegalResourceException("PNML resource is not set");
-        }
-        PnmlImport pnmlImport = new PnmlImport();
-        try {
-            rawModel = pnmlImport.importFile(getResource().getAbsolutePath());
-        } catch (Exception e) {  // NEXT RELEASE deal with specific exceptions
-            throw new IllegalResourceException("PNML resource is incorrect");
-        }
-        doc = (PetriNetDocHLAPI) rawModel;
-        if (doc.getNetsHLAPI().size() == 0) {
-            throw new IllegalResourceException("PNML resource is incorrect (no net in PNML doc)");
-        }
-        model = doc.getNetsHLAPI().get(0); // if more than one net, use the first one
+    public void load() {
+        throw new NotImplementedException();
     }
 
     @Override
-    public void dump() throws IOException, IllegalResourceException {
-        ModelRepository mr = ModelRepository.getInstance();
-        mr.setPrettyPrintStatus(true);
-        FileWriter fw = new FileWriter(getResource().getAbsolutePath());
-        if (fw == null) {
-            throw new IllegalResourceException("Cannot open output resource");
-        }
-        fw.write(doc.toPNML());
-        fw.close();
+    public void dump() {
+        throw new NotImplementedException();
     }
 
     @Override
@@ -83,6 +64,18 @@ public class PnmlModel extends AbstractModel {
 
     public PetriNetHLAPI getModel() {
         return model;
+    }
+
+    public PetriNetDocHLAPI getDoc() {
+        return doc;
+    }
+
+    public void setModel(PetriNetHLAPI model) {
+        this.model = model;
+    }
+
+    public void setDoc(PetriNetDocHLAPI doc) {
+        this.doc = doc;
     }
 
 }
