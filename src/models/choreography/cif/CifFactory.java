@@ -23,9 +23,6 @@ package models.choreography.cif;
 import models.base.AbstractModel;
 import models.base.AbstractModelFactory;
 
-/**
- * Created by pascalpoizat on 11/01/2014.
- */
 public final class CifFactory extends AbstractModelFactory {
 
     private static CifFactory instance;
@@ -46,3 +43,4 @@ public final class CifFactory extends AbstractModelFactory {
     }
 
 }
+
