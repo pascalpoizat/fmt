@@ -20,8 +20,7 @@
 
 package transformations.base;
 
-import models.base.IllegalModelException;
-import models.base.IllegalResourceException;
+import models.base.*;
 
 import java.io.IOException;
 
@@ -29,8 +28,9 @@ import java.io.IOException;
  * Created by pascalpoizat on 11/01/2014.
  */
 public interface Transformer {
-    // sets the resources to operate on
-    void setResources(String inputResourcePath) throws IllegalResourceException;
+
+    // sets the models to work with
+    void setResources(AbstractModel inputModel, AbstractModel outputModel, AbstractModelReader reader, AbstractModelWriter writer) throws IllegalResourceException;
 
     // load input model
     void load() throws IOException, IllegalResourceException, IllegalModelException;
@@ -39,7 +39,7 @@ public interface Transformer {
     void transform() throws IllegalModelException;
 
     // dump output model
-    void dump() throws IOException, IllegalResourceException;
+    void dump() throws IOException, IllegalResourceException, IllegalModelException;
 
     // finalize (cleans up models)
     void cleanUp();

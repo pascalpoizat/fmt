@@ -29,8 +29,7 @@ import java.util.ArrayList;
 */
 
 import models.base.AbstractModel;
-import models.base.IllegalResourceException;
-import org.testng.annotations.DataProvider;
+import models.base.IllegalModelException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -54,7 +53,7 @@ import java.util.stream.Collectors;
  * this means state ids may have to be changed to support this (state_mapping is used for this)
  * Created by pascalpoizat on 04/08/2014.
  */
-public class AutLtsWriter extends AbstractLtsWriter {
+public class AutLtsWriter extends AbstractStringLtsWriter {
 
     private Map<String, Integer> state_mapping = new HashMap<>();
     boolean state_mapping_is_built;
@@ -68,9 +67,9 @@ public class AutLtsWriter extends AbstractLtsWriter {
     }
 
     @Override
-    public String modelToString(AbstractModel model) throws IllegalResourceException {
+    public String modelToString(AbstractModel model) throws IllegalModelException {
         if (!(model instanceof LtsModel)) {
-            throw new IllegalResourceException(String.format("Wrong kind of model (%s), should be %s",
+            throw new IllegalModelException(String.format("Wrong kind of model (%s), should be %s",
                     model.getClass().toString(),
                     LtsModel.class.toString()));
         }

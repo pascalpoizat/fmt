@@ -29,15 +29,11 @@ import java.util.ArrayList;
 */
 
 import models.base.AbstractModel;
-import models.base.IllegalResourceException;
+import models.base.IllegalModelException;
 
 import java.util.stream.Collectors;
 
-/**
- * A writer to dump LTS in DOT (Graphviz) format
- * Created by pascalpoizat on 04/08/2014.
- */
-public class DotLtsWriter extends AbstractLtsWriter {
+public class DotLtsWriter extends AbstractStringLtsWriter {
 
     public DotLtsWriter() {
     }
@@ -48,9 +44,9 @@ public class DotLtsWriter extends AbstractLtsWriter {
     }
 
     @Override
-    public String modelToString(AbstractModel model) throws IllegalResourceException {
+    public String modelToString(AbstractModel model) throws IllegalModelException {
         if (!(model instanceof LtsModel)) {
-            throw new IllegalResourceException(String.format("Wrong kind of model (%s), should be %s",
+            throw new IllegalModelException(String.format("Wrong kind of model (%s), should be %s",
                     model.getClass().toString(),
                     LtsModel.class.toString()));
         }

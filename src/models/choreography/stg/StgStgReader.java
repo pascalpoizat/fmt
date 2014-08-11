@@ -22,18 +22,20 @@ package models.choreography.stg;
 
 import fr.lri.schora.stg.STG;
 import models.base.AbstractModel;
+import models.base.AbstractStringModelReader;
+import models.base.IllegalModelException;
 import models.base.IllegalResourceException;
 
-public class StgStgReader extends AbstractStgReader {
+public class StgStgReader extends AbstractStringModelReader {
     @Override
     public String getSuffix() {
         return "stg";
     }
 
     @Override
-    public void modelFromString(AbstractModel model, String stringModel) throws IllegalResourceException {
+    public void modelFromString(AbstractModel model, String stringModel) throws IllegalModelException {
         if (!(model instanceof StgModel)) {
-            throw new IllegalResourceException(String.format("Wrong kind of model (%s), should be %s",
+            throw new IllegalModelException(String.format("Wrong kind of model (%s), should be %s",
                     model.getClass().toString(),
                     StgModel.class.toString()));
         }

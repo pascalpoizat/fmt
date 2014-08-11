@@ -21,11 +21,8 @@
 package models.lts;
 
 import models.base.AbstractStringModelWriter;
-import models.base.IllegalResourceException;
+import models.base.IllegalModelException;
 
-/**
- * Created by pascalpoizat on 05/08/2014.
- */
 public class LtsLabel {
 
     private String label;
@@ -44,14 +41,14 @@ public class LtsLabel {
 
     public String modelToString(LtsModel ltsModel, AbstractStringModelWriter writer) throws RuntimeException {
         try {
-            if (!(writer instanceof AbstractLtsWriter)) {
-                throw new IllegalResourceException(String.format("Wrong kind of writer (%s), should be %s",
+            if (!(writer instanceof AbstractStringLtsWriter)) {
+                throw new IllegalModelException(String.format("Wrong kind of writer (%s), should be %s",
                         writer.getClass().toString(),
-                        AbstractLtsWriter.class));
+                        AbstractStringLtsWriter.class));
             }
-            AbstractLtsWriter ltsWriter = (AbstractLtsWriter) writer;
+            AbstractStringLtsWriter ltsWriter = (AbstractStringLtsWriter) writer;
             return ltsWriter.modelToString(ltsModel, this);
-        } catch (IllegalResourceException e) {
+        } catch (IllegalModelException e) {
             throw new RuntimeException(e);  // BAD TRICK DUE TO Java 1.8 support for exceptions in map()
         }
     }

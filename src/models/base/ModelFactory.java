@@ -28,10 +28,4 @@ import java.io.IOException;
 public interface ModelFactory {
     // creates an empty model (using the empty constructor
     AbstractModel create();
-
-    // creates a model and loads it from a file
-    AbstractModel createFromFile(String filename) throws IOException, IllegalResourceException, IllegalModelException;
-
-    // creates a model and loads it from a file using a reader
-    AbstractModel createFromFile(String filename, AbstractModelReader reader) throws IOException, IllegalResourceException, IllegalModelException;
 }

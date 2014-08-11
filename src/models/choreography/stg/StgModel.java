@@ -45,11 +45,6 @@ public class StgModel extends AbstractModel {
         model = null;
     }
 
-    @Override
-    public String getSuffix() {
-        return "stg";
-    }
-
     /**
      * returns the dot representation for the model
      * used by StgWriters
@@ -82,7 +77,7 @@ public class StgModel extends AbstractModel {
      * @return
      * @throws IllegalResourceException
      */
-    static STG fromStg(String stringModel, boolean onlyReachable) throws IllegalResourceException {
+    static STG fromStg(String stringModel, boolean onlyReachable) throws IllegalModelException {
         STG readModel, reachableModel;
         try {
             readModel = STG.parser(stringModel);
@@ -92,10 +87,8 @@ public class StgModel extends AbstractModel {
             } else {
                 return readModel;
             }
-        } catch (ParserException e) {
-            throw new IllegalResourceException(e.getMessage());
         } catch (Exception e) {
-            throw new IllegalResourceException(e.getMessage());
+            throw new IllegalModelException(e.getMessage());
         }
     }
 
@@ -116,16 +109,6 @@ public class StgModel extends AbstractModel {
      */
     static void setZ3PATH(String path) {
         Z3PATH = path;
-    }
-
-    @Override
-    public void dump() throws IOException, IllegalResourceException {
-        throw new NotImplementedException();
-    }
-
-    @Override
-    public void load() throws IOException, IllegalResourceException {
-        throw new NotImplementedException();
     }
 
     @Override

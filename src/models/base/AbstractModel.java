@@ -47,27 +47,18 @@ public abstract class AbstractModel {
         return resource;
     }
 
-    // gets regular file suffix for resource
-    public abstract String getSuffix();
-
-    // loads model
-    public abstract void load() throws IOException, IllegalResourceException, IllegalModelException;
-
-    // dumps model
-    public abstract void dump() throws IOException, IllegalResourceException;
-
     // writes model to a file
-    public final void modelToFile(final AbstractModelWriter writer) throws IllegalResourceException, IOException {
+    public final void modelToFile(final AbstractModelWriter writer) throws IOException, IllegalResourceException, IllegalModelException {
         writer.modelToFile(this);
     }
 
     // reads model from a file
-    public final void modelFromFile(final AbstractModelReader reader) throws IllegalResourceException, IOException {
+    public final void modelFromFile(final AbstractModelReader reader) throws IOException, IllegalResourceException, IllegalModelException {
         reader.modelFromFile(this);
     }
 
     // writes model to a string
-    public final String modelToString(final AbstractStringModelWriter writer) throws IllegalResourceException {
+    public final String modelToString(final AbstractStringModelWriter writer) throws IllegalModelException {
         return writer.modelToString(this);
     }
 

@@ -130,8 +130,8 @@ public class Bpmn2CifTransformer extends AbstractTransformer {
     boolean has_initial_state;
     boolean has_final_state;
 
-    public Bpmn2CifTransformer(BpmnFactory bpmnFactory, CifFactory cifFactory) {
-        super(bpmnFactory, cifFactory);
+    public Bpmn2CifTransformer() {
+        super();
         participants = new HashMap<String, String>();
         messages = new HashMap<String, String>();
         has_initial_state = false;

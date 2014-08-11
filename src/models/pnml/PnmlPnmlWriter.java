@@ -17,25 +17,29 @@
  *   Copyright (C) 2014  pascalpoizat
  *   emails: pascal.poizat@lip6.fr
  */
+
 package models.pnml;
 
 import fr.lip6.move.pnml.framework.utils.ModelRepository;
 import models.base.AbstractModel;
+import models.base.AbstractModelWriter;
+import models.base.IllegalModelException;
 import models.base.IllegalResourceException;
 
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class PnmlPnmlWriter extends AbstractPnmlWriter {
+public class PnmlPnmlWriter extends AbstractModelWriter {
     @Override
     public String getSuffix() {
         return "pnml";
     }
 
     @Override
-    public void modelToFile(AbstractModel model) throws IOException, IllegalResourceException {
+    public void modelToFile(AbstractModel model) throws IOException, IllegalResourceException, IllegalModelException {
+        checkModel(model);
         if (!(model instanceof PnmlModel)) {
-            throw new IllegalResourceException(String.format("Wrong kind of model (%s), should be %s",
+            throw new IllegalModelException(String.format("Wrong kind of model (%s), should be %s",
                     model.getClass().toString(),
                     PnmlModel.class.toString()));
         }
@@ -43,9 +47,6 @@ public class PnmlPnmlWriter extends AbstractPnmlWriter {
         ModelRepository mr = ModelRepository.getInstance();
         mr.setPrettyPrintStatus(true);
         FileWriter fw = new FileWriter(pnmlModel.getResource().getAbsolutePath());
-        if (fw == null) {
-            throw new IllegalResourceException("Cannot open output resource");
-        }
         fw.write(pnmlModel.getDoc().toPNML());
         fw.close();
     }

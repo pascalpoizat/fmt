@@ -21,18 +21,20 @@
 package models.choreography.stg;
 
 import models.base.AbstractModel;
+import models.base.AbstractStringModelWriter;
+import models.base.IllegalModelException;
 import models.base.IllegalResourceException;
 
-public class DotStgWriter extends AbstractStgWriter {
+public class DotStgWriter extends AbstractStringModelWriter {
     @Override
     public String getSuffix() {
         return "dot";
     }
 
     @Override
-    public String modelToString(AbstractModel model) throws IllegalResourceException {
+    public String modelToString(AbstractModel model) throws IllegalModelException {
         if (!(model instanceof StgModel)) {
-            throw new IllegalResourceException(String.format("Wrong kind of model (%s), should be %s",
+            throw new IllegalModelException(String.format("Wrong kind of model (%s), should be %s",
                     model.getClass().toString(),
                     StgModel.class.toString()));
         }

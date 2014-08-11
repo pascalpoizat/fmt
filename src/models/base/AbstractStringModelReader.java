@@ -29,13 +29,8 @@ public abstract class AbstractStringModelReader extends AbstractModelReader {
 
     // reads model from a file
     @Override
-    public final void modelFromFile(final AbstractModel model) throws IOException, IllegalResourceException {
-        if (model == null || model.getResource() == null) {
-            throw new IllegalResourceException("");
-        }
-        if (!model.getResource().getName().endsWith("." + getSuffix())) {
-            throw new IllegalResourceException("Wrong file suffix (should be " + getSuffix() + ")");
-        }
+    public final void modelFromFile(final AbstractModel model) throws IOException, IllegalResourceException, IllegalModelException {
+        checkModel(model);
         final FileReader file = new FileReader(model.getResource());
         final BufferedReader bufferedReader = new BufferedReader(file);
         final StringBuilder builder = new StringBuilder();
@@ -50,5 +45,5 @@ public abstract class AbstractStringModelReader extends AbstractModelReader {
     }
 
     // reads model from a String
-    public abstract void modelFromString(AbstractModel model, String stringModel) throws IllegalResourceException;
+    public abstract void modelFromString(AbstractModel model, String stringModel) throws IllegalModelException;
 }

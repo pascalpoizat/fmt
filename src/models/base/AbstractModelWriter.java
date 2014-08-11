@@ -21,11 +21,7 @@ package models.base;
 
 import java.io.IOException;
 
-public abstract class AbstractModelWriter {
-    // returns the suffix of the files the writer works with
-    public abstract String getSuffix();
-
+public abstract class AbstractModelWriter extends AbstractModelOperator {
     // writes model to a file
-    public abstract void modelToFile(final AbstractModel model) throws IOException, IllegalResourceException;
-
+    public abstract void modelToFile(final AbstractModel model) throws IOException, IllegalResourceException, IllegalModelException;
 }
