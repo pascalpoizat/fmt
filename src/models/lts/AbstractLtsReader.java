@@ -18,9 +18,14 @@
  * emails: pascal.poizat@lip6.fr
  */
 
-package models.choreography.stg;
+package models.lts;
 
-import models.base.AbstractModelReader;
+import models.base.AbstractModel;
+import models.base.AbstractStringModelReader;
+import models.base.IllegalResourceException;
 
-public abstract class StgReader extends AbstractModelReader {
+/**
+ * Created by pascalpoizat on 06/08/2014.
+ */
+public abstract class AbstractLtsReader extends AbstractStringModelReader {
 }

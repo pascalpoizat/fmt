@@ -23,11 +23,7 @@ package models.choreography.bpmn;
 import models.base.AbstractModel;
 import models.base.AbstractModelFactory;
 
-
-/**
- * Created by pascalpoizat on 11/01/2014.
- */
-public class BpmnFactory extends AbstractModelFactory {
+public final class BpmnFactory extends AbstractModelFactory {
 
     private static BpmnFactory instance;
 

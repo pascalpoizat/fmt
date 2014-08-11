@@ -29,7 +29,7 @@ import java.util.regex.Pattern;
 /**
  * Created by pascalpoizat on 06/08/2014.
  */
-public class AutLtsReader extends LtsReader {
+public class AutLtsReader extends AbstractLtsReader {
 
     private Pattern description_line_pattern;
     private Pattern transition_line_pattern;

@@ -20,7 +20,7 @@
 
 package models.lts;
 
-import models.base.AbstractModelWriter;
+import models.base.AbstractStringModelWriter;
 import models.base.IllegalResourceException;
 
 /**
@@ -48,25 +48,15 @@ public class LtsTransition {
 
     public LtsLabel getLabel() { return label; }
 
-    @Override
-    public String toString() {
-        // defaults to DOT format
+    public String modelToString(LtsModel ltsModel, AbstractStringModelWriter writer) throws RuntimeException {
         try {
-            return this.modelToString(new DotLtsWriter());
-        } catch (RuntimeException e) {
-            return null;
-        } // impossible
-    }
-
-    public String modelToString(AbstractModelWriter writer) throws RuntimeException {
-        try {
-            if (!(writer instanceof LtsWriter)) {
+            if (!(writer instanceof AbstractLtsWriter)) {
                 throw new IllegalResourceException(String.format("Wrong kind of writer (%s), should be %s",
                         writer.getClass().toString(),
-                        LtsWriter.class));
+                        AbstractLtsWriter.class));
             }
-            LtsWriter ltsWriter = (LtsWriter) writer;
-            return ltsWriter.modelToString(this);
+            AbstractLtsWriter ltsWriter = (AbstractLtsWriter) writer;
+            return ltsWriter.modelToString(ltsModel, this);
         } catch (IllegalResourceException e) {
             throw new RuntimeException(e); // BAD TRICK DUE TO Java 1.8 support for exceptions in map()
         }

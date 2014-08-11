@@ -23,7 +23,7 @@ package models.choreography.stg;
 import models.base.AbstractModel;
 import models.base.IllegalResourceException;
 
-public class DotStgWriter extends StgWriter {
+public class DotStgWriter extends AbstractStgWriter {
     @Override
     public String getSuffix() {
         return "dot";

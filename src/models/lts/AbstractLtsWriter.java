@@ -17,9 +17,23 @@
  * Copyright (C) 2014  pascalpoizat
  * emails: pascal.poizat@lip6.fr
  */
-package models.choreography.stg;
 
-import models.base.AbstractModelWriter;
+package models.lts;
 
-public abstract class StgWriter extends AbstractModelWriter {
+import models.base.AbstractModel;
+import models.base.AbstractStringModelWriter;
+import models.base.IllegalResourceException;
+
+/**
+ * Created by pascalpoizat on 04/08/2014.
+ */
+public abstract class AbstractLtsWriter extends AbstractStringModelWriter {
+    // write a state to a string
+    abstract String modelToString(LtsModel ltsModel, LtsState ltsState);
+
+    // write a transition to a string
+    abstract String modelToString(LtsModel ltsModel, LtsTransition ltsTransition);
+
+    // write a label to a string
+    abstract String modelToString(LtsModel ltsModel, LtsLabel ltsLabel);
 }

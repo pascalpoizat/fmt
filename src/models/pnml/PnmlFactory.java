@@ -23,9 +23,6 @@ package models.pnml;
 import models.base.AbstractModel;
 import models.base.AbstractModelFactory;
 
-/**
- * Created by pascalpoizat on 11/01/2014.
- */
 public final class PnmlFactory extends AbstractModelFactory {
 
     private static PnmlFactory instance;

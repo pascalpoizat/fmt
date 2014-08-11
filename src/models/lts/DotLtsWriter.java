@@ -37,7 +37,7 @@ import java.util.stream.Collectors;
  * A writer to dump LTS in DOT (Graphviz) format
  * Created by pascalpoizat on 04/08/2014.
  */
-public class DotLtsWriter extends LtsWriter {
+public class DotLtsWriter extends AbstractLtsWriter {
 
     public DotLtsWriter() {
     }
@@ -45,34 +45,6 @@ public class DotLtsWriter extends LtsWriter {
     @Override
     public String getSuffix() {
         return "dot";
-    }
-
-    @Override
-    String modelToString(LtsLabel ltsLabel) {
-        return ltsLabel.getLabel();
-    }
-
-    @Override
-    String modelToString(LtsState ltsState) {
-        String rtr = "";
-        rtr += String.format("\"%s\";", ltsState.getId());
-        return rtr;
-    }
-
-    @Override
-    String modelToString(LtsTransition ltsTransition) {
-        String rtr = "";
-        try {
-            rtr += String.format("\"%s\" -> \"%s\" [label=\"%s\"]",
-                    ltsTransition.getSource(),
-                    ltsTransition.getTarget(),
-                    ltsTransition.getLabel().modelToString(this));
-            rtr += ";";
-        }
-        catch (IllegalResourceException e) {
-            return null; // impossible
-        }
-        return rtr;
     }
 
     @Override
@@ -105,7 +77,7 @@ public class DotLtsWriter extends LtsWriter {
             states_as_string = StringJoiner.join("\n", lstates);
             */
             // Java 1.8
-            states_as_string = ltsModel.getStates().stream().map((x) -> x.modelToString(this)).collect(Collectors.joining("\n"));
+            states_as_string = ltsModel.getStates().stream().map((x) -> x.modelToString(ltsModel, this)).collect(Collectors.joining("\n"));
         } catch (RuntimeException e) {
             return null; // impossible
         }
@@ -120,11 +92,39 @@ public class DotLtsWriter extends LtsWriter {
             transitions_as_string = StringJoiner.join("\n", ltransitions);
             */
             // Java 1.8
-            transitions_as_string = ltsModel.getTransitions().stream().map((x) -> x.modelToString(this)).collect(Collectors.joining("\n"));
+            transitions_as_string = ltsModel.getTransitions().stream().map((x) -> x.modelToString(ltsModel, this)).collect(Collectors.joining("\n"));
         } catch (RuntimeException e) {
             return null; // impossible
         }
         return String.format("digraph %s {\n%s\n%s\n}", name, states_as_string, transitions_as_string);
+    }
+
+    @Override
+    String modelToString(LtsModel ltsModel, LtsLabel ltsLabel) {
+        return ltsLabel.getLabel();
+    }
+
+    @Override
+    String modelToString(LtsModel ltsModel, LtsState ltsState) {
+        String rtr = "";
+        rtr += String.format("\"%s\";", ltsState.getId());
+        return rtr;
+    }
+
+    @Override
+    String modelToString(LtsModel ltsModel, LtsTransition ltsTransition) {
+        String rtr = "";
+        try {
+            rtr += String.format("\"%s\" -> \"%s\" [label=\"%s\"]",
+                    ltsTransition.getSource(),
+                    ltsTransition.getTarget(),
+                    ltsTransition.getLabel().modelToString(ltsModel, this));
+            rtr += ";";
+        }
+        catch (RuntimeException e) {
+            return null; // impossible
+        }
+        return rtr;
     }
 
 }

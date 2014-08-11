@@ -17,27 +17,9 @@
  * Copyright (C) 2014  pascalpoizat
  * emails: pascal.poizat@lip6.fr
  */
+package models.choreography.stg;
 
-package models.lts;
+import models.base.AbstractStringModelWriter;
 
-import models.base.AbstractModel;
-import models.base.AbstractModelReader;
-import models.base.IllegalResourceException;
-
-/**
- * Created by pascalpoizat on 06/08/2014.
- */
-public abstract class LtsReader extends AbstractModelReader {
-    // from ModelReader
-
-    // returns the suffix of the files the writer works with
-    @Override
-    public abstract String getSuffix();
-
-    // reads model from a String
-    @Override
-    public abstract void modelFromString(AbstractModel model, String stringModel) throws IllegalResourceException;
-
-    // specific to LTS
-
+public abstract class AbstractStgWriter extends AbstractStringModelWriter {
 }

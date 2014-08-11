@@ -17,28 +17,29 @@
  *   Copyright (C) 2014  pascalpoizat
  *   emails: pascal.poizat@lip6.fr
  */
-
 package models.choreography.stg;
 
-import fr.lri.schora.stg.STG;
 import models.base.AbstractModel;
-import models.base.IllegalResourceException;
+import models.base.AbstractModelFactory;
 
-public class StgStgReader extends AbstractStgReader {
-    @Override
-    public String getSuffix() {
-        return "stg";
+public final class StgFactory extends AbstractModelFactory {
+
+    private static StgFactory instance;
+
+    private StgFactory() {
+        super();
     }
 
-    @Override
-    public void modelFromString(AbstractModel model, String stringModel) throws IllegalResourceException {
-        if (!(model instanceof StgModel)) {
-            throw new IllegalResourceException(String.format("Wrong kind of model (%s), should be %s",
-                    model.getClass().toString(),
-                    StgModel.class.toString()));
+    public static StgFactory getInstance() {
+        if (instance == null) {
+            instance = new StgFactory();
         }
-        StgModel stgModel = (StgModel) model;
-        STG rawModel = StgModel.fromStg(stringModel,false);
-        stgModel.setModel(rawModel);
+        return instance;
     }
+
+    public AbstractModel create() {
+        return new StgModel();
+    }
+
 }
+

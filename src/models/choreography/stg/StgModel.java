@@ -50,15 +50,11 @@ public class StgModel extends AbstractModel {
         return "stg";
     }
 
-    @Override
-    public void load() throws IOException, IllegalResourceException, IllegalModelException {
-        throw new NotImplementedException();
-    }
-
     /**
      * returns the dot representation for the model
      * used by StgWriters
      * delegates to STG::toDotFormat()
+     *
      * @return the dot representation for the model
      */
     String toDot() {
@@ -69,6 +65,7 @@ public class StgModel extends AbstractModel {
      * returns the dot representation for the model
      * used by StgWriters
      * delegates to STG::toStgFormat()
+     *
      * @return the stg representation for the model
      */
     String toStg() {
@@ -79,7 +76,8 @@ public class StgModel extends AbstractModel {
      * returns the STG model that is parsed from a string in the stg format
      * users by StgReaders
      * delegates to STG::parser()
-     * @param stringModel the dot representation of the model to parse
+     *
+     * @param stringModel   the dot representation of the model to parse
      * @param onlyReachable if true, performs reachability cleaning after parsing
      * @return
      * @throws IllegalResourceException
@@ -91,8 +89,7 @@ public class StgModel extends AbstractModel {
             if (onlyReachable) {
                 reachableModel = readModel.getReachableSTG(new Z3SMT(Z3PATH));
                 return reachableModel;
-            }
-            else {
+            } else {
                 return readModel;
             }
         } catch (ParserException e) {
@@ -114,6 +111,7 @@ public class StgModel extends AbstractModel {
 
     /**
      * sets up the Z3 path, to be used while parsing models (if reachability cleaning is performed)
+     *
      * @param path path to the z3 command
      */
     static void setZ3PATH(String path) {
@@ -122,7 +120,12 @@ public class StgModel extends AbstractModel {
 
     @Override
     public void dump() throws IOException, IllegalResourceException {
+        throw new NotImplementedException();
+    }
 
+    @Override
+    public void load() throws IOException, IllegalResourceException {
+        throw new NotImplementedException();
     }
 
     @Override

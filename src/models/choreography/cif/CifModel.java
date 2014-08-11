@@ -56,8 +56,6 @@ public class CifModel extends AbstractModel {
 
     @Override
     public void load() throws IOException, IllegalResourceException, IllegalModelException {
-        /*
-        tbc, this should load the model and initialize its internal lists
         if (getResource() == null) {
             throw new IllegalResourceException("Input resource is not correctly set");
         }
@@ -71,9 +69,6 @@ public class CifModel extends AbstractModel {
         } finally {
             fis.close();
         }
-        super.load();
-        */
-        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -97,6 +92,15 @@ public class CifModel extends AbstractModel {
     public void setChoreoID(final String value) {
         if (model != null) {
             model.setChoreoID(value);
+        }
+    }
+
+    public String getChoreoID() {
+        if (model != null) {
+            return model.getChoreoID();
+        }
+        else {
+            return null;
         }
     }
 
