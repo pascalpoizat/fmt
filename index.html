@@ -337,16 +337,20 @@ $ export EMF_HOME=/Applications/Eclipse/plugins</code></pre>
 
     <p>Run a transformer on the sample file.</p>
 
-<pre><code>$ java -cp $FMT_HOME/fmt.jar:$EMF_HOME/*:. transformations.bpmn2cif.Bpmn2Cif sample.bpmn
+<pre><code>$ java -cp $FMT_HOME/fmt.jar:$EMF_HOME/*:. transformations.bpmn2cif.Bpmn2Cif sample.bpmn sample.cif
 </code></pre>
 
     <p>You should then get something like this:</p>
 
-<pre><code>Input model loaded: /Users/pascalpoizat/IdeaProjects/fmt/examples/comanche/comanche.bpmn
-Output model generated: /Users/pascalpoizat/IdeaProjects/fmt/examples/comanche/comanche.cif
-bpmn2cif 1.1
-Resources set
-</code></pre>
+<pre><code>bpmn2cif 1.1
+Input model: /private/tmp/comanche.bpmn
+-- reader: class models.choreography.bpmn.BpmnEMFBpmnReader (bpmn suffix)
+Output model: /private/tmp/comanche.cif
+-- writer: class models.choreography.cif.CifCifWriter (cif suffix)
+** Resources set
+** Input model loaded
+** Transformation achieved
+** Output model generated</code></pre>
 </div>
 
 <div>
@@ -394,7 +398,9 @@ public class Bpmn2Cif {
             AbstractModelReader reader = new BpmnEMFBpmnReader();
             AbstractModelWriter writer = new CifCifWriter();
             AbstractModel input_model = new BpmnModel();
+            input_model.setResource(new File(args[0]));
             AbstractModel output_model = new CifModel();
+            output_model.setResource(new File(args[1]));
             trans.setResources(input_model, output_model, reader, writer);
             trans.load();
             trans.transform();
