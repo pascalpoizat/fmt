@@ -32,8 +32,6 @@ import java.util.*;
  * Created by pascalpoizat on 12/04/2014.
  */
 public class LtsModel extends AbstractModel {
-    // only directed graphs for now on
-    // Next Release : support more of the graphviz format
 
     private String name;
     private Map<String, LtsState> states; // state id -> state
@@ -62,7 +60,9 @@ public class LtsModel extends AbstractModel {
         return transitions;
     }
 
-    public Collection<String> getStateIds() { return states.keySet(); }
+    public Collection<String> getStateIds() {
+        return states.keySet();
+    }
 
     @Override
     public String getSuffix() {
@@ -70,12 +70,12 @@ public class LtsModel extends AbstractModel {
     }
 
     @Override
-    public void dump() throws IOException, IllegalResourceException {
+    public void dump() {
         throw new NotImplementedException();
     }
 
     @Override
-    public void load() throws IOException, IllegalResourceException, IllegalModelException {
+    public void load() throws IOException, IllegalResourceException {
         throw new NotImplementedException();
     }
 

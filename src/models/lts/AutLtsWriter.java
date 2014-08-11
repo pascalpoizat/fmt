@@ -30,6 +30,7 @@ import java.util.ArrayList;
 
 import models.base.AbstractModel;
 import models.base.IllegalResourceException;
+import org.testng.annotations.DataProvider;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -56,61 +57,14 @@ import java.util.stream.Collectors;
 public class AutLtsWriter extends AbstractLtsWriter {
 
     private Map<String, Integer> state_mapping = new HashMap<>();
-    boolean state_mapping_is_built = false;
+    boolean state_mapping_is_built;
 
     public AutLtsWriter() {
+        state_mapping_is_built = false;
     }
 
-    @Override
     public String getSuffix() {
         return "aut";
-    }
-
-    @Override
-    String modelToString(LtsLabel ltsLabel) {
-        return ltsLabel.getLabel();
-    }
-
-    @Override
-    String modelToString(LtsState ltsState) {
-        // noting to do
-        return "";
-    }
-
-    @Override
-    String modelToString(LtsTransition ltsTransition) throws IllegalResourceException {
-        String rtr = "";
-        if (!state_mapping_is_built) {
-            throw new IllegalResourceException("Impossible to compute a String for the transition, mapping between states and integers has not been built");
-        }
-        // state_mapping MUST have been built before
-        rtr += String.format("(%s,\"%s\",%s)",
-                state_mapping.get(ltsTransition.getSource()),
-                ltsTransition.getLabel().modelToString(this),
-                state_mapping.get(ltsTransition.getTarget()));
-        return rtr;
-    }
-
-    private void build_state_mapping(LtsModel model) {
-        // F = ()
-        // i = 0
-        // for each transition tt = s--l-->t
-        //  if s not in dom(F), add (s,i) in F and i=i+1
-        //  if t not in dom(F), add (t,i) in F and i=i+1
-        // end for
-        state_mapping = new HashMap<>();
-        int i = 0;
-        for (LtsTransition tt : model.getTransitions()) {
-            String s = tt.getSource();
-            String t = tt.getTarget();
-            if (!state_mapping.containsKey(s)) {
-                state_mapping.put(s,i++);
-            }
-            if (!state_mapping.containsKey(t)) {
-                state_mapping.put(t, i++);
-            }
-        }
-        state_mapping_is_built = true;
     }
 
     @Override
@@ -130,11 +84,59 @@ public class AutLtsWriter extends AbstractLtsWriter {
         // build string for transitions
         try {
             // Java 1.8
-            transitions_as_string = ltsModel.getTransitions().stream().map((x) -> x.modelToString(this)).collect(Collectors.joining("\n"));
+            transitions_as_string = ltsModel.getTransitions().stream().map((x) -> x.modelToString(ltsModel, this)).collect(Collectors.joining("\n"));
         } catch (RuntimeException e) {
             return null; // impossible
         }
         return String.format("des (0,%d,%d)\n%s\n", nb_transitions, state_mapping.keySet().size(), transitions_as_string);
     }
+
+    @Override
+    String modelToString(LtsModel ltsModel, LtsState ltsState) {
+        // nothing to do
+        return "";
+    }
+
+    @Override
+    String modelToString(LtsModel ltsModel, LtsTransition ltsTransition) {
+        String rtr = "";
+        if (!state_mapping_is_built) {
+            // state_mapping MUST have been built before
+            build_state_mapping(ltsModel);
+        }
+        rtr += String.format("(%s,\"%s\",%s)",
+                state_mapping.get(ltsTransition.getSource()),
+                ltsTransition.getLabel().modelToString(ltsModel, this),
+                state_mapping.get(ltsTransition.getTarget()));
+        return rtr;
+    }
+
+    @Override
+    String modelToString(LtsModel ltsModel, LtsLabel ltsLabel) {
+        return ltsLabel.getLabel();
+    }
+
+    private void build_state_mapping(LtsModel model) {
+        // F = ()
+        // i = 0
+        // for each transition tt = s--l-->t
+        //  if s not in dom(F), add (s,i) in F and i=i+1
+        //  if t not in dom(F), add (t,i) in F and i=i+1
+        // end for
+        state_mapping = new HashMap<>();
+        int i = 0;
+        for (LtsTransition tt : model.getTransitions()) {
+            String s = tt.getSource();
+            String t = tt.getTarget();
+            if (!state_mapping.containsKey(s)) {
+                state_mapping.put(s, i++);
+            }
+            if (!state_mapping.containsKey(t)) {
+                state_mapping.put(t, i++);
+            }
+        }
+        state_mapping_is_built = true;
+    }
+
 
 }
