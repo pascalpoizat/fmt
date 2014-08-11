@@ -29,20 +29,4 @@ import java.io.IOException;
 public abstract class AbstractModelFactory implements ModelFactory {
     @Override
     public abstract AbstractModel create();
-
-    @Override
-    public final AbstractModel createFromFile(final String filename) throws IOException, IllegalResourceException, IllegalModelException {
-        final AbstractModel model = create();
-        model.setResource(new File(filename));
-        model.load();
-        return model;
-    }
-
-    @Override
-    public final AbstractModel createFromFile(final String filename, final AbstractModelReader reader) throws IOException, IllegalResourceException {
-        final AbstractModel model = create();
-        model.setResource(new File(filename));
-        model.modelFromFile(reader);
-        return model;
-    }
 }

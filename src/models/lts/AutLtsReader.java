@@ -21,15 +21,13 @@
 package models.lts;
 
 import models.base.AbstractModel;
-import models.base.IllegalResourceException;
+import models.base.AbstractStringModelReader;
+import models.base.IllegalModelException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Created by pascalpoizat on 06/08/2014.
- */
-public class AutLtsReader extends AbstractLtsReader {
+public class AutLtsReader extends AbstractStringModelReader {
 
     private Pattern description_line_pattern;
     private Pattern transition_line_pattern;
@@ -45,9 +43,9 @@ public class AutLtsReader extends AbstractLtsReader {
     }
 
     @Override
-    public void modelFromString(AbstractModel model, String stringModel) throws IllegalResourceException {
+    public void modelFromString(AbstractModel model, String stringModel) throws IllegalModelException {
         if (!(model instanceof LtsModel)) {
-            throw new IllegalResourceException(String.format("Wrong kind of model (%s), should be %s",
+            throw new IllegalModelException(String.format("Wrong kind of model (%s), should be %s",
                     model.getClass().toString(),
                     LtsModel.class.toString()));
         }
@@ -59,27 +57,27 @@ public class AutLtsReader extends AbstractLtsReader {
         String label;
         // check that there is a first line (description)
         if (lines.length == 0) {
-            throw new IllegalResourceException("Incorrect model, empty information");
+            throw new IllegalModelException("Incorrect model, empty information");
         }
 
         // get first line and check it
         line = lines[0];
         Matcher matcher = description_line_pattern.matcher(line);
         if (!matcher.find()) {
-            throw new IllegalResourceException(String.format("Incorrect model at '%s', could not find 'des (x,y,z)' line", line));
+            throw new IllegalModelException(String.format("Incorrect model at '%s', could not find 'des (x,y,z)' line", line));
         }
         try {
             Integer.parseInt(matcher.group(2));
             Integer.parseInt(matcher.group(3));
         } catch (NumberFormatException e) {
-            throw new IllegalResourceException(String.format("Incorrect model at '%s'", line));
+            throw new IllegalModelException(String.format("Incorrect model at '%s'", line));
         }
 
         // for all other lines, check them and add transition to model
         for (int i = 1; i < lines.length; i++) {
             matcher = transition_line_pattern.matcher(lines[i]);
             if (!matcher.find()) {
-                throw new IllegalResourceException(String.format("Incorrect model at '%s', could not find '(source,\"label\",transition)' line", line));
+                throw new IllegalModelException(String.format("Incorrect model at '%s', could not find '(source,\"label\",transition)' line", line));
             }
             source = matcher.group(1);
             label = matcher.group(2);

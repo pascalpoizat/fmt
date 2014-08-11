@@ -22,15 +22,9 @@ package models.lts;
 
 import models.base.AbstractModel;
 import models.base.IllegalModelException;
-import models.base.IllegalResourceException;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import java.io.IOException;
 import java.util.*;
 
-/**
- * Created by pascalpoizat on 12/04/2014.
- */
 public class LtsModel extends AbstractModel {
 
     private String name;
@@ -65,26 +59,11 @@ public class LtsModel extends AbstractModel {
     }
 
     @Override
-    public String getSuffix() {
-        return "lts";
-    }
-
-    @Override
-    public void dump() {
-        throw new NotImplementedException();
-    }
-
-    @Override
-    public void load() throws IOException, IllegalResourceException {
-        throw new NotImplementedException();
-    }
-
-    @Override
     public String toString() {
         // defaults to DOT format
         try {
             return this.modelToString(new DotLtsWriter());
-        } catch (IllegalResourceException e) {
+        } catch (IllegalModelException e) {
             return null;
         } // impossible
     }

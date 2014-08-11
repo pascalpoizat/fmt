@@ -30,22 +30,14 @@ public abstract class AbstractStringModelWriter extends AbstractModelWriter {
 
     // writes model to a file
     @Override
-    public final void modelToFile(final AbstractModel model) throws IOException, IllegalResourceException {
-        if (model == null || model.getResource() == null) {
-            throw new IllegalResourceException("Model is not set up");
-        }
-        if (!model.getResource().getName().endsWith("." + getSuffix())) {
-            throw new IllegalResourceException("Wrong file suffix (should be " + getSuffix() + ")");
-        }
+    public final void modelToFile(final AbstractModel model) throws IOException, IllegalResourceException, IllegalModelException {
+        checkModel(model);
         final String apath = model.getResource().getAbsolutePath();
         final FileWriter file = new FileWriter(apath);
-        if (file == null) {
-            throw new IllegalResourceException("Cannot open output resource");
-        }
         file.write(modelToString(model));
         file.close();
     }
 
     // writes model to a String
-    public abstract String modelToString(AbstractModel model) throws IllegalResourceException;
+    public abstract String modelToString(AbstractModel model) throws IllegalModelException;
 }

@@ -17,6 +17,7 @@
  *   Copyright (C) 2014  pascalpoizat
  *   emails: pascal.poizat@lip6.fr
  */
+
 package models.pnml;
 
 import fr.lip6.move.pnml.framework.general.PnmlImport;
@@ -24,20 +25,23 @@ import fr.lip6.move.pnml.framework.hlapi.HLAPIClass;
 import fr.lip6.move.pnml.framework.utils.exception.*;
 import fr.lip6.move.pnml.ptnet.hlapi.PetriNetDocHLAPI;
 import models.base.AbstractModel;
+import models.base.AbstractModelReader;
+import models.base.IllegalModelException;
 import models.base.IllegalResourceException;
 
 import java.io.IOException;
 
-public class PnmlPnmlReader extends AbstractPnmlReader {
+public class PnmlPnmlReader extends AbstractModelReader {
     @Override
     public String getSuffix() {
         return "pnml";
     }
 
     @Override
-    public void modelFromFile(AbstractModel model) throws IllegalResourceException {
+    public void modelFromFile(AbstractModel model) throws IOException, IllegalResourceException, IllegalModelException {
+        checkModel(model);
         if (!(model instanceof PnmlModel)) {
-            throw new IllegalResourceException(String.format("Wrong kind of model (%s), should be %s",
+            throw new IllegalModelException(String.format("Wrong kind of model (%s), should be %s",
                     model.getClass().toString(),
                     PnmlModel.class.toString()));
         }
@@ -46,12 +50,12 @@ public class PnmlPnmlReader extends AbstractPnmlReader {
         HLAPIClass rawModel = null;
         try {
             rawModel = pnmlImport.importFile(pnmlModel.getResource().getAbsolutePath());
-        } catch (IOException | BadFileFormatException | UnhandledNetType | ValidationFailedException | InnerBuildException | OCLValidationFailed | OtherException | AssociatedPluginNotFound | InvalidIDException | VoidRepositoryException e) {
+        } catch (BadFileFormatException | UnhandledNetType | ValidationFailedException | InnerBuildException | OCLValidationFailed | OtherException | AssociatedPluginNotFound | InvalidIDException | VoidRepositoryException e) {
             throw new IllegalResourceException(e.getMessage());
         }
         pnmlModel.setDoc((PetriNetDocHLAPI) rawModel);
         if (pnmlModel.getDoc().getNetsHLAPI().size() == 0) {
-            throw new IllegalResourceException("PNML resource is incorrect (no net in PNML doc)");
+            throw new IllegalModelException("PNML resource is incorrect (no net in PNML doc)");
         }
         pnmlModel.setModel(pnmlModel.getDoc().getNetsHLAPI().get(0)); // if more than one net, use the first one
     }

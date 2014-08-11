@@ -19,16 +19,14 @@
  */
 package models.choreography.cif;
 
-import models.base.AbstractModel;
-import models.base.IllegalModelException;
-import models.base.IllegalResourceException;
+import models.base.*;
 import models.choreography.cif.generated.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class DotCifWriter extends AbstractCifWriter {
+public class DotCifWriter extends AbstractStringModelWriter {
     private static final String TASK_STYLE = "shape=record,style=\"filled,bold\",fixedsize=true,width=3,height=1,fillcolor=white,color=black";
     private static final String FINAL_STYLE = "shape=doublecircle,style=\"filled,bold\",fixedsize=true,width=0.5,fillcolor=black,color=black";
     private static final String INITIAL_STYLE = "shape=circle,style=\"filled,bold\",fixedsize=true,width=0.25,fillcolor=black,color=black";
@@ -47,9 +45,9 @@ public class DotCifWriter extends AbstractCifWriter {
     }
 
     @Override
-    public String modelToString(AbstractModel model) throws IllegalResourceException {
+    public String modelToString(AbstractModel model) throws IllegalModelException {
         if (!(model instanceof CifModel)) {
-            throw new IllegalResourceException(String.format("Wrong model (%s), should be %s",
+            throw new IllegalModelException(String.format("Wrong model (%s), should be %s",
                     model.getClass().toString(),
                     CifModel.class.toString()));
         }
@@ -79,8 +77,7 @@ public class DotCifWriter extends AbstractCifWriter {
             for (BaseState sourceState : allStates) {
                 if (sourceState instanceof OneSuccState) {
                     rtr += modelToString(sourceState, ((OneSuccState) sourceState).getSuccessors());
-                }
-                else if (sourceState instanceof  SeveralSuccState) {
+                } else if (sourceState instanceof SeveralSuccState) {
                     rtr += modelToString(sourceState, ((SeveralSuccState) sourceState).getSuccessors());
                 }
             }
@@ -111,7 +108,7 @@ public class DotCifWriter extends AbstractCifWriter {
                 "];\n", finalState.getStateID(), FINAL_STYLE);
     }
 
-    public String modelToString(CifModel model, BaseState state) throws IllegalResourceException {
+    public String modelToString(CifModel model, BaseState state) throws IllegalModelException {
         if (state instanceof InteractionState) {
             return modelToString(model, (InteractionState) state);
         }
@@ -121,27 +118,23 @@ public class DotCifWriter extends AbstractCifWriter {
         if (state instanceof SelectionState) {
             return modelToString(model, (SelectionState) state);
         }
-        throw new IllegalResourceException(String.format("Element %s of class %s is not supported", state.getStateID(), state.getClass().toString()));
+        throw new IllegalModelException(String.format("Element %s of class %s is not supported", state.getStateID(), state.getClass().toString()));
     }
 
-    public String modelToString(CifModel model, InteractionState state) throws IllegalResourceException {
+    public String modelToString(CifModel model, InteractionState state) throws IllegalModelException {
         String messageId = state.getMsgID();
-        try {
-            Map<String, Message> messages = model.getAlphabetAsMap();
-            Message message = messages.get(messageId);
-            String messageSender = message.getSender();
-            String messageLabel = message.getMessageContent();
-            String messageReceiver = message.getReceiver();
-            String rtr = String.format("%s [%s," +
-                    "label=\"%s | %s | %s\"" +
-                    "];\n", state.getStateID(), TASK_STYLE, messageSender, messageLabel, messageReceiver);
-            return rtr;
-        } catch (IllegalModelException e) {
-            throw new IllegalResourceException(e.getMessage());
-        }
+        Map<String, Message> messages = model.getAlphabetAsMap();
+        Message message = messages.get(messageId);
+        String messageSender = message.getSender();
+        String messageLabel = message.getMessageContent();
+        String messageReceiver = message.getReceiver();
+        String rtr = String.format("%s [%s," +
+                "label=\"%s | %s | %s\"" +
+                "];\n", state.getStateID(), TASK_STYLE, messageSender, messageLabel, messageReceiver);
+        return rtr;
     }
 
-    public String modelToString(CifModel model, JoinState state) throws IllegalResourceException {
+    public String modelToString(CifModel model, JoinState state) throws IllegalModelException {
         if (state instanceof AllJoinState) {
             String rtr = String.format("%s [%s];\n", state.getStateID(), ALLJOIN_STYLE);
             return rtr;
@@ -154,10 +147,10 @@ public class DotCifWriter extends AbstractCifWriter {
             String rtr = String.format("%s [%s];\n", state.getStateID(), SUBSETJOIN_STYLE);
             return rtr;
         }
-        throw new IllegalResourceException(String.format("Element %s of class %s is not supported", state.getStateID(), state.getClass().toString()));
+        throw new IllegalModelException(String.format("Element %s of class %s is not supported", state.getStateID(), state.getClass().toString()));
     }
 
-    public String modelToString(CifModel model, SelectionState state) throws IllegalResourceException {
+    public String modelToString(CifModel model, SelectionState state) throws IllegalModelException {
         if (state instanceof AllSelectState) {
             String rtr = String.format("%s [%s];\n", state.getStateID(), ALLSELECT_STYLE);
             return rtr;
@@ -174,7 +167,7 @@ public class DotCifWriter extends AbstractCifWriter {
             String rtr = String.format("%s [%s];\n", state.getStateID(), SUBSETSELECT_STYLE);
             return rtr;
         }
-        throw new IllegalResourceException(String.format("Element %s of class %s is not supported", state.getStateID(), state.getClass().toString()));
+        throw new IllegalModelException(String.format("Element %s of class %s is not supported", state.getStateID(), state.getClass().toString()));
     }
 
 }

@@ -20,41 +20,40 @@
 
 package transformations.bpmn2cif;
 
-import models.base.FmtException;
-import transformations.base.Transformer;
+import models.base.*;
+import models.choreography.bpmn.BpmnEMFBpmnReader;
 import models.choreography.bpmn.BpmnFactory;
-import models.choreography.cif.CifFactory;
+import models.choreography.bpmn.BpmnModel;
+import models.choreography.cif.CifCifWriter;
+import models.choreography.cif.CifModel;
+import transformations.base.Transformer;
 
 import java.io.IOException;
 
-/**
- * Created by pascalpoizat on 10/01/2014.
- */
 public class Bpmn2Cif {
+
+    public static final String USAGE = "Bpmn2Cif input_file output_file";
+
     public static void main(String[] args) {
-        BpmnFactory bpmnFactory = BpmnFactory.getInstance();
-        CifFactory cifFactory = CifFactory.getInstance();
-        Transformer trans = new Bpmn2CifTransformer(bpmnFactory, cifFactory);
+        Transformer trans = new Bpmn2CifTransformer();
         trans.setVerbose(true);
         trans.about();
-        if (args.length == 0) {
-            trans.error("missing file argument");
+        if (args.length != 2) {
+            trans.error(USAGE);
             return;
         }
         try {
-            trans.setResources(args[0]);
+            AbstractModelReader reader = new BpmnEMFBpmnReader();
+            AbstractModelWriter writer = new CifCifWriter();
+            AbstractModel input_model = new BpmnModel();
+            AbstractModel output_model = new CifModel();
+            trans.setResources(input_model, output_model, reader, writer);
             trans.load();
             trans.transform();
             trans.dump();
             trans.cleanUp();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        } catch (FmtException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        } catch (Throwable e) {
-            System.out.println(e.getMessage());
+        } catch (IOException | IllegalResourceException | IllegalModelException e) {
+            trans.message(e.getMessage());
             e.printStackTrace();
         }
     }

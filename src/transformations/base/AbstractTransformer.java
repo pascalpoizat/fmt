@@ -22,73 +22,45 @@ package transformations.base;
 
 import java.io.File;
 
-import models.base.AbstractModel;
-import models.base.ModelFactory;
-import models.base.IllegalModelException;
-import models.base.IllegalResourceException;
+import models.base.*;
 
 import java.io.IOException;
 
-/**
- * Created by pascalpoizat on 11/01/2014.
- */
 public abstract class AbstractTransformer implements Transformer {
 
     // NEXT RELEASE a generaliser en prenant en compte des transformations n->m et non plus 1->1
 
-    protected boolean verbose;            // verbose model (on/off) for the model transformation
-    protected File workingDirectory;     // working directory (path)
-    protected String basename;            // base name (file)
-    protected File inputFile;               // input File
-    protected File outputFile;              // output File
-    protected AbstractModel inputModel;             // input model (read from path/file.in_suffix)
-    protected AbstractModel outputModel;            // output model (written to path/file.out_suffix)
-    protected ModelFactory inputFactory;    // factory to create input model
-    protected ModelFactory outputFactory;   // factory to create output model
+    protected boolean verbose;
+    protected AbstractModel inputModel;
+    protected AbstractModel outputModel;
+    protected AbstractModelReader reader;
+    protected AbstractModelWriter writer;
 
-    public AbstractTransformer(final ModelFactory fin, final ModelFactory fout) {
+    public AbstractTransformer() {
         verbose = false;
-        workingDirectory = null;
-        basename = null;
-        inputFile = null;
-        outputFile = null;
-        inputFactory = fin;
-        outputFactory = fout;
-        inputModel = inputFactory.create();
-        outputModel = outputFactory.create();
+        inputModel = null;
+        outputModel = null;
+        reader = null;
+        writer = null;
     }
 
     @Override
-    public void setResources(final String inputResourcePath) throws IllegalResourceException {
-        if (inputResourcePath == null) {
-            final IllegalResourceException exception = new IllegalResourceException("Wrong resource path (null)");
-            error(exception.getMessage());
-            throw exception;
+    public final void setResources(AbstractModel inputModel, AbstractModel outputModel, AbstractModelReader reader, AbstractModelWriter writer) throws IllegalResourceException {
+        if(inputModel==null || outputModel==null || reader==null || writer==null) {
+            throw new IllegalResourceException("Resources are not correctly set");
         }
-        if (!inputResourcePath.endsWith("." + inputModel.getSuffix())) {
-            final IllegalResourceException exception = new IllegalResourceException("Wrong file suffix (should be " + inputModel.getSuffix() + ")");
-            error(exception.getMessage());
-            throw exception;
-        }
-        inputFile = new File(inputResourcePath).getAbsoluteFile();
-        workingDirectory = inputFile.getParentFile();
-        basename = inputFile.getName().substring(0, inputFile.getName().length() - inputModel.getSuffix().length()-1);
-        outputFile = new File(workingDirectory, basename + "." + outputModel.getSuffix()).getAbsoluteFile();
-        inputModel.setResource(inputFile);
-        outputModel.setResource(outputFile);
+        this.inputModel = inputModel;
+        this.outputModel = outputModel;
+        this.reader = reader;
+        this.writer = writer;
         message("Resources set");
-        message("\tworking dir.:\t" + workingDirectory);
-        message("\tbase name:\t\t" + basename);
-        message("\tinput file:\t\t" + inputFile);
-        message("\toutput file:\t" + outputFile);
     }
 
     @Override
-    public void load() throws IOException, IllegalResourceException, IllegalModelException {
+    public final void load() throws IOException, IllegalResourceException, IllegalModelException {
         try {
-            message("Loading input model (" + inputModel.getSuffix() + ")");
-            inputModel.load();
-            message("Input model loaded");
+            inputModel.modelFromFile(reader);
+            message("Input model loaded: "+inputModel.getResource().getAbsolutePath());
         } catch (IllegalResourceException | IllegalModelException | IOException e) {
             error(e.getMessage());
             throw e;
@@ -99,12 +71,11 @@ public abstract class AbstractTransformer implements Transformer {
     public abstract void transform() throws IllegalModelException;
 
     @Override
-    public void dump() throws IOException, IllegalResourceException {
+    public final void dump() throws IOException, IllegalResourceException, IllegalModelException {
         try {
-            message("Generating output model (" + outputModel.getSuffix() + ")");
-            outputModel.dump();
-            message("Output model generated");
-        } catch (IOException | IllegalResourceException e) {
+            outputModel.modelToFile(writer);
+            message("Output model generated: "+outputModel.getResource().getAbsolutePath());
+        } catch (IOException | IllegalResourceException | IllegalModelException e) {
             error(e.getMessage());
             throw e;
         }
@@ -143,5 +114,7 @@ public abstract class AbstractTransformer implements Transformer {
         if (outputModel != null) {
             outputModel.cleanUp();
         }
+        reader = null;
+        writer = null;
     }
 }

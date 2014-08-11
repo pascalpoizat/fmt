@@ -22,11 +22,8 @@ package models.choreography.cif;
 
 import models.base.AbstractModel;
 import models.base.IllegalModelException;
-import models.base.IllegalResourceException;
 import models.choreography.cif.generated.*;
 
-import javax.xml.bind.*;
-import java.io.*;
 import java.util.HashMap;
 import java.util.List;
 
@@ -47,46 +44,6 @@ public class CifModel extends AbstractModel {
         model.setParticipants(peerList);
         model.setAlphabet(messageList);
         model.setStateMachine(stateMachine);
-    }
-
-    @Override
-    public String getSuffix() {
-        return "cif";
-    }
-
-    @Override
-    public void load() throws IOException, IllegalResourceException, IllegalModelException {
-        if (getResource() == null) {
-            throw new IllegalResourceException("Input resource is not correctly set");
-        }
-        FileInputStream fis = new FileInputStream(getResource());
-        try {
-            JAXBContext ctx = JAXBContext.newInstance(Choreography.class);
-            Unmarshaller unmarshaller = ctx.createUnmarshaller();
-            model = (Choreography) unmarshaller.unmarshal(fis);
-        } catch (JAXBException e) {
-            throw new IOException(e.getMessage());
-        } finally {
-            fis.close();
-        }
-    }
-
-    @Override
-    public void dump() throws IOException, IllegalResourceException {
-        if (getResource() == null) {
-            throw new IllegalResourceException("Output resource is not correctly set");
-        }
-        final FileOutputStream fos = new FileOutputStream(getResource());
-        try {
-            final JAXBContext ctx = JAXBContext.newInstance(Choreography.class);
-            final Marshaller marshaller = ctx.createMarshaller();
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-            marshaller.marshal(model, fos);
-        } catch (JAXBException e) {
-            throw new IOException(e.getMessage());
-        } finally {
-            fos.close();
-        }
     }
 
     public void setChoreoID(final String value) {
@@ -189,6 +146,14 @@ public class CifModel extends AbstractModel {
         model.setAlphabet(messageList);
         model.setStateMachine(stateMachine);
         super.cleanUp();
+    }
+
+    public void setModel(Choreography model) {
+        this.model = model;
+    }
+
+    public Choreography getModel() {
+        return model;
     }
 
 }
