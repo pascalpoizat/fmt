@@ -19,7 +19,7 @@
  */
 package models.choreography.stg;
 
-import models.base.AbstractModelWriter;
+import models.base.AbstractStringModelWriter;
 
-public abstract class AbstractStgWriter extends AbstractModelWriter {
+public abstract class AbstractStgWriter extends AbstractStringModelWriter {
 }

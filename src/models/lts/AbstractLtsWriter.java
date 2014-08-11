@@ -21,31 +21,19 @@
 package models.lts;
 
 import models.base.AbstractModel;
-import models.base.AbstractModelWriter;
+import models.base.AbstractStringModelWriter;
 import models.base.IllegalResourceException;
 
 /**
  * Created by pascalpoizat on 04/08/2014.
  */
-public abstract class AbstractLtsWriter extends AbstractModelWriter {
-    // from ModelWriter
+public abstract class AbstractLtsWriter extends AbstractStringModelWriter {
+    // write a state to a string
+    abstract String modelToString(LtsModel ltsModel, LtsState ltsState);
 
-    // returns the suffix of the files the writer works with
-    @Override
-    public abstract String getSuffix();
+    // write a transition to a string
+    abstract String modelToString(LtsModel ltsModel, LtsTransition ltsTransition);
 
-    // writes model to a String
-    @Override
-    public abstract String modelToString(AbstractModel model) throws IllegalResourceException;
-
-    // specific to LTS
-
-    // writes a state to a String
-    abstract String modelToString(LtsState ltsState) throws IllegalResourceException;
-
-    // writes a transition to a String
-    abstract String modelToString(LtsTransition ltsTransition) throws IllegalResourceException;
-
-    // writes a label to a String
-    abstract String modelToString(LtsLabel ltsLabel);
+    // write a label to a string
+    abstract String modelToString(LtsModel ltsModel, LtsLabel ltsLabel);
 }

@@ -19,7 +19,7 @@
  */
 package models.choreography.cif;
 
-import models.base.AbstractModelWriter;
+import models.base.AbstractStringModelWriter;
 
-public abstract class AbstractCifWriter extends AbstractModelWriter {
+public abstract class AbstractCifWriter extends AbstractStringModelWriter {
 }
