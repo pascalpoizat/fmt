@@ -20,7 +20,7 @@
 
 package models.choreography.stg;
 
-import models.base.AbstractModelReader;
+import models.base.AbstractStringModelReader;
 
-public abstract class AbstractStgReader extends AbstractModelReader {
+public abstract class AbstractStgReader extends AbstractStringModelReader {
 }

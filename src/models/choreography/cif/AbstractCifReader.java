@@ -19,7 +19,7 @@
  */
 package models.choreography.cif;
 
-import models.base.AbstractModelReader;
+import models.base.AbstractStringModelReader;
 
-public abstract class AbstractCifReader extends AbstractModelReader {
+public abstract class AbstractCifReader extends AbstractStringModelReader {
 }
