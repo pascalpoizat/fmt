@@ -17,10 +17,9 @@
  * Copyright (C) 2014  pascalpoizat
  * emails: pascal.poizat@lip6.fr
  */
-
 package models.choreography.stg;
 
-import models.base.AbstractModelReader;
+import models.base.AbstractModelWriter;
 
-public abstract class StgReader extends AbstractModelReader {
+public abstract class AbstractStgWriter extends AbstractModelWriter {
 }

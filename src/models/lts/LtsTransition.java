@@ -60,12 +60,12 @@ public class LtsTransition {
 
     public String modelToString(AbstractModelWriter writer) throws RuntimeException {
         try {
-            if (!(writer instanceof LtsWriter)) {
+            if (!(writer instanceof AbstractLtsWriter)) {
                 throw new IllegalResourceException(String.format("Wrong kind of writer (%s), should be %s",
                         writer.getClass().toString(),
-                        LtsWriter.class));
+                        AbstractLtsWriter.class));
             }
-            LtsWriter ltsWriter = (LtsWriter) writer;
+            AbstractLtsWriter ltsWriter = (AbstractLtsWriter) writer;
             return ltsWriter.modelToString(this);
         } catch (IllegalResourceException e) {
             throw new RuntimeException(e); // BAD TRICK DUE TO Java 1.8 support for exceptions in map()

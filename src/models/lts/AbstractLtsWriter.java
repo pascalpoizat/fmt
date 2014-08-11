@@ -27,7 +27,7 @@ import models.base.IllegalResourceException;
 /**
  * Created by pascalpoizat on 04/08/2014.
  */
-public abstract class LtsWriter extends AbstractModelWriter {
+public abstract class AbstractLtsWriter extends AbstractModelWriter {
     // from ModelWriter
 
     // returns the suffix of the files the writer works with

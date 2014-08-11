@@ -37,7 +37,7 @@ import java.util.stream.Collectors;
  * A writer to dump LTS in DOT (Graphviz) format
  * Created by pascalpoizat on 04/08/2014.
  */
-public class DotLtsWriter extends LtsWriter {
+public class DotLtsWriter extends AbstractLtsWriter {
 
     public DotLtsWriter() {
     }

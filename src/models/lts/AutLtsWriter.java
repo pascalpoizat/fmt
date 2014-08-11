@@ -53,7 +53,7 @@ import java.util.stream.Collectors;
  * this means state ids may have to be changed to support this (state_mapping is used for this)
  * Created by pascalpoizat on 04/08/2014.
  */
-public class AutLtsWriter extends LtsWriter {
+public class AutLtsWriter extends AbstractLtsWriter {
 
     private Map<String, Integer> state_mapping = new HashMap<>();
     boolean state_mapping_is_built = false;

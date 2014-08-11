@@ -53,12 +53,12 @@ public class LtsLabel {
     }
 
     public String modelToString(AbstractModelWriter writer) throws IllegalResourceException {
-        if (!(writer instanceof LtsWriter)) {
+        if (!(writer instanceof AbstractLtsWriter)) {
             throw new IllegalResourceException(String.format("Wrong kind of writer (%s), should be %s",
                     writer.getClass().toString(),
-                    LtsWriter.class));
+                    AbstractLtsWriter.class));
         }
-        LtsWriter ltsWriter = (LtsWriter) writer;
+        AbstractLtsWriter ltsWriter = (AbstractLtsWriter) writer;
         return ltsWriter.modelToString(this);
     }
 
