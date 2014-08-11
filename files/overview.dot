@@ -26,7 +26,7 @@ cif->file_cif [style="solid,bold"];
 stgchor->file_stg;
 file_stg->stgchor;
 cif->stgchor [style="dashed,bold"];
-file_cif->cif [style="dashed,bold"];
+file_cif->cif;
 {rank=same;cif;file_cif;}
 {rank=same;bpmnchord;file_bpmn;}
 {rank=same;stgchor;file_stg;}

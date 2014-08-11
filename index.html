@@ -82,7 +82,7 @@
             I/O: bpmn&uparrow;BPMN
         </li>
         <li><strong>Choreography Intermediate Format (CIF)</strong><br/>
-            I/O: CIF&downarrow;cif, CIF&downarrow;dot (graphviz files)
+            I/O: cif&uparrow;CIF, CIF&downarrow;cif, CIF&downarrow;dot (graphviz files)
         </li>
         <li><strong>Labelled Transition Systems (LTS)</strong><br/>
             I/O: aut&uparrow;LTS (aldebaran files), LTS&downarrow;aut, LTS&downarrow;dot (graphviz files)
@@ -342,17 +342,10 @@ $ export EMF_HOME=/Applications/Eclipse/plugins</code></pre>
 
     <p>You should then get something like this:</p>
 
-<pre><code>bpmn2cif 1.1
+<pre><code>Input model loaded: /Users/pascalpoizat/IdeaProjects/fmt/examples/comanche/comanche.bpmn
+Output model generated: /Users/pascalpoizat/IdeaProjects/fmt/examples/comanche/comanche.cif
+bpmn2cif 1.1
 Resources set
-working dir.: /Users/pascalpoizat/fmt-tests
-base name: sample
-input file: /Users/pascalpoizat/fmt-tests/sample.bpmn
-output file: /Users/pascalpoizat/fmt-tests/sample.cif
-Loading input model (bpmn)
-Input model loaded
-...
-Generating output model (cif)
-Output model generated
 </code></pre>
 </div>
 
@@ -375,8 +368,8 @@ Output model generated
         <li>a <code>transformations.x2y.X2YTransformer</code> class that extends <code>AbstractTransformer</code>
             (<a href="https://github.com/pascalpoizat/fmt/blob/master/src/transformations/base/AbstractTransformer.java">code</a>)
             and implements three methods:<br/><br/>
-        <pre><code>public X2YTransformer(XFactory xFactory, YFactory yFactory);
-// calls super(xFactory, yFactory)
+        <pre><code>public X2YTransformer();
+// calls super()
 public void transform() throws IllegalModelException;
 // generates outputModel from inputModel
 public void about();
@@ -384,40 +377,31 @@ public void about();
         </li>
         <br/>
         <li>a <code>transformations.x2y.X2Y</code> class with the following pattern:<br/><br/>
-        <pre><code>package transformations.x2y;
+        <pre><code>package transformations.bpmn2cif;
+import ...
+public class Bpmn2Cif {
+    public static final String USAGE = "Bpmn2Cif input_file output_file";
 
-import models.base.FmtException;
-import transformations.base.Transformer;
-import models.x.XFactory;
-import models.y.YFactory;
-
-import java.io.IOException;
-
-public class X2Y {
     public static void main(String[] args) {
-        XFactory xFactory = XFactory.getInstance();
-        YFactory yFactory = YFactory.getInstance();
-        Transformer trans = new X2YTransformer(xFactory, yFactory);
+        Transformer trans = new Bpmn2CifTransformer();
         trans.setVerbose(true);
         trans.about();
-        if (args.length == 0) {
-            trans.error("missing file argument");
+        if (args.length != 2) {
+            trans.error(USAGE);
             return;
         }
         try {
-            trans.setResources(args[0]);
+            AbstractModelReader reader = new BpmnEMFBpmnReader();
+            AbstractModelWriter writer = new CifCifWriter();
+            AbstractModel input_model = new BpmnModel();
+            AbstractModel output_model = new CifModel();
+            trans.setResources(input_model, output_model, reader, writer);
             trans.load();
             trans.transform();
             trans.dump();
             trans.cleanUp();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        } catch (FmtException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        } catch (Throwable e) {
-            System.out.println(e.getMessage());
+        } catch (IOException | IllegalResourceException | IllegalModelException e) {
+            trans.message(e.getMessage());
             e.printStackTrace();
         }
     }
@@ -438,7 +422,6 @@ public class X2Y {
 
     <ul>
         <li>BPMN-Chord&downarrow;bpmn</li>
-        <li>cif&uparrow;CIF</li>
         <li>CIF&rarr;PN</li>
         <li>CIF&rarr;STG-Chor</li>
     </ul>
@@ -456,7 +439,7 @@ public class X2Y {
     <ul>
         <li><strong>master</strong><br/>
             BPMN-ChorD, bpmn&uparrow;BPMN-ChorD,<br/>
-            CIF, CIF&downarrow;cif, CIF&downarrow;dot,<br/>
+            CIF, cif&uparrow;CIF, CIF&downarrow;cif, CIF&downarrow;dot,<br/>
             LTS, aut&uparrow;LTS, LTS&downarrow;aut, LTS&downarrow;dot,<br/>
             PN, pnml&uparrow;PN, PN&downarrow;pnml,<br/>
             STG-Chor, stg&uparrow;STG-Chor, STG-Chor&downarrow;stg, STG-Chor&downarrow;dot,<br />
@@ -468,7 +451,7 @@ public class X2Y {
         </li>
         <br/>
         <li><strong>cif2pnml (ongoing work)</strong><br/>
-            cif&uparrow;CIF, CIF&rarr;PN
+            CIF&rarr;PN
         </li>
         <br/>
         <li><strong>cif2stg (ongoing work)</strong><br/>
