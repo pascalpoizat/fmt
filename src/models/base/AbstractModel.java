@@ -56,24 +56,19 @@ public abstract class AbstractModel {
     // dumps model
     public abstract void dump() throws IOException, IllegalResourceException;
 
-    // writes model to a String
-    public String modelToString(final AbstractModelWriter writer) throws IllegalResourceException {
-        return writer.modelToString(this);
-    }
-
     // writes model to a file
-    public void modelToFile(final AbstractModelWriter writer) throws IllegalResourceException, IOException {
+    public final void modelToFile(final AbstractModelWriter writer) throws IllegalResourceException, IOException {
         writer.modelToFile(this);
     }
 
-    // reads model from a String
-    public void modelFromString(final AbstractModelReader reader, final String stringModel) throws IllegalResourceException {
-        reader.modelFromString(this, stringModel);
+    // reads model from a file
+    public final void modelFromFile(final AbstractModelReader reader) throws IllegalResourceException, IOException {
+        reader.modelFromFile(this);
     }
 
-    // reads model from a file
-    public void modelFromFile(final AbstractModelReader reader) throws IllegalResourceException, IOException {
-        reader.modelFromFile(this);
+    // writes model to a string
+    public final String modelToString(final AbstractStringModelWriter writer) throws IllegalResourceException {
+        return writer.modelToString(this);
     }
 
     // finalization (cleans up resources)
