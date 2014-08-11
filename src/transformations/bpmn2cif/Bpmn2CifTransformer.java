@@ -151,6 +151,7 @@ public class Bpmn2CifTransformer extends AbstractTransformer {
         setParticipants(min, mout);
         setAlphabet(min, mout);
         setStateMachine(min, mout);
+        message("** Transformation achieved");
     }
 
     private void setParticipants(BpmnModel min, CifModel mout) throws IllegalModelException {
