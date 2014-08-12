@@ -44,6 +44,22 @@ public abstract class AbstractTransformer implements Transformer {
         writer = null;
     }
 
+    // checks if all is ok with a model before working with it
+    public boolean checkModel(AbstractModel model, Class expectedClass) throws IllegalResourceException, IllegalModelException {
+        if (model == null) {
+            throw new IllegalResourceException("Model is null");
+        }
+        if (model.getResource() == null) {
+            throw new IllegalResourceException("Resource is not set");
+        }
+        if (!expectedClass.isAssignableFrom(model.getClass())) {
+            throw new IllegalModelException(String.format("Wrong kind of model (%s), should be %s or a subclass of it",
+                    model.getClass().toString(),
+                    expectedClass.toString()));
+        }
+        return true;
+    }
+
     @Override
     public final void setResources(AbstractModel inputModel, AbstractModel outputModel, AbstractModelReader reader, AbstractModelWriter writer) throws IllegalResourceException {
         if(inputModel==null || outputModel==null || reader==null || writer==null || inputModel.getResource()==null || outputModel.getResource()==null) {
@@ -70,9 +86,6 @@ public abstract class AbstractTransformer implements Transformer {
             throw e;
         }
     }
-
-    @Override
-    public abstract void transform() throws IllegalModelException;
 
     @Override
     public final void dump() throws IOException, IllegalResourceException, IllegalModelException {
@@ -106,9 +119,6 @@ public abstract class AbstractTransformer implements Transformer {
     public void warning(final String msg) {
         System.out.println("WARNING: " + msg);
     }
-
-    @Override
-    public abstract void about();
 
     @Override
     public void cleanUp() {

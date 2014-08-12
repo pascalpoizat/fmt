@@ -30,6 +30,7 @@ import java.util.ArrayList;
 
 import models.base.AbstractModel;
 import models.base.IllegalModelException;
+import models.base.IllegalResourceException;
 
 import java.util.stream.Collectors;
 
@@ -44,12 +45,8 @@ public class DotLtsWriter extends AbstractStringLtsWriter {
     }
 
     @Override
-    public String modelToString(AbstractModel model) throws IllegalModelException {
-        if (!(model instanceof LtsModel)) {
-            throw new IllegalModelException(String.format("Wrong kind of model (%s), should be %s",
-                    model.getClass().toString(),
-                    LtsModel.class.toString()));
-        }
+    public String modelToString(AbstractModel model) throws IllegalResourceException, IllegalModelException {
+        checkModel(model, LtsModel.class);
         LtsModel ltsModel = (LtsModel) model;
         String name = "";
         String states_as_string;

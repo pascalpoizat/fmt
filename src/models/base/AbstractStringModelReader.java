@@ -30,7 +30,7 @@ public abstract class AbstractStringModelReader extends AbstractModelReader {
     // reads model from a file
     @Override
     public final void modelFromFile(final AbstractModel model) throws IOException, IllegalResourceException, IllegalModelException {
-        checkModel(model);
+        checkModel(model, AbstractModel.class);
         final FileReader file = new FileReader(model.getResource());
         final BufferedReader bufferedReader = new BufferedReader(file);
         final StringBuilder builder = new StringBuilder();
@@ -45,5 +45,5 @@ public abstract class AbstractStringModelReader extends AbstractModelReader {
     }
 
     // reads model from a String
-    public abstract void modelFromString(AbstractModel model, String stringModel) throws IllegalModelException;
+    public abstract void modelFromString(AbstractModel model, String stringModel) throws IllegalResourceException, IllegalModelException;
 }

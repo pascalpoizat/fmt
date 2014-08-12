@@ -37,12 +37,7 @@ public class PnmlPnmlWriter extends AbstractModelWriter {
 
     @Override
     public void modelToFile(AbstractModel model) throws IOException, IllegalResourceException, IllegalModelException {
-        checkModel(model);
-        if (!(model instanceof PnmlModel)) {
-            throw new IllegalModelException(String.format("Wrong kind of model (%s), should be %s",
-                    model.getClass().toString(),
-                    PnmlModel.class.toString()));
-        }
+        checkModel(model, PnmlModel.class);
         PnmlModel pnmlModel = (PnmlModel) model;
         ModelRepository mr = ModelRepository.getInstance();
         mr.setPrettyPrintStatus(true);

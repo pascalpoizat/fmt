@@ -17,6 +17,7 @@
  *   Copyright (C) 2014  pascalpoizat
  *   emails: pascal.poizat@lip6.fr
  */
+
 package models.base;
 
 public abstract class AbstractModelOperator {
@@ -24,7 +25,7 @@ public abstract class AbstractModelOperator {
     public abstract String getSuffix();
 
     // checks if all is ok with a model before working with it
-    public boolean checkModel(AbstractModel model) throws IllegalResourceException {
+    public boolean checkModel(AbstractModel model, Class expectedClass) throws IllegalResourceException, IllegalModelException {
         if (model == null) {
             throw new IllegalResourceException("Model is null");
         }
@@ -33,6 +34,11 @@ public abstract class AbstractModelOperator {
         }
         if (!model.getResource().getName().endsWith("." + getSuffix())) {
             throw new IllegalResourceException("Wrong file suffix (should be " + getSuffix() + ")");
+        }
+        if (!expectedClass.isAssignableFrom(model.getClass())) {
+            throw new IllegalModelException(String.format("Wrong kind of model (%s), should be %s or a subclass of it",
+                    model.getClass().toString(),
+                    expectedClass.toString()));
         }
         return true;
     }

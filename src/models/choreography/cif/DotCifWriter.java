@@ -45,12 +45,8 @@ public class DotCifWriter extends AbstractStringModelWriter {
     }
 
     @Override
-    public String modelToString(AbstractModel model) throws IllegalModelException {
-        if (!(model instanceof CifModel)) {
-            throw new IllegalModelException(String.format("Wrong model (%s), should be %s",
-                    model.getClass().toString(),
-                    CifModel.class.toString()));
-        }
+    public String modelToString(AbstractModel model) throws IllegalResourceException, IllegalModelException {
+        checkModel(model, CifModel.class);
         CifModel cifModel = (CifModel) model;
         String rtr = "";
         rtr += String.format("digraph %s {\n" +

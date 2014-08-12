@@ -23,6 +23,7 @@ package transformations.bpmn2cif;
 import java.util.HashMap;
 import java.util.List;
 
+import models.base.IllegalResourceException;
 import models.choreography.bpmn.BpmnFactory;
 import models.choreography.cif.CifFactory;
 import models.choreography.cif.CifModel;
@@ -139,12 +140,9 @@ public class Bpmn2CifTransformer extends AbstractTransformer {
     }
 
     @Override
-    public void transform() throws IllegalModelException {
-        if (inputModel == null || outputModel == null) {
-            IllegalModelException e = new IllegalModelException("Model error");
-            error(e.getMessage());
-            throw e;
-        }
+    public void transform() throws IllegalResourceException, IllegalModelException {
+        checkModel(inputModel, BpmnModel.class);
+        checkModel(outputModel, CifModel.class);
         CifModel mout = ((CifModel) outputModel);
         BpmnModel min = ((BpmnModel) inputModel);
         mout.setChoreoID(getChoreoID(min));

@@ -17,41 +17,42 @@
  *   Copyright (C) 2014  pascalpoizat
  *   emails: pascal.poizat@lip6.fr
  */
-package models.choreography.cif;
+package models.choreography.bpmn;
 
 import models.base.AbstractModel;
 import models.base.AbstractModelWriter;
 import models.base.IllegalModelException;
 import models.base.IllegalResourceException;
-import models.choreography.cif.generated.*;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class CifCifWriter extends AbstractModelWriter {
+public class BpmnEMFBpmnWriter extends AbstractModelWriter {
     @Override
     public String getSuffix() {
-        return "cif";
+        return "bpmn";
     }
 
     @Override
     public void modelToFile(AbstractModel model) throws IOException, IllegalResourceException, IllegalModelException {
-        checkModel(model, CifModel.class);
-        CifModel cifModel = (CifModel) model;
-        final FileOutputStream fos = new FileOutputStream(cifModel.getResource());
-        try {
-            final JAXBContext ctx = JAXBContext.newInstance(Choreography.class);
-            final Marshaller marshaller = ctx.createMarshaller();
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-            marshaller.marshal(cifModel.getModel(), fos);
-        } catch (JAXBException e) {
-            throw new IllegalModelException(e.getMessage());
-        } finally {
-            fos.close();
+        checkModel(model, BpmnModel.class);
+        throw new NotImplementedException();
+        // the following is not OK, we should save the WHOLE MODEL, not only the choreography
+        /*
+        if (!(model instanceof BpmnModel)) {
+            throw new IllegalModelException(String.format("Wrong kind of model (%s), should be %s",
+                    model.getClass().toString(),
+                    BpmnModel.class.toString()));
         }
-
+        BpmnModel bpmnModel = (BpmnModel) model;
+        // save the model using the BPMN EMF model
+        if (!EMFPlugin.IS_ECLIPSE_RUNNING) {
+            Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(getSuffix(), new Bpmn2ResourceFactoryImpl());
+        }
+        URI uri = URI.createURI(bpmnModel.getResource().getPath());
+        Resource res = new ResourceSetImpl().createResource(uri);
+        res.getContents().add(bpmnModel.getModel());
+        res.save(null);
+        */
     }
 }

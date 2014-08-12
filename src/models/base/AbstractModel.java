@@ -58,7 +58,7 @@ public abstract class AbstractModel {
     }
 
     // writes model to a string
-    public final String modelToString(final AbstractStringModelWriter writer) throws IllegalModelException {
+    public final String modelToString(final AbstractStringModelWriter writer) throws IllegalResourceException, IllegalModelException {
         return writer.modelToString(this);
     }
 

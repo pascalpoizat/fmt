@@ -30,6 +30,7 @@ import java.util.ArrayList;
 
 import models.base.AbstractModel;
 import models.base.IllegalModelException;
+import models.base.IllegalResourceException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -67,12 +68,8 @@ public class AutLtsWriter extends AbstractStringLtsWriter {
     }
 
     @Override
-    public String modelToString(AbstractModel model) throws IllegalModelException {
-        if (!(model instanceof LtsModel)) {
-            throw new IllegalModelException(String.format("Wrong kind of model (%s), should be %s",
-                    model.getClass().toString(),
-                    LtsModel.class.toString()));
-        }
+    public String modelToString(AbstractModel model) throws IllegalResourceException, IllegalModelException {
+        checkModel(model, LtsModel.class);
         LtsModel ltsModel = (LtsModel) model;
         String transitions_as_string;
         int nb_transitions = ltsModel.getTransitions().size();

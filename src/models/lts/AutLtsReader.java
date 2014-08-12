@@ -23,6 +23,7 @@ package models.lts;
 import models.base.AbstractModel;
 import models.base.AbstractStringModelReader;
 import models.base.IllegalModelException;
+import models.base.IllegalResourceException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -43,12 +44,8 @@ public class AutLtsReader extends AbstractStringModelReader {
     }
 
     @Override
-    public void modelFromString(AbstractModel model, String stringModel) throws IllegalModelException {
-        if (!(model instanceof LtsModel)) {
-            throw new IllegalModelException(String.format("Wrong kind of model (%s), should be %s",
-                    model.getClass().toString(),
-                    LtsModel.class.toString()));
-        }
+    public void modelFromString(AbstractModel model, String stringModel) throws IllegalResourceException, IllegalModelException {
+        checkModel(model, LtsModel.class);
         LtsModel ltsModel = (LtsModel) model;
         String lines[] = stringModel.split("\n");
         String line;

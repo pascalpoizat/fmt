@@ -40,12 +40,7 @@ public class CifCifReader extends AbstractModelReader {
 
     @Override
     public void modelFromFile(AbstractModel model) throws IOException, IllegalResourceException, IllegalModelException {
-        checkModel(model);
-        if (!(model instanceof CifModel)) {
-            throw new IllegalModelException(String.format("Wrong kind of model (%s), should be %s",
-                    model.getClass().toString(),
-                    CifModel.class.toString()));
-        }
+        checkModel(model, CifModel.class);
         CifModel cifModel = (CifModel) model;
         // load model using JAXB
         FileInputStream fis;

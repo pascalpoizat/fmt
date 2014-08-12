@@ -22,6 +22,7 @@ package models.lts;
 
 import models.base.AbstractModel;
 import models.base.IllegalModelException;
+import models.base.IllegalResourceException;
 
 import java.util.*;
 
@@ -63,7 +64,7 @@ public class LtsModel extends AbstractModel {
         // defaults to DOT format
         try {
             return this.modelToString(new DotLtsWriter());
-        } catch (IllegalModelException e) {
+        } catch (IllegalModelException | IllegalResourceException e) {
             return null;
         } // impossible
     }

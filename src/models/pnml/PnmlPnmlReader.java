@@ -39,12 +39,7 @@ public class PnmlPnmlReader extends AbstractModelReader {
 
     @Override
     public void modelFromFile(AbstractModel model) throws IOException, IllegalResourceException, IllegalModelException {
-        checkModel(model);
-        if (!(model instanceof PnmlModel)) {
-            throw new IllegalModelException(String.format("Wrong kind of model (%s), should be %s",
-                    model.getClass().toString(),
-                    PnmlModel.class.toString()));
-        }
+        checkModel(model, PnmlModel.class);
         PnmlModel pnmlModel = (PnmlModel) model;
         PnmlImport pnmlImport = new PnmlImport();
         HLAPIClass rawModel = null;

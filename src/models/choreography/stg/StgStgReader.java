@@ -33,12 +33,8 @@ public class StgStgReader extends AbstractStringModelReader {
     }
 
     @Override
-    public void modelFromString(AbstractModel model, String stringModel) throws IllegalModelException {
-        if (!(model instanceof StgModel)) {
-            throw new IllegalModelException(String.format("Wrong kind of model (%s), should be %s",
-                    model.getClass().toString(),
-                    StgModel.class.toString()));
-        }
+    public void modelFromString(AbstractModel model, String stringModel) throws IllegalResourceException, IllegalModelException {
+        checkModel(model, StgModel.class);
         StgModel stgModel = (StgModel) model;
         STG rawModel = StgModel.fromStg(stringModel,false);
         stgModel.setModel(rawModel);

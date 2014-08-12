@@ -31,12 +31,8 @@ public class StgStgWriter extends AbstractStringModelWriter {
     }
 
     @Override
-    public String modelToString(AbstractModel model) throws IllegalModelException {
-        if (!(model instanceof StgModel)) {
-            throw new IllegalModelException(String.format("Wrong kind of model (%s), should be %s",
-                    model.getClass().toString(),
-                    StgModel.class.toString()));
-        }
+    public String modelToString(AbstractModel model) throws IllegalResourceException, IllegalModelException {
+        checkModel(model, StgModel.class);
         StgModel stgModel = (StgModel) model;
         return stgModel.toStg();
     }

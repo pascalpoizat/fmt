@@ -36,7 +36,7 @@ public interface Transformer {
     void load() throws IOException, IllegalResourceException, IllegalModelException;
 
     // perform transformation between input model and output model
-    void transform() throws IllegalModelException;
+    void transform() throws IllegalResourceException, IllegalModelException;
 
     // dump output model
     void dump() throws IOException, IllegalResourceException, IllegalModelException;
