@@ -28,6 +28,7 @@ import models.choreography.cif.CifCifWriter;
 import models.choreography.cif.CifModel;
 import transformations.base.Transformer;
 
+import java.io.File;
 import java.io.IOException;
 
 public class Bpmn2Cif {
@@ -46,7 +47,9 @@ public class Bpmn2Cif {
             AbstractModelReader reader = new BpmnEMFBpmnReader();
             AbstractModelWriter writer = new CifCifWriter();
             AbstractModel input_model = new BpmnModel();
+            input_model.setResource(new File(args[0]));
             AbstractModel output_model = new CifModel();
+            output_model.setResource(new File(args[1]));
             trans.setResources(input_model, output_model, reader, writer);
             trans.load();
             trans.transform();

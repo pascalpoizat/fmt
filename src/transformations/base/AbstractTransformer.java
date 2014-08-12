@@ -46,21 +46,25 @@ public abstract class AbstractTransformer implements Transformer {
 
     @Override
     public final void setResources(AbstractModel inputModel, AbstractModel outputModel, AbstractModelReader reader, AbstractModelWriter writer) throws IllegalResourceException {
-        if(inputModel==null || outputModel==null || reader==null || writer==null) {
+        if(inputModel==null || outputModel==null || reader==null || writer==null || inputModel.getResource()==null || outputModel.getResource()==null) {
             throw new IllegalResourceException("Resources are not correctly set");
         }
         this.inputModel = inputModel;
         this.outputModel = outputModel;
         this.reader = reader;
         this.writer = writer;
-        message("Resources set");
+        message("Input model: "+inputModel.getResource().getAbsolutePath());
+        message(String.format("-- reader: %s (%s suffix)",reader.getClass().toString(),reader.getSuffix()));
+        message("Output model: "+outputModel.getResource().getAbsolutePath());
+        message(String.format("-- writer: %s (%s suffix)",writer.getClass().toString(),writer.getSuffix()));
+        message("** Resources set");
     }
 
     @Override
     public final void load() throws IOException, IllegalResourceException, IllegalModelException {
         try {
             inputModel.modelFromFile(reader);
-            message("Input model loaded: "+inputModel.getResource().getAbsolutePath());
+            message("** Input model loaded");
         } catch (IllegalResourceException | IllegalModelException | IOException e) {
             error(e.getMessage());
             throw e;
@@ -74,7 +78,7 @@ public abstract class AbstractTransformer implements Transformer {
     public final void dump() throws IOException, IllegalResourceException, IllegalModelException {
         try {
             outputModel.modelToFile(writer);
-            message("Output model generated: "+outputModel.getResource().getAbsolutePath());
+            message("** Output model generated");
         } catch (IOException | IllegalResourceException | IllegalModelException e) {
             error(e.getMessage());
             throw e;
