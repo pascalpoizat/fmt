@@ -55,7 +55,7 @@ public class DotCifWriter extends AbstractStringModelWriter {
                         "fontsize=\"14\";\n" +
                         "bgcolor=\"transparent\";\n" +
                         "concentrate=true;\n",
-                cifModel.getChoreoID());
+                        normalizeId(cifModel.getChoreoID()));
         try {
             // generate nodes
             List<BaseState> allStates = new ArrayList<BaseState>();
@@ -87,7 +87,7 @@ public class DotCifWriter extends AbstractStringModelWriter {
     public String modelToString(BaseState source, List<String> targets) {
         String rtr = "";
         for (String target : targets) {
-            rtr += String.format("%s -> %s [%s];\n", source.getStateID(), target, TRANSITION_STYLE);
+            rtr += String.format("%s -> %s [%s];\n", normalizeId(source.getStateID()), normalizeId(target), TRANSITION_STYLE);
         }
         return rtr;
     }
@@ -95,13 +95,13 @@ public class DotCifWriter extends AbstractStringModelWriter {
     public String modelToString(CifModel model, InitialState initialState) {
         return String.format("%s [%s," +
                 "label=\"\"" +
-                "];\n", initialState.getStateID(), INITIAL_STYLE);
+                "];\n", normalizeId(initialState.getStateID()), INITIAL_STYLE);
     }
 
     public String modelToString(CifModel model, FinalState finalState) {
         return String.format("%s [%s," +
                 "label=\"\"" +
-                "];\n", finalState.getStateID(), FINAL_STYLE);
+                "];\n", normalizeId(finalState.getStateID()), FINAL_STYLE);
     }
 
     public String modelToString(CifModel model, BaseState state) throws IllegalModelException {
@@ -126,21 +126,21 @@ public class DotCifWriter extends AbstractStringModelWriter {
         String messageReceiver = message.getReceiver();
         String rtr = String.format("%s [%s," +
                 "label=\"%s | %s | %s\"" +
-                "];\n", state.getStateID(), TASK_STYLE, messageSender, messageLabel, messageReceiver);
+                "];\n", normalizeId(state.getStateID()), TASK_STYLE, messageSender, messageLabel, messageReceiver);
         return rtr;
     }
 
     public String modelToString(CifModel model, JoinState state) throws IllegalModelException {
         if (state instanceof AllJoinState) {
-            String rtr = String.format("%s [%s];\n", state.getStateID(), ALLJOIN_STYLE);
+            String rtr = String.format("%s [%s];\n", normalizeId(state.getStateID()), ALLJOIN_STYLE);
             return rtr;
         }
         if (state instanceof SimpleJoinState) {
-            String rtr = String.format("%s [%s];\n", state.getStateID(), SIMPLEJOIN_STYLE);
+            String rtr = String.format("%s [%s];\n", normalizeId(state.getStateID()), SIMPLEJOIN_STYLE);
             return rtr;
         }
         if (state instanceof SubsetJoinState) {
-            String rtr = String.format("%s [%s];\n", state.getStateID(), SUBSETJOIN_STYLE);
+            String rtr = String.format("%s [%s];\n", normalizeId(state.getStateID()), SUBSETJOIN_STYLE);
             return rtr;
         }
         throw new IllegalModelException(String.format("Element %s of class %s is not supported", state.getStateID(), state.getClass().toString()));
@@ -148,22 +148,33 @@ public class DotCifWriter extends AbstractStringModelWriter {
 
     public String modelToString(CifModel model, SelectionState state) throws IllegalModelException {
         if (state instanceof AllSelectState) {
-            String rtr = String.format("%s [%s];\n", state.getStateID(), ALLSELECT_STYLE);
+            String rtr = String.format("%s [%s];\n", normalizeId(state.getStateID()), ALLSELECT_STYLE);
             return rtr;
         }
         if (state instanceof ChoiceState) {
-            String rtr = String.format("%s [%s];\n", state.getStateID(), CHOICE_STYLE);
+            String rtr = String.format("%s [%s];\n", normalizeId(state.getStateID()), CHOICE_STYLE);
             return rtr;
         }
         if (state instanceof DominatedChoiceState) {
-            String rtr = String.format("%s [%s];\n", state.getStateID(), DOMINATEDCHOICE_STYLE);
+            String rtr = String.format("%s [%s];\n", normalizeId(state.getStateID()), DOMINATEDCHOICE_STYLE);
             return rtr;
         }
         if (state instanceof SubsetSelectState) {
-            String rtr = String.format("%s [%s];\n", state.getStateID(), SUBSETSELECT_STYLE);
+            String rtr = String.format("%s [%s];\n", normalizeId(state.getStateID()), SUBSETSELECT_STYLE);
             return rtr;
         }
         throw new IllegalModelException(String.format("Element %s of class %s is not supported", state.getStateID(), state.getClass().toString()));
+    }
+
+    /**
+     * normalizes ids so that dot accepts them, eg replacing spaces by underscores
+     * @param id the raw id to normalize
+     * @return the normalized id
+     */
+    private static String normalizeId(String id) {
+        String rtr;
+        rtr = id.replace(" ", "_");
+        return rtr;
     }
 
 }
