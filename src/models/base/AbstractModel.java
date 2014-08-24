@@ -28,6 +28,8 @@ import java.io.IOException;
  */
 public abstract class AbstractModel {
 
+    private static final String SUFFIX_SEPARATOR = ".";
+
     private File resource;
 
     public AbstractModel() {
@@ -45,6 +47,30 @@ public abstract class AbstractModel {
     // gets resource
     public File getResource() {
         return resource;
+    }
+
+    // gets suffix (part of the file name after the last ".", ie gives "zzz" for "xxx.yyy.zzz")
+    public String getSuffix() throws IllegalResourceException {
+        if (resource == null) {
+            throw new IllegalResourceException("Resource is not set");
+        }
+        int indexSeparator = resource.getName().lastIndexOf(SUFFIX_SEPARATOR);
+        if (indexSeparator == -1) {
+            return "";
+        }
+        return resource.getName().substring(indexSeparator + 1, resource.getName().length());
+    }
+
+    // gets suffix (part of the file name after the last ".", ie gives "zzz" for "xxx.yyy.zzz")
+    public String getNameWithoutSuffix() throws IllegalResourceException {
+        if (resource == null) {
+            throw new IllegalResourceException("Resource is not set");
+        }
+        int indexSeparator = resource.getName().lastIndexOf(SUFFIX_SEPARATOR);
+        if (indexSeparator == -1) {
+            return resource.getName();
+        }
+        return resource.getName().substring(0, resource.getName().lastIndexOf(SUFFIX_SEPARATOR));
     }
 
     // writes model to a file
