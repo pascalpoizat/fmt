@@ -1,0 +1,178 @@
+@startuml
+
+package choreography.cif.generated {
+
+class Action {
+# String actionID
+# String actor
+# String actionContent
++ String getActionID()
++ String getActor()
++ String getActionContent()
++ void setActionID (String value)
++ void setActor (String value)
++ void setActionContent (String value
+}
+
+class Choreography {
+# String choreoID
+# PeerList participants
+# MessageList alphabet
+# StateMachine stateMachine
++ String getChoreoID()
++ PeerList getParticipants()
++ MessageList getAlphabet()
++ StateMachine getStateMachine()
++ void setChoreoID(String value)
++ void setParticipants(PeerList value)
++ void setAlphabet(MessageList value)
++ void setStateMachine(StateMachine value)
+}
+
+PeerList <.. Choreography
+MessageList <.. Choreography
+StateMachine <.. Choreography
+
+class Message {
+# String msgID
+# String sender
+# String receiver
+# String messageContent
++ String getMsgID()
++ String getSender()
++ String getReceiver()
++ String getMessageContent()
++ void setMsgID(String value)
++ void setSender(String value)
++ void setReceiver(String value)
++ void setMessageContent(String value)
+}
+
+Message ..> Peer
+
+class MessageList {
+# List<Object> messageOrAction
++ List<Object> getMessageOrAction
+}
+
+Message <.. MessageList
+
+class Peer {
+# String peerID
++ String getPeerID()
++ void setPeerID(String value)
+}
+
+class PeerList {
+# List<Peer> peer
++ List<Peer> getPeer()
+}
+
+Peer <.. PeerList
+
+class StateMachine {
+# InitialState initial
+# List<BaseState> interactionOrInternalActionOrSubsetJoin
+# List<FinalState> final
++ InitialState getInitial()
++ List<BaseState> getInteractionOrInternalActionOrSubsetJoin()
++ List<FinalState> getFinal()
++ void setInitial(InitialState value)
+}
+
+StateMachine ..> InitialState
+StateMachine ..> FinalState
+StateMachine ..> BaseState
+
+class BaseState {
+# String stateID
++ String getStateID()
++ void setStateID(String value)
+}
+
+class FinalState {
+}
+
+class OneSuccState {
+# List String successors
++ List<String> getSuccessors()
+}
+
+class SeveralSuccState {
+# List String successors
++ List<String> getSuccessors()
+}
+
+
+class InitialState {
+}
+
+class InternalActionState {
+# String actionID
++ String getActionID()
++ void setActionID(String value)
+}
+
+Action <.. InternalActionState
+
+class JoinState {
+}
+
+class InteractionState {
+# String msgID
++ String getMsgID()
++ void setMsgID(String value)
+}
+
+Message <.. InteractionState
+
+class SelectionState {
+}
+
+class SimpleJoinState {
+}
+
+class SubsetJoinState {
+}
+
+class AllJoinState {
+}
+
+class ChoiceState {
+}
+
+class SubsetSelectState {
+# String default
++ String getDefault()
++ void setDefault(String value)
+}
+
+class DominatedChoiceState {
+# String dominantPeer
++ String getDominantPeer()
++ void setDominantPeer(String value)
+}
+
+class AllSelectState {
+}
+
+BaseState <|-- FinalState
+BaseState <|-- OneSuccState
+BaseState <|-- SeveralSuccState
+
+OneSuccState <|-- JoinState
+OneSuccState <|-- InteractionState
+OneSuccState <|-- InternalActionState
+OneSuccState <|-- InitialState
+
+JoinState <|-- AllJoinState
+SelectionState <|-- AllSelectState
+SelectionState <|-- ChoiceState
+SeveralSuccState <|-- SelectionState
+SelectionState <|-- DominatedChoiceState
+JoinState <|-- SimpleJoinState
+JoinState <|-- SubsetJoinState
+SelectionState <|-- SubsetSelectState
+}
+
+@enduml
