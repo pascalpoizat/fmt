@@ -42,8 +42,7 @@ public class PnmlModel extends AbstractModel {
             ModelRepository.getInstance().createDocumentWorkspace("main_workspace");
             doc = new PetriNetDocHLAPI();
             model = new PetriNetHLAPI("main_net", PNTypeHLAPI.PTNET, new NameHLAPI("main_net"), doc);
-        } catch (InvalidIDException e) {
-        } catch (VoidRepositoryException e) {
+        } catch (InvalidIDException | VoidRepositoryException e) {
         }
     }
 

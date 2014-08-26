@@ -58,7 +58,7 @@ public class DotCifWriter extends AbstractStringModelWriter {
                         normalizeId(cifModel.getChoreoID()));
         try {
             // generate nodes
-            List<BaseState> allStates = new ArrayList<BaseState>();
+            List<BaseState> allStates = new ArrayList<>();
             rtr += modelToString(cifModel, cifModel.getInitialState());
             allStates.add(cifModel.getInitialState());
             for (FinalState finalState : cifModel.getFinalStates()) {
@@ -124,44 +124,36 @@ public class DotCifWriter extends AbstractStringModelWriter {
         String messageSender = message.getSender();
         String messageLabel = message.getMessageContent();
         String messageReceiver = message.getReceiver();
-        String rtr = String.format("%s [%s," +
+        return String.format("%s [%s," +
                 "label=\"%s | %s | %s\"" +
                 "];\n", normalizeId(state.getStateID()), TASK_STYLE, messageSender, messageLabel, messageReceiver);
-        return rtr;
     }
 
     public String modelToString(CifModel model, JoinState state) throws IllegalModelException {
         if (state instanceof AllJoinState) {
-            String rtr = String.format("%s [%s];\n", normalizeId(state.getStateID()), ALLJOIN_STYLE);
-            return rtr;
+            return String.format("%s [%s];\n", normalizeId(state.getStateID()), ALLJOIN_STYLE);
         }
         if (state instanceof SimpleJoinState) {
-            String rtr = String.format("%s [%s];\n", normalizeId(state.getStateID()), SIMPLEJOIN_STYLE);
-            return rtr;
+            return String.format("%s [%s];\n", normalizeId(state.getStateID()), SIMPLEJOIN_STYLE);
         }
         if (state instanceof SubsetJoinState) {
-            String rtr = String.format("%s [%s];\n", normalizeId(state.getStateID()), SUBSETJOIN_STYLE);
-            return rtr;
+            return String.format("%s [%s];\n", normalizeId(state.getStateID()), SUBSETJOIN_STYLE);
         }
         throw new IllegalModelException(String.format("Element %s of class %s is not supported", state.getStateID(), state.getClass().toString()));
     }
 
     public String modelToString(CifModel model, SelectionState state) throws IllegalModelException {
         if (state instanceof AllSelectState) {
-            String rtr = String.format("%s [%s];\n", normalizeId(state.getStateID()), ALLSELECT_STYLE);
-            return rtr;
+            return String.format("%s [%s];\n", normalizeId(state.getStateID()), ALLSELECT_STYLE);
         }
         if (state instanceof ChoiceState) {
-            String rtr = String.format("%s [%s];\n", normalizeId(state.getStateID()), CHOICE_STYLE);
-            return rtr;
+            return String.format("%s [%s];\n", normalizeId(state.getStateID()), CHOICE_STYLE);
         }
         if (state instanceof DominatedChoiceState) {
-            String rtr = String.format("%s [%s];\n", normalizeId(state.getStateID()), DOMINATEDCHOICE_STYLE);
-            return rtr;
+            return String.format("%s [%s];\n", normalizeId(state.getStateID()), DOMINATEDCHOICE_STYLE);
         }
         if (state instanceof SubsetSelectState) {
-            String rtr = String.format("%s [%s];\n", normalizeId(state.getStateID()), SUBSETSELECT_STYLE);
-            return rtr;
+            return String.format("%s [%s];\n", normalizeId(state.getStateID()), SUBSETSELECT_STYLE);
         }
         throw new IllegalModelException(String.format("Element %s of class %s is not supported", state.getStateID(), state.getClass().toString()));
     }

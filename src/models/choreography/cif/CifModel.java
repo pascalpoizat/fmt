@@ -26,6 +26,7 @@ import models.choreography.cif.generated.*;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Pascal Poizat (@pascalpoizat) on 11/01/2014.
@@ -81,7 +82,7 @@ public class CifModel extends AbstractModel {
         }
     }
 
-    public HashMap<String, Message> getAlphabetAsMap() throws IllegalModelException {
+    public Map<String, Message> getAlphabetAsMap() throws IllegalModelException {
         final HashMap<String, Message> rtr = new HashMap<>();
         Message message;
         if (model == null) {

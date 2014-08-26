@@ -20,12 +20,6 @@
 
 package models.base;
 
-import java.io.File;
-import java.io.IOException;
-
-/**
- * Created by Pascal Poizat (@pascalpoizat) on 05/02/2014.
- */
 public abstract class AbstractModelFactory implements ModelFactory {
     @Override
     public abstract AbstractModel create();

@@ -20,8 +20,6 @@
 
 package models.base;
 
-import java.io.IOException;
-
 /**
  * Created by Pascal Poizat (@pascalpoizat) on 11/01/2014.
  */

@@ -32,8 +32,8 @@ public abstract class AbstractStringModelWriter extends AbstractModelWriter {
     @Override
     public final void modelToFile(final AbstractModel model) throws IOException, IllegalResourceException, IllegalModelException {
         checkModel(model, AbstractModel.class);
-        final String apath = model.getResource().getAbsolutePath();
-        final FileWriter file = new FileWriter(apath);
+        final String absolutePath = model.getResource().getAbsolutePath();
+        final FileWriter file = new FileWriter(absolutePath);
         file.write(modelToString(model));
         file.close();
     }

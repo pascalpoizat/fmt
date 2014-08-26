@@ -41,16 +41,13 @@ public class CifCifWriter extends AbstractModelWriter {
     public void modelToFile(AbstractModel model) throws IOException, IllegalResourceException, IllegalModelException {
         checkModel(model, CifModel.class);
         CifModel cifModel = (CifModel) model;
-        final FileOutputStream fos = new FileOutputStream(cifModel.getResource());
-        try {
+        try (FileOutputStream fos = new FileOutputStream(cifModel.getResource())) {
             final JAXBContext ctx = JAXBContext.newInstance(Choreography.class);
             final Marshaller marshaller = ctx.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
             marshaller.marshal(cifModel.getModel(), fos);
         } catch (JAXBException e) {
             throw new IllegalModelException(e.getMessage());
-        } finally {
-            fos.close();
         }
 
     }

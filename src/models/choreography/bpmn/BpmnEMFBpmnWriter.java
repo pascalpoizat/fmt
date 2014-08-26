@@ -23,7 +23,6 @@ import models.base.AbstractModel;
 import models.base.AbstractModelWriter;
 import models.base.IllegalModelException;
 import models.base.IllegalResourceException;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.io.IOException;
 
@@ -36,7 +35,7 @@ public class BpmnEMFBpmnWriter extends AbstractModelWriter {
     @Override
     public void modelToFile(AbstractModel model) throws IOException, IllegalResourceException, IllegalModelException {
         checkModel(model, BpmnModel.class);
-        throw new NotImplementedException();
+        throw new RuntimeException();
         // the following is not OK, we should save the WHOLE MODEL, not only the choreography
         /*
         if (!(model instanceof BpmnModel)) {

@@ -52,7 +52,6 @@ import java.util.stream.Collectors;
  * important:
  * some tools require that state ids (x,x',y,y',...) begin at 0 and go up to S-1 without any integer missing
  * this means state ids may have to be changed to support this (state_mapping is used for this)
- * Created by Pascal Poizat (@pascalpoizat) on 04/08/2014.
  */
 public class AutLtsWriter extends AbstractStringLtsWriter {
 

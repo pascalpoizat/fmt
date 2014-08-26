@@ -22,13 +22,9 @@ package models.choreography.stg;
 
 import fr.lri.schora.solver.Z3SMT;
 import fr.lri.schora.stg.STG;
-import fr.lri.schora.util.parser.ParserException;
 import models.base.AbstractModel;
 import models.base.IllegalModelException;
 import models.base.IllegalResourceException;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
-import java.io.IOException;
 
 /**
  * Symbolic Transition Graphs for choreographies

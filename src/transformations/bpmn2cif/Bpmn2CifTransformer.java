@@ -22,10 +22,9 @@ package transformations.bpmn2cif;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import models.base.IllegalResourceException;
-import models.choreography.bpmn.BpmnFactory;
-import models.choreography.cif.CifFactory;
 import models.choreography.cif.CifModel;
 import models.choreography.cif.generated.*;
 import org.eclipse.bpmn2.*;
@@ -34,9 +33,6 @@ import models.choreography.cif.generated.Message;
 import transformations.base.AbstractTransformer;
 import models.choreography.bpmn.BpmnModel;
 
-/**
- * Created by Pascal Poizat (@pascalpoizat) on 10/01/2014.
- */
 public class Bpmn2CifTransformer extends AbstractTransformer {
 
     // CONSTRAINTS
@@ -125,16 +121,16 @@ public class Bpmn2CifTransformer extends AbstractTransformer {
     // - if messages are associated to choreography tasks, they are used
     //   else the behaviour is as in v1.0 (the choreography task information is used)
 
-    HashMap<String, String> participants;   // participant id in bpmn model -> participant id in cif model
-    HashMap<String, String> messages;       // choreography task id in bpmn model -> message id in cif model
+    Map<String, String> participants;   // participant id in bpmn model -> participant id in cif model
+    Map<String, String> messages;       // choreography task id in bpmn model -> message id in cif model
 
     boolean has_initial_state;
     boolean has_final_state;
 
     public Bpmn2CifTransformer() {
         super();
-        participants = new HashMap<String, String>();
-        messages = new HashMap<String, String>();
+        participants = new HashMap<>();
+        messages = new HashMap<>();
         has_initial_state = false;
         has_final_state = false;
     }
@@ -192,7 +188,7 @@ public class Bpmn2CifTransformer extends AbstractTransformer {
         try {
             List<FlowElement> fel = min.getFlowElements();
             MessageList ml = mout.getAlphabet();
-            HashMap<Integer, Message> foundMessages = new HashMap<Integer, Message>();
+            Map<Integer, Message> foundMessages = new HashMap<>();
             for (FlowElement fe : fel) {
                 if (fe instanceof ChoreographyTask) {
                     ChoreographyTask choreographyTask = (ChoreographyTask) fe;

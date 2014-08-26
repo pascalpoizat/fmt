@@ -20,15 +20,13 @@
 
 package transformations.base;
 
-import java.io.File;
-
 import models.base.*;
 
 import java.io.IOException;
 
 public abstract class AbstractTransformer implements Transformer {
 
-    // NEXT RELEASE a generaliser en prenant en compte des transformations n->m et non plus 1->1
+    // NEXT RELEASE to generalize using n->m transformations instead of 1->1 ones
 
     protected boolean verbose;
     protected AbstractModel inputModel;

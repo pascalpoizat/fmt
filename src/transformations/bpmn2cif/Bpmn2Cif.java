@@ -22,7 +22,6 @@ package transformations.bpmn2cif;
 
 import models.base.*;
 import models.choreography.bpmn.BpmnEMFBpmnReader;
-import models.choreography.bpmn.BpmnFactory;
 import models.choreography.bpmn.BpmnModel;
 import models.choreography.cif.CifCifWriter;
 import models.choreography.cif.CifModel;
