@@ -14,14 +14,14 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  * <p>
  * {description}
- * Copyright (C) 2014  pascalpoizat
+ * Copyright (C) 2014 Pascal Poizat (@pascalpoizat)
  * emails: pascal.poizat@lip6.fr
  */
 
 package models.base;
 
 /**
- * Created by pascalpoizat on 13/01/2014.
+ * Created by Pascal Poizat (@pascalpoizat) on 13/01/2014.
  */
 public class IllegalResourceException extends FmtException {
     public IllegalResourceException(final String info) {

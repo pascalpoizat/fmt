@@ -14,7 +14,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  * <p>
  * {description}
- * Copyright (C) 2014  pascalpoizat
+ * Copyright (C) 2014 Pascal Poizat (@pascalpoizat)
  * emails: pascal.poizat@lip6.fr
  */
 
@@ -35,7 +35,7 @@ import transformations.base.AbstractTransformer;
 import models.choreography.bpmn.BpmnModel;
 
 /**
- * Created by pascalpoizat on 10/01/2014.
+ * Created by Pascal Poizat (@pascalpoizat) on 10/01/2014.
  */
 public class Bpmn2CifTransformer extends AbstractTransformer {
 

@@ -14,7 +14,7 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *
  *   {description}
- *   Copyright (C) 2014  pascalpoizat
+ *   Copyright (C) 2014 Pascal Poizat (@pascalpoizat)
  *   emails: pascal.poizat@lip6.fr
  */
 package models.choreography.cif;

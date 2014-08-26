@@ -14,7 +14,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  * <p>
  * {description}
- * Copyright (C) 2014  pascalpoizat
+ * Copyright (C) 2014 Pascal Poizat (@pascalpoizat)
  * emails: pascal.poizat@lip6.fr
  */
 
@@ -24,7 +24,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Created by pascalpoizat on 05/02/2014.
+ * Created by Pascal Poizat (@pascalpoizat) on 05/02/2014.
  */
 public abstract class AbstractModelFactory implements ModelFactory {
     @Override

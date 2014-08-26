@@ -14,7 +14,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  * <p>
  * {description}
- * Copyright (C) 2014  pascalpoizat
+ * Copyright (C) 2014 Pascal Poizat (@pascalpoizat)
  * emails: pascal.poizat@lip6.fr
  */
 
@@ -23,7 +23,7 @@ package models.base;
 import java.io.IOException;
 
 /**
- * Created by pascalpoizat on 11/01/2014.
+ * Created by Pascal Poizat (@pascalpoizat) on 11/01/2014.
  */
 public interface ModelFactory {
     // creates an empty model (using the empty constructor
