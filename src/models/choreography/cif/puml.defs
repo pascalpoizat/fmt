@@ -1,0 +1,16 @@
+skinparam BackgroundColor transparent
+skinparam DefaultFontName "Gill sans"
+skinparam DefaultFontSize 18
+skinparam Shadowing false
+skinparam Class {
+    BackgroundColor white
+    FontColor #606060
+    BorderColor #606060
+    ArrowColor #606060
+    AttributeFontColor #606060
+    AttributeIconSize 0 <!-- to have regular UML symbols for + - ~ etc -->
+    StereotypeFontSize 0
+}
+hide circle
+
+

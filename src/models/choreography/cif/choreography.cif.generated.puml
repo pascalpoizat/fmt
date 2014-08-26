@@ -1,5 +1,7 @@
 @startuml
 
+!include puml.defs
+
 package choreography.cif.generated {
 
 class Action {
