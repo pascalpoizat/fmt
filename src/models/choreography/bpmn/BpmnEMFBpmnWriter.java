@@ -36,7 +36,7 @@ public class BpmnEMFBpmnWriter extends AbstractModelWriter {
     @Override
     public void modelToFile(AbstractModel model) throws IOException, IllegalResourceException, IllegalModelException {
         checkModel(model, BpmnModel.class);
-        throw new RuntimeException();
+        throw new RuntimeException(); // TODO
         // the following is not OK, we should save the WHOLE MODEL, not only the choreography
         /*
         if (!(model instanceof BpmnModel)) {
