@@ -32,6 +32,10 @@ public interface Transformer {
     // sets the models to work with
     void setResources(AbstractModel inputModel, AbstractModel outputModel, AbstractModelReader reader, AbstractModelWriter writer) throws IllegalResourceException;
 
+    // perform the transformation, if lazy perform the transformation only if needed
+    // i.e., if the output model does not exist or is more recent than the input model
+    void run(boolean lazy) throws IOException, IllegalResourceException, IllegalModelException;
+
     // load input model
     void load() throws IOException, IllegalResourceException, IllegalModelException;
 
