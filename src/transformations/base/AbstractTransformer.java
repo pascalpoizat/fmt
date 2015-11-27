@@ -27,7 +27,7 @@ import java.io.IOException;
 
 public abstract class AbstractTransformer implements Transformer {
 
-    // TODO: deal with exceptions is models are not set up correctly before calling load/dump/run/transform
+    // TODO: checkModel could be static
     // NEXT RELEASE to generalize using n->m transformations instead of 1->1 ones
 
     protected boolean verbose;
@@ -77,6 +77,44 @@ public abstract class AbstractTransformer implements Transformer {
     }
 
     /**
+     * Checks if input resource is set (does not check if the file exists)
+     *
+     * @return true if so, else false
+     */
+    @Override
+    public final boolean hasInputResourceSet() {
+        return (inputModel != null && inputModel.getResource() != null);
+    }
+
+    /**
+     * Checks if output resource is set (does not check if the file exists)
+     *
+     * @return true if so, else false
+     */
+    @Override
+    public final boolean hasOutputResourceSet() {
+        return (outputModel != null && outputModel.getResource() != null);
+    }
+
+    /**
+     * Checks if both resources are set (does not check if the files exist)
+     *
+     * @return true if so, else false
+     */
+    @Override
+    public final boolean hasResourcesSet() {
+        return (hasInputResourceSet() && hasOutputResourceSet());
+    }
+
+    @Override
+    public final String getOutputFilenameFromInputFilename() throws IllegalResourceException {
+        String filename = inputModel.getResource().getAbsolutePath();
+        return String.format("%s%s",
+                filename.substring(0, filename.length() - inputModel.getSuffix().length()),
+                outputModel.getSuffix());
+    }
+
+    /**
      * Performs a transformation at the file level (reads input model file -> performs transformations -> writes output model file)
      * In lazy mode (lazy==true) performs this only if the output model file does not exist or if it is older than the input model file
      * Else (lazy==false) performs this in any case (ie even if the output file already exists and is up to date)
@@ -88,12 +126,12 @@ public abstract class AbstractTransformer implements Transformer {
      */
     @Override
     public final void run(boolean lazy) throws IOException, IllegalResourceException, IllegalModelException {
-        if (inputModel == null || inputModel.getResource() == null) {
+        if (!hasInputResourceSet()) {
             IllegalResourceException e = new IllegalResourceException("input model is not set");
             error(e.getMessage());
             throw e;
         }
-        if (outputModel == null || outputModel.getResource() == null) {
+        if (!hasOutputResourceSet()) {
             IllegalResourceException e = new IllegalResourceException("output model is not set");
             error(e.getMessage());
             throw e;
@@ -105,18 +143,22 @@ public abstract class AbstractTransformer implements Transformer {
             error(e.getMessage());
             throw e;
         }
-        if (!lazy || !fout.exists() || (fin.lastModified()>=fout.lastModified())) {
+        if (!lazy || !fout.exists() || (fin.lastModified() >= fout.lastModified())) {
             load();
             transform();
             dump();
-        }
-        else {
+        } else {
             message("** Lazy mode and output file more recent than the input one");
         }
     }
 
     @Override
     public final void load() throws IOException, IllegalResourceException, IllegalModelException {
+        if (!hasInputResourceSet()) {
+            IllegalResourceException e = new IllegalResourceException("input model is not set");
+            error(e.getMessage());
+            throw e;
+        }
         try {
             inputModel.modelFromFile(reader);
             message("** Input model loaded");
@@ -128,6 +170,11 @@ public abstract class AbstractTransformer implements Transformer {
 
     @Override
     public final void dump() throws IOException, IllegalResourceException, IllegalModelException {
+        if (!hasOutputResourceSet()) {
+            IllegalResourceException e = new IllegalResourceException("output model is not set");
+            error(e.getMessage());
+            throw e;
+        }
         try {
             outputModel.modelToFile(writer);
             message("** Output model generated");
