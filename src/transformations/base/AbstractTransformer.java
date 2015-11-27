@@ -106,14 +106,6 @@ public abstract class AbstractTransformer implements Transformer {
         return (hasInputResourceSet() && hasOutputResourceSet());
     }
 
-    @Override
-    public final String getOutputFilenameFromInputFilename() throws IllegalResourceException {
-        String filename = inputModel.getResource().getAbsolutePath();
-        return String.format("%s%s",
-                filename.substring(0, filename.length() - inputModel.getSuffix().length()),
-                outputModel.getSuffix());
-    }
-
     /**
      * Performs a transformation at the file level (reads input model file -> performs transformations -> writes output model file)
      * In lazy mode (lazy==true) performs this only if the output model file does not exist or if it is older than the input model file

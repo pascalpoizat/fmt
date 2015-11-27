@@ -44,9 +44,6 @@ public interface Transformer {
     // does not checks if the corresponding files exist, only if they have been set up (see setResources)
     boolean hasResourcesSet();
 
-    // computes output model file name from the input model file name
-    String getOutputFilenameFromInputFilename() throws IllegalResourceException;
-
     // perform the transformation, if lazy perform the transformation only if needed
     // i.e., if the output model does not exist or is more recent than the input model
     void run(boolean lazy) throws IOException, IllegalResourceException, IllegalModelException;
